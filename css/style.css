@@ -52,9 +52,9 @@ body {
   position: absolute;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  width: 25px;
-  height: 25px;
-  border: 1px solid #fff;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #fff;
   border-radius: 100%;
   z-index: 9999;
   display: none;
@@ -86,18 +86,6 @@ body {
   color: #fff;
   display: none;
   text-shadow: var(--neon-color-2);
-}
-
-.scroll-button {
-  display: block;
-  border: 1px solid #fff;
-  border-radius: 100%;
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  transform: translateX(-50%);
-  left: 50%;
-  bottom: 10%;
 }
 
 section {
@@ -133,8 +121,8 @@ section {
   width: 24px;
   height: 24px;
   margin-left: -12px;
-  border-left: 1px solid #fff;
-  border-bottom: 1px solid #fff;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
