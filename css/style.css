@@ -86,6 +86,7 @@ body {
   color: #fff;
   display: none;
   text-shadow: var(--neon-color-2);
+  text-align: center;
 }
 
 section {
@@ -146,6 +147,7 @@ section {
   font-size: 3vmax;
   font-style: italic;
   color: #fff;
+  text-align: center;
 }
 
 .end-title span {
