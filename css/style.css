@@ -97,10 +97,10 @@ section {
 
 .page a {
   margin: 0;
-  padding-top: 60px;
+  padding: 30px;
   position: absolute;
   bottom: 20px;
-  left: 50%;
+  left: calc(50% - 30px);
   z-index: 2;
   display: inline-block;
   -webkit-transform: translate(0, -50%);
@@ -116,7 +116,7 @@ section {
 
 .page a span {
   position: absolute;
-  top: 40px;
+  top: 10px;
   left: 50%;
   width: 24px;
   height: 24px;
@@ -125,9 +125,74 @@ section {
   border-bottom: 2px solid #fff;
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
+  -webkit-animation: sdb05 1.5s infinite;
+  animation: sdb05 1.5s infinite;
+}
+
+.last-page a {
+  bottom: 10px;
 }
 
 .last-page a span {
+  top: 25px;
   -webkit-transform: rotate(-225deg);
   transform: rotate(-225deg);
+  -webkit-animation: sdb05-inverted 1.5s infinite;
+  animation: sdb05-inverted 1.5s infinite;
+}
+
+@-webkit-keyframes sdb05 {
+  0% {
+    -webkit-transform: rotate(-45deg) translate(0, 0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: rotate(-45deg) translate(-20px, 20px);
+    opacity: 0;
+  }
+}
+
+@keyframes sdb05 {
+  0% {
+    transform: rotate(-45deg) translate(0, 0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(-45deg) translate(-20px, 20px);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes sdb05-inverted {
+  0% {
+    -webkit-transform: rotate(-225deg) translate(0, 0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: rotate(-225deg) translate(-20px, 20px);
+    opacity: 0;
+  }
+}
+
+@keyframes sdb05-inverted {
+  0% {
+    transform: rotate(-225deg) translate(0, 0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(-225deg) translate(-20px, 20px);
+    opacity: 0;
+  }
 }

@@ -28,7 +28,7 @@ const isMobile =
     navigator.userAgent
   );
 
-if (!isMobile) {
+function customCursor() {
   $(document)
     .on("mousemove", (e) => {
       const x = e.pageX;
@@ -56,6 +56,10 @@ if (!isMobile) {
     });
 }
 
+if (!isMobile) {
+  customCursor();
+}
+
 $(() => {
   title.fadeIn(800).on("dblclick", () => {
     title.fadeOut(250, () => {
@@ -63,12 +67,3 @@ $(() => {
     });
   });
 });
-
-// $(() => {
-//   const colors = ["#885fff", "#5215fc", "#410ed3", "#280886", "#12043e"];
-//   $('section[id*="section"]')
-//     .toArray()
-//     .forEach((element) => {
-//       $(element).css({ backgroundColor: choose(colors) });
-//     });
-// });
