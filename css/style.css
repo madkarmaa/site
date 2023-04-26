@@ -81,7 +81,7 @@ body {
 
 .title {
   font-family: var(--font);
-  font-size: 15vw;
+  font-size: 13vmax;
   font-style: italic;
   color: #fff;
   display: none;
@@ -139,6 +139,65 @@ section {
   transform: rotate(-225deg);
   -webkit-animation: sdb05-inverted 1.5s infinite;
   animation: sdb05-inverted 1.5s infinite;
+}
+
+.end-title {
+  font-family: var(--font);
+  font-size: 3vmax;
+  font-style: italic;
+  color: #fff;
+}
+
+.end-title span {
+  color: var(--color-1);
+  animation: flicker 3s linear infinite;
+  -webkit-animation: flicker 3s linear infinite;
+}
+
+@keyframes flicker {
+  0%,
+  19.999%,
+  22%,
+  62.999%,
+  64%,
+  64.999%,
+  70%,
+  100% {
+    opacity: 1;
+    text-shadow: var(--neon-color-2);
+  }
+  20%,
+  21.999%,
+  63%,
+  63.999%,
+  65%,
+  69.999% {
+    opacity: 0.4;
+    text-shadow: none;
+  }
+}
+
+@-webkit-keyframes flicker {
+  0%,
+  19.999%,
+  22%,
+  62.999%,
+  64%,
+  64.999%,
+  70%,
+  100% {
+    opacity: 1;
+    text-shadow: var(--neon-color-2);
+  }
+  20%,
+  21.999%,
+  63%,
+  63.999%,
+  65%,
+  69.999% {
+    opacity: 0.4;
+    text-shadow: none;
+  }
 }
 
 @-webkit-keyframes sdb05 {
