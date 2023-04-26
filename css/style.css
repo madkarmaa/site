@@ -159,6 +159,23 @@ section {
   -webkit-animation: flicker 3s linear infinite;
 }
 
+footer {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-family: var(--font);
+  font-size: smaller;
+  font-weight: 300;
+  color: #fff;
+  text-align: right;
+  opacity: 0.2;
+  transition: opacity 0.3s;
+}
+
+footer:hover {
+  opacity: 1;
+}
+
 @keyframes flicker {
   0%,
   19.999%,
