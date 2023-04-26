@@ -83,6 +83,7 @@ body {
   font-family: var(--font);
   font-size: 13vmax;
   font-style: italic;
+  font-weight: 700;
   color: #fff;
   display: none;
   text-shadow: var(--neon-color-2);
@@ -145,13 +146,15 @@ section {
 .end-title {
   font-family: var(--font);
   font-size: 3vmax;
-  font-style: italic;
+  font-weight: 200;
   color: #fff;
   text-align: center;
 }
 
 .end-title span {
+  font-style: italic;
   color: var(--color-1);
+  font-weight: 700;
   animation: flicker 3s linear infinite;
   -webkit-animation: flicker 3s linear infinite;
 }
