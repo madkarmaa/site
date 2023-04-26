@@ -116,7 +116,7 @@ section {
 
 .page a span {
   position: absolute;
-  top: 0;
+  top: 40px;
   left: 50%;
   width: 24px;
   height: 24px;
