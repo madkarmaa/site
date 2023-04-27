@@ -76,7 +76,7 @@ $(() => {
 });
 
 $(() => {
-  $('footer[class="action noselect"]').on("click", () => {
+  $("footer").on("click", () => {
     window.open("https://github.com/madkarmaa", "_blank");
   });
 });
