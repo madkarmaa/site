@@ -96,6 +96,15 @@ $(() => {
 });
 
 $(() => {
+  const pages = $('section[id^="section"]').toArray();
+
+  for (let i = 1; i < pages.length; i++) {
+    const page = pages[i];
+    $(page).append('<div class="bg-container"></div>');
+  }
+});
+
+$(() => {
   const cards = $(".bg-container").toArray();
 
   for (let i = 0; i < cards.length; i++) {
