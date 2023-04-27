@@ -1,5 +1,7 @@
 "use strict";
 
+window.sr = ScrollReveal({ reset: true });
+
 const isMobile =
   /Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(
     navigator.userAgent
@@ -27,6 +29,9 @@ function choose(choices) {
 function customCursor() {
   const cursorFollow = $(".cursor-follow");
   const cursor = $(".cursor");
+
+  cursor.fadeIn(250);
+  cursorFollow.fadeIn(250);
 
   $(document)
     .on("mousemove", (e) => {
@@ -71,39 +76,36 @@ $(() => {
 });
 
 $(() => {
-  const colors = ["#885fff", "#5215fc", "#410ed3"];
-
-  $('[class*="card"]')
-    .toArray()
-    .forEach((card) => {
-      const color = choose(colors);
-
-      $(card)
-        .css({
-          border: `1px solid ${color}`,
-          boxShadow: `0 3px 15px 2px ${color}`,
-        })
-        .on("mouseover", () => {
-          $(card).finish().animate({ backgroundColor: color }, 250);
-        })
-        .on("mouseleave", () => {
-          $(card).finish().animate({ backgroundColor: "transparent" }, 250);
-        });
-    });
-});
-
-$(() => {
-  ScrollReveal({ reset: true });
-  const cards = $('[class*="card"]').toArray();
-
-  for (let i = 0; i < cards.length; i++) {
-    const card = cards[i];
-    ScrollReveal().reveal(card, { duration: 1000, delay: 200 * i });
-  }
-});
-
-$(() => {
   $('footer[class="action noselect"]').on("click", () => {
     window.open("https://github.com/madkarmaa", "_blank");
   });
+});
+
+$(() => {
+  $(window).on("keypress", function (e) {
+    if (e.key === "m" || e.key === "M") {
+      let input = e.key;
+      $(window).on("keypress", function (e) {
+        input += e.key;
+        if (input === "magic") {
+          console.log("Hello there!");
+        }
+      });
+    }
+  });
+});
+
+$(() => {
+  const cards = $(".bg-container").toArray();
+
+  for (let i = 0; i < cards.length; i++) {
+    const card = cards[i];
+
+    sr.reveal(card, {
+      duration: 1000,
+      origin: "bottom",
+      distance: "300px",
+      delay: 300,
+    });
+  }
 });

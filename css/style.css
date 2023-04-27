@@ -81,6 +81,10 @@ body {
   user-select: none;
 }
 
+.elevated {
+  z-index: 2;
+}
+
 .title {
   font-family: var(--font);
   font-size: 11vmax;
@@ -106,7 +110,6 @@ section {
   position: absolute;
   bottom: 20px;
   left: calc(50% - 30px);
-  z-index: 2;
   display: inline-block;
   -webkit-transform: translate(0, -50%);
   transform: translate(0, -50%);
@@ -179,48 +182,13 @@ footer:hover {
   opacity: 1;
 }
 
-#section02 {
-  flex-direction: row;
-  justify-content: space-evenly;
-  gap: 2%;
-  padding: 0;
-}
-
-#section02 > .card {
-  border-radius: 8px;
-  margin-top: 9%;
-  width: 300px;
-  height: 60%;
-  overflow-y: scroll;
-}
-
-@media only screen and (max-width: 500px) {
-  #section02 {
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: initial;
-    padding: 9%;
-  }
-
-  #section02 > .card {
-    margin-top: 0;
-    width: 100%;
-    height: 150px;
-  }
-}
-
-.p-title {
-  font-family: var(--font);
-  text-align: center;
-  color: #fff;
-}
-
-.ca-paragraph {
-  font-family: var(--font);
-  color: #fff;
-  font-weight: 200;
-  text-align: justify;
-  margin: 10px;
+.bg-container {
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image: url("../images/layered-waves-haikei.svg");
 }
 
 @keyframes flicker {
