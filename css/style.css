@@ -47,6 +47,7 @@ body {
   z-index: 9999;
   display: none;
   pointer-events: none;
+  border: 1px solid var(--color-1);
 }
 
 .cursor-follow {
@@ -82,7 +83,7 @@ body {
 
 .title {
   font-family: var(--font);
-  font-size: 13vmax;
+  font-size: 11vmax;
   font-style: italic;
   font-weight: 700;
   color: #fff;
@@ -96,6 +97,7 @@ section {
   width: 100vw;
   height: 100%;
   background-color: var(--color-5);
+  display: flex;
 }
 
 .page a {
@@ -175,6 +177,49 @@ footer {
 
 footer:hover {
   opacity: 1;
+}
+
+#section02 {
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 2%;
+  padding: 0;
+}
+
+#section02 > .card {
+  border-radius: 8px;
+  margin-top: 9%;
+  width: 300px;
+  height: 60%;
+}
+
+@media only screen and (max-width: 500px) {
+  #section02 {
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: initial;
+    padding: 9%;
+  }
+
+  #section02 > .card {
+    margin-top: 0;
+    width: 100%;
+    height: 150px;
+  }
+}
+
+.p-title {
+  font-family: var(--font);
+  text-align: center;
+  color: #fff;
+}
+
+.ca-paragraph {
+  font-family: var(--font);
+  color: #fff;
+  font-weight: 200;
+  text-align: justify;
+  margin: 10px;
 }
 
 @keyframes flicker {
