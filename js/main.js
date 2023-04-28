@@ -144,6 +144,8 @@ $(() => {
 
   if (isMobile) {
     settingsMenu.css("width", "100%");
+    $('label[for="custom-cursor"]').hide();
+    $('div[id="custom-cursor"]').hide();
   }
 
   $(window).on("scroll", () => {
@@ -190,29 +192,30 @@ $(() => {
 $(() => {
   const cursorToggle = $(".toggle input");
 
-  let storedDisplayCursor = localStorage.getItem("displayCursor");
+  let storedDisplayCursor = JSON.parse(localStorage.getItem("displayCursor"));
+
+  function cursorCheck() {
+    if (!isMobile && displayCursor) {
+      enableCustomCursor();
+    } else {
+      enableDefaultCursor();
+    }
+  }
 
   if (storedDisplayCursor !== null) {
-    displayCursor = /^(true|false)$/i.test(storedDisplayCursor);
+    displayCursor = storedDisplayCursor;
     cursorToggle.attr("checked", displayCursor);
   } else {
     localStorage.setItem("displayCursor", displayCursor);
+    cursorToggle.attr("checked", displayCursor);
   }
 
   cursorToggle.on("change", () => {
     displayCursor = cursorToggle.is(":checked");
     localStorage.setItem("displayCursor", displayCursor);
 
-    if (!isMobile && displayCursor) {
-      enableCustomCursor();
-    } else {
-      enableDefaultCursor();
-    }
+    cursorCheck();
   });
 
-  if (!isMobile && displayCursor) {
-    enableCustomCursor();
-  } else {
-    enableDefaultCursor();
-  }
+  cursorCheck();
 });
