@@ -7,6 +7,8 @@ const isMobile =
     navigator.userAgent
   );
 
+let displayCursor = true;
+
 (async function animateTitle(title) {
   let i = 0;
   const intervalId = setInterval(function () {
@@ -26,12 +28,14 @@ function choose(choices) {
   return choices[index];
 }
 
-function customCursor() {
+function enableCustomCursor() {
   const cursorFollow = $(".cursor-follow");
   const cursor = $(".cursor");
 
   cursor.fadeIn(250);
   cursorFollow.fadeIn(250);
+
+  $("*").css("cursor", "none");
 
   $(document)
     .on("mousemove", (e) => {
@@ -60,15 +64,22 @@ function customCursor() {
     });
 }
 
-if (!isMobile) {
-  customCursor();
-}
+function enableDefaultCursor() {
+  const cursorFollow = $(".cursor-follow");
+  const cursor = $(".cursor");
 
-// if (isMobile) {
-//   $(document).on("touchmove", function (e) {
-//     e.preventDefault();
-//   });
-// }
+  if (
+    cursor.css("display") != "none" &&
+    cursorFollow.css("display") != "none"
+  ) {
+    cursor.fadeOut(250);
+    cursorFollow.fadeOut(250);
+  }
+
+  $(document).off("mousemove mouseenter mouseleave");
+  $('[class*="action"]').off("mouseenter mouseleave");
+  $("*").css("cursor", "auto");
+}
 
 $(() => {
   const title = $(".title");
@@ -174,4 +185,34 @@ $(() => {
         });
     });
   });
+});
+
+$(() => {
+  const cursorToggle = $(".toggle input");
+
+  let storedDisplayCursor = localStorage.getItem("displayCursor");
+
+  if (storedDisplayCursor !== null) {
+    displayCursor = /^(true|false)$/i.test(storedDisplayCursor);
+    cursorToggle.attr("checked", displayCursor);
+  } else {
+    localStorage.setItem("displayCursor", displayCursor);
+  }
+
+  cursorToggle.on("change", () => {
+    displayCursor = cursorToggle.is(":checked");
+    localStorage.setItem("displayCursor", displayCursor);
+
+    if (!isMobile && displayCursor) {
+      enableCustomCursor();
+    } else {
+      enableDefaultCursor();
+    }
+  });
+
+  if (!isMobile && displayCursor) {
+    enableCustomCursor();
+  } else {
+    enableDefaultCursor();
+  }
 });

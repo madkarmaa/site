@@ -12,7 +12,6 @@
 
 * {
   box-sizing: border-box;
-  cursor: none;
 }
 
 ::-webkit-scrollbar {
@@ -215,6 +214,94 @@ footer:hover {
   position: absolute;
   right: 0;
   z-index: 9;
+}
+
+.toggle {
+  --toggle-width: 50px;
+  --toggle-height: 25px;
+  --toggle-offset: 3px;
+
+  --toggle-outer-default: #ddd;
+  --toggle-outer-active: var(--color-3);
+  --toggle-inner-default: #fff;
+  --toggle-inner-active: #fff;
+
+  --toggle-transition: 200ms ease-out;
+
+  margin-top: 5px;
+}
+
+.toggle input {
+  display: none;
+}
+
+.toggle label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  width: var(--toggle-width);
+  height: var(--toggle-height);
+
+  background-color: var(--toggle-outer-default);
+  border-radius: 100vw;
+
+  transition: var(--toggle-transition);
+}
+
+.toggle input:checked + label {
+  background-color: var(--toggle-outer-active);
+}
+
+.toggle label::before {
+  content: "";
+  position: absolute;
+  top: var(--toggle-offset);
+  left: var(--toggle-offset);
+  bottom: var(--toggle-offset);
+
+  aspect-ratio: 1 / 1;
+
+  background-color: var(--toggle-inner-default);
+  border-radius: 50%;
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.05);
+  transition: var(--toggle-transition);
+}
+
+.toggle input:checked + label::before {
+  background-color: var(--toggle-inner-active);
+  transform: translateX(calc(var(--toggle-width) - var(--toggle-height)));
+}
+
+.sr-only {
+  border: 0 !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  -webkit-clip-path: inset(50%) !important;
+  clip-path: inset(50%) !important;
+  height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+  white-space: nowrap !important;
+}
+
+.settings-field {
+  margin-top: 50px;
+  border: 0;
+}
+
+.settings-field legend {
+  font-family: var(--font);
+  color: #fff;
+  font-weight: 600;
+  font-size: x-large;
+}
+
+.setting {
+  font-family: var(--font);
+  color: #fff;
 }
 
 @keyframes flicker {
