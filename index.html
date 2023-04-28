@@ -9,13 +9,14 @@
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/color/jquery.color-2.2.0.min.js"
         integrity="sha256-aSe2ZC5QeunlL/w/7PsVKmV+fa0eDbmybn/ptsKHR6I=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"
+        integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="./js/main.js" defer></script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://kit.fontawesome.com/3ad76a013a.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" href="./images/icon-256x256.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,20 +27,31 @@
 </head>
 
 <body>
-    <button style="width: 100px; height: 100px;" class="elevated"><i class="fa-regular fa-gear"></i></button>
-
     <section id="section01" class="page">
         <h1 class="title centered noselect">mk_</h1>
-        <a class="action elevated" href="#section02"><span></span></a>
+        <button class="action elevated noselect settings-button">
+            <span class="material-symbols-outlined">
+                settings
+            </span>
+        </button>
+        <div class="settings-menu">
+            <!-- <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul> -->
+            <div class="bg-container-menu"></div>
+        </div>
+        <a class="action elevated next-page" href="#section02"><span></span></a>
     </section>
 
     <section id="section02" class="page">
-        <a class="action elevated" href="#section03"><span></span></a>
+        <a class="action elevated next-page" href="#section03"><span></span></a>
     </section>
 
     <section id="section03" class="page last-page">
         <h2 class="centered noselect elevated end-title">The end, <span>maybe?</span></h2>
-        <a class="action elevated" href="#section01"><span></span></a>
+        <a class="action elevated next-page" href="#section01"><span></span></a>
         <footer class="action noselect elevated">&#169; mk_ 2023</footer>
     </section>
 

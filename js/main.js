@@ -7,7 +7,7 @@ const isMobile =
     navigator.userAgent
   );
 
-(async (title) => {
+(async function animateTitle(title) {
   let i = 0;
   const intervalId = setInterval(function () {
     document.title = title.slice(0, i + 1);
@@ -64,6 +64,12 @@ if (!isMobile) {
   customCursor();
 }
 
+// if (isMobile) {
+//   $(document).on("touchmove", function (e) {
+//     e.preventDefault();
+//   });
+// }
+
 $(() => {
   const title = $(".title");
   const greetings = ["Hi", "Hello", "Hey", "Yo"];
@@ -117,4 +123,55 @@ $(() => {
       delay: 300,
     });
   }
+});
+
+$(() => {
+  const settingsButton = $(".settings-button");
+  const settingsMenu = $(".settings-menu");
+  const settingsButtonSpan = $(".settings-button span");
+  let wasScrolled = true;
+
+  if (isMobile) {
+    settingsMenu.css("width", "100%");
+  }
+
+  $(window).on("scroll", () => {
+    if ($(this).scrollTop() > 0 && !wasScrolled) {
+      wasScrolled = true;
+
+      settingsMenu.hide("slide", { direction: "right" }, 250, () => {
+        settingsButton.prop("disabled", false);
+      });
+
+      settingsButtonSpan.fadeOut(250, () => {
+        settingsButtonSpan
+          .text(
+            $(settingsButtonSpan).text().trim() === "settings"
+              ? "close"
+              : "settings"
+          )
+          .fadeIn(250);
+      });
+    }
+  });
+
+  settingsButton.on("click", () => {
+    settingsButton.prop("disabled", true);
+
+    settingsMenu.toggle("slide", { direction: "right" }, 250, () => {
+      settingsButton.prop("disabled", false);
+    });
+
+    settingsButtonSpan.fadeOut(250, () => {
+      settingsButtonSpan
+        .text(
+          $(settingsButtonSpan).text().trim() === "settings"
+            ? "close"
+            : "settings"
+        )
+        .fadeIn(250, () => {
+          wasScrolled = $(settingsButtonSpan).text().trim() === "settings";
+        });
+    });
+  });
 });
