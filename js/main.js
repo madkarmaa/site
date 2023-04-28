@@ -7,7 +7,7 @@ const isMobile =
     navigator.userAgent
   );
 
-(function animateTitle(title) {
+(async (title) => {
   let i = 0;
   const intervalId = setInterval(function () {
     document.title = title.slice(0, i + 1);
