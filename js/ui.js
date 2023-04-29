@@ -30,7 +30,7 @@ $(() => {
   const settingsButtonSpan = $(".settings-button span");
   let wasScrolled = true;
 
-  $(window).on("scroll", () => {
+  $(window).on("scroll", function () {
     if ($(this).scrollTop() > 0 && !wasScrolled) {
       wasScrolled = true;
 
@@ -38,34 +38,26 @@ $(() => {
         settingsButton.prop("disabled", false);
       });
 
-      settingsButtonSpan.fadeOut(250, () => {
-        settingsButtonSpan
-          .text(
-            $(settingsButtonSpan).text().trim() === "settings"
-              ? "close"
-              : "settings"
-          )
+      settingsButtonSpan.fadeOut(250, function () {
+        $(this)
+          .text($(this).text().trim() === "settings" ? "close" : "settings")
           .fadeIn(250);
       });
     }
   });
 
-  settingsButton.on("click", () => {
-    settingsButton.prop("disabled", true);
+  settingsButton.on("click", function () {
+    $(this).prop("disabled", true);
 
     settingsMenu.toggle("slide", { direction: "right" }, 250, () => {
       settingsButton.prop("disabled", false);
     });
 
-    settingsButtonSpan.fadeOut(250, () => {
-      settingsButtonSpan
-        .text(
-          $(settingsButtonSpan).text().trim() === "settings"
-            ? "close"
-            : "settings"
-        )
+    settingsButtonSpan.fadeOut(250, function () {
+      $(this)
+        .text($(this).text().trim() === "settings" ? "close" : "settings")
         .fadeIn(250, () => {
-          wasScrolled = $(settingsButtonSpan).text().trim() === "settings";
+          wasScrolled = $(this).text().trim() === "settings";
         });
     });
   });

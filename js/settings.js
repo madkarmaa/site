@@ -88,8 +88,8 @@ $(function settingsCursor() {
   }
 
   cursorToggle
-    .on("change", () => {
-      displayCursor = cursorToggle.is(":checked");
+    .on("change", function () {
+      displayCursor = $(this).is(":checked");
       localStorage.setItem("displayCursor", displayCursor);
 
       cursorCheck();
