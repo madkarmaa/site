@@ -1,7 +1,7 @@
 "use strict";
 
 $(() => {
-  const settingsMenu = $(".settings-menu");
+  const settingsMenu = $(".noselect.settings-menu");
 
   if (isMobile) {
     $(document).on("touchmove", (e) => {
