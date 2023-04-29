@@ -117,6 +117,10 @@ section {
   transition: opacity 0.3s;
 }
 
+.page .next-page * {
+  cursor: pointer;
+}
+
 .page .next-page:hover {
   opacity: 0.5;
 }
@@ -175,6 +179,7 @@ footer {
   text-align: right;
   opacity: 0.2;
   transition: opacity 0.3s;
+  cursor: pointer;
 }
 
 footer:hover {
@@ -202,6 +207,10 @@ footer:hover {
   border: none;
   color: #fff;
   z-index: 10;
+}
+
+.settings-button * {
+  cursor: pointer;
 }
 
 .settings-menu {
@@ -233,6 +242,10 @@ footer:hover {
 
 .toggle input {
   display: none;
+}
+
+.toggle * {
+  cursor: pointer;
 }
 
 .toggle label {
@@ -297,6 +310,7 @@ footer:hover {
   color: #fff;
   font-weight: 600;
   font-size: x-large;
+  text-align: center;
 }
 
 .setting {
