@@ -1,10 +1,9 @@
 "use strict";
 
 $(() => {
-  const settingsMenu = $(".noselect.settings-menu");
-
   if (isMobile) {
-    settingsMenu.css("width", "100%");
+    $(".noselect.settings-menu").css("width", "100%");
+    $(".title").css("font-size", "7vmax");
     $('label[for="custom-cursor"]').hide();
     $('div[id="custom-cursor"]').hide();
   }
