@@ -31,3 +31,23 @@ $(() => {
     window.open("https://github.com/madkarmaa", "_blank");
   });
 });
+
+$(() => {
+  const pageArrows = [];
+
+  $('section[id^="section"]').each(function () {
+    pageArrows.push($(this).find('a[class*="next-page"]'));
+  });
+
+  pageArrows.forEach((el, index) => {
+    const redirectTo = "#section" + (index + 2).toString().padStart(2, "0");
+
+    $(el).on("click", () => {
+      if (index == pageArrows.length - 1) {
+        window.location.href = "#section01";
+      } else {
+        window.location.href = redirectTo;
+      }
+    });
+  });
+});
