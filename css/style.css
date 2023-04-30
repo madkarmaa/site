@@ -20,13 +20,14 @@
 
 html {
   scroll-behavior: smooth;
+  overflow: hidden; /* Maybe? */
 }
 
 body {
   width: 100vw;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 html,
@@ -316,6 +317,17 @@ footer:hover {
 .setting {
   font-family: var(--font);
   color: #fff;
+}
+
+.user-scroll-message {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  font-family: var(--font);
+  color: #fff;
+  display: none;
+  font-weight: 400;
+  font-style: italic;
 }
 
 @keyframes flicker {
