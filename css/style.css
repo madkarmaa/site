@@ -215,6 +215,14 @@ footer:hover {
   cursor: pointer;
 }
 
+.settings-button > span {
+  transition: transform 0.5s;
+}
+
+.settings-button:hover > span {
+  transform: rotate(90deg);
+}
+
 .settings-menu {
   display: none;
   width: 250px;

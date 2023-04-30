@@ -29,7 +29,7 @@ $(() => {
   const scrollMsg = $(".user-scroll-message");
   let scrolling = false;
 
-  $(window).on("mousewheel touchmove", () => {
+  $(window).on("mousewheel touchmove", function () {
     if (!scrolling) {
       scrollMsg.fadeIn(250);
       scrolling = true;
