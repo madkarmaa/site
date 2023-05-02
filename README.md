@@ -1,3 +1,3 @@
-## [madkarmaa.github.io](https://madkarmaa.gitbub.io)
+## [madkarmaa.github.io](https://madkarmaa.github.io)
 
 My personal website.
