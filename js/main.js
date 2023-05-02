@@ -2,10 +2,7 @@
 
 window.sr = ScrollReveal({ reset: true });
 
-const isMobile =
-  /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
-    navigator.userAgent
-  );
+const isMobile = navigator.userAgentData.mobile;
 
 (function animateTitle(title) {
   let i = 0;
