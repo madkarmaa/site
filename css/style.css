@@ -342,13 +342,9 @@ footer:hover {
   color: #fff;
   font-family: var(--font);
   width: 90%;
-  position: absolute;
-  left: 50%;
-  top: 35%;
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
-  margin: 0;
 }
+
+/*
 
 .text-container > h1 {
   font-size: x-large;
@@ -360,6 +356,65 @@ footer:hover {
 .text-container > p {
   text-align: justify;
   font-size: large;
+} */
+
+.github {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-card {
+  padding: 10px;
+  border: 2px solid #fff;
+  border-radius: 8px;
+  display: flex;
+  font-weight: 400;
+  width: fit-content;
+  height: fit-content;
+  margin: 0;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  overflow: hidden;
+  border: 2px solid #fff;
+}
+
+.profile-image img {
+  width: 100%;
+  height: 100%;
+}
+
+.profile-info {
+  padding: 0 20px;
+  width: 18rem;
+}
+
+.profile-name {
+  font-weight: 800;
+  font-size: x-large;
+  text-shadow: var(--neon-color-2);
+}
+
+.profile-username {
+  color: var(--color-1);
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.profile-bio {
+  margin-top: 5px;
+}
+
+.profile-stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+  margin-top: 5px;
 }
 
 @keyframes flicker {

@@ -48,3 +48,62 @@ $(() => {
     });
   });
 });
+
+async function fetchGitHubUserData(username) {
+  const response = await fetch(`https://api.github.com/users/${username}`);
+
+  if (!response.ok) {
+    throw new Error(
+      `Failed to fetch GitHub data for user ${username}: ${response.status} ${response.statusText}`
+    );
+  }
+
+  const data = await response.json();
+  return data;
+}
+
+$(() => {
+  const username = "madkarmaa";
+
+  function profileCardBuilder(data) {
+    const card = $(`
+<div class="profile-card">
+
+    <div class="profile-image">
+        <img src="${data.avatar_url}" alt="${data.login}'s avatar" />
+    </div>
+
+    <div class="profile-info">
+        <div class="profile-name">${data.name || data.login}</div>
+        <div class="profile-username" onclick='window.open("${
+          data.html_url
+        }", "_blank")'>@${data.login}</div>
+        <div class="profile-bio">${data.bio || "No bio provided."}</div>
+
+        <div class="profile-stats">
+            <div>
+                <div class="stat-title">Repositories</div>
+                <div class="stat-value">${data.public_repos}</div>
+            </div>
+
+            <div>
+                <div class="stat-title">Followers</div>
+                <div class="stat-value">${data.followers}</div>
+            </div>
+        </div>
+    </div>
+</div>
+    `);
+
+    $(".github-profile-card").append(card);
+  }
+
+  fetchGitHubUserData(username)
+    .then((data) => {
+      // console.log(data);
+      profileCardBuilder(data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+});
