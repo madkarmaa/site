@@ -68,7 +68,6 @@ $(() => {
   function profileCardBuilder(data) {
     const card = $(`
 <div class="profile-card">
-
     <div class="profile-image">
         <img src="${data.avatar_url}" alt="${data.login}'s avatar" />
     </div>
@@ -92,10 +91,9 @@ $(() => {
             </div>
         </div>
     </div>
-</div>
-    `);
+</div>`);
 
-    $(".github-profile-card").append(card);
+    $(".text-container").append(card);
   }
 
   fetchGitHubUserData(username)

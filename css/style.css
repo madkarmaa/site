@@ -342,11 +342,12 @@ footer:hover {
   color: #fff;
   font-family: var(--font);
   width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/*
-
-.text-container > h1 {
+/* .text-container > h1 {
   font-size: x-large;
   font-style: italic;
   font-weight: 700;
@@ -357,12 +358,6 @@ footer:hover {
   text-align: justify;
   font-size: large;
 } */
-
-.github {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 .profile-card {
   padding: 10px;
@@ -390,7 +385,7 @@ footer:hover {
 
 .profile-info {
   padding: 0 20px;
-  width: 18rem;
+  width: 15rem;
 }
 
 .profile-name {
