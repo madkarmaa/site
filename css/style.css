@@ -21,14 +21,13 @@
 
 html {
   scroll-behavior: smooth;
-  overflow: hidden; /* Maybe? */
+  overflow: hidden;
 }
 
 body {
   width: 100vw;
   margin: 0;
   padding: 0;
-  /* overflow-x: hidden; */
 }
 
 html,
@@ -337,6 +336,30 @@ footer:hover {
   display: none;
   font-weight: 400;
   font-style: italic;
+}
+
+.text-container {
+  color: #fff;
+  font-family: var(--font);
+  width: 90%;
+  position: absolute;
+  left: 50%;
+  top: 35%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  margin: 0;
+}
+
+.text-container > h1 {
+  font-size: 2vmax;
+  font-style: italic;
+  font-weight: 700;
+  text-shadow: var(--neon-color-2);
+}
+
+.text-container > p {
+  text-align: justify;
+  font-size: large;
 }
 
 @keyframes flicker {
