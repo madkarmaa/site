@@ -351,7 +351,7 @@ footer:hover {
 }
 
 .text-container > h1 {
-  font-size: 2vmax;
+  font-size: larger;
   font-style: italic;
   font-weight: 700;
   text-shadow: var(--neon-color-2);
