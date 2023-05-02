@@ -7,14 +7,12 @@ function enableCustomCursor() {
   const cursor = $(".cursor");
   const actionElements = $('[class*="action"]');
 
-  cursor.fadeIn(250);
-  cursorFollow.fadeIn(250);
-
-  // Store original cursor property
   $("body *").each(function () {
-    $(this).data("original-cursor", $(this).css("cursor"));
     $(this).css("cursor", "none");
   });
+
+  cursor.fadeIn(250);
+  cursorFollow.fadeIn(250);
 
   $(document)
     .on("mousemove", (e) => {
@@ -58,14 +56,8 @@ function enableDefaultCursor() {
   $(document).off("mousemove mouseenter mouseleave");
   $('[class*="action"]').off("mouseenter mouseleave");
 
-  // Restore original cursor property
   $("body *").each(function () {
-    const originalCursor = $(this).data("original-cursor");
-    if (originalCursor && originalCursor !== "none") {
-      $(this).css("cursor", originalCursor);
-    } else {
-      $(this).css("cursor", "auto");
-    }
+    $(this).css("cursor", "");
   });
 }
 
