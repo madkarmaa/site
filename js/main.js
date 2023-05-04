@@ -102,12 +102,8 @@ $(() => {
     $(".text-container").append(card);
   }
 
-  fetchGitHubUserData(username)
-    .then((data) => {
-      // console.log(data);
-      profileCardBuilder(data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  fetchGitHubUserData(username).then((data) => {
+    // console.log(data);
+    profileCardBuilder(data);
+  });
 });
