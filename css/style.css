@@ -36,6 +36,10 @@ body {
   background-color: var(--color-5);
 }
 
+img {
+  pointer-events: none;
+}
+
 .cursor {
   position: absolute;
   -webkit-transform: translate(-50%, -50%);
@@ -347,69 +351,82 @@ footer:hover {
   justify-content: center;
 }
 
-/* .text-container > h1 {
-  font-size: x-large;
-  font-style: italic;
-  font-weight: 700;
-  text-shadow: var(--neon-color-2);
-}
-
-.text-container > p {
-  text-align: justify;
-  font-size: large;
-} */
-
 .profile-card {
-  padding: 10px;
-  border: 2px solid #fff;
-  border-radius: 8px;
   display: flex;
-  font-weight: 400;
-  width: fit-content;
-  height: fit-content;
-  margin: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #fff;
+  border-radius: 8px;
 }
 
 .profile-image {
-  width: 100px;
-  height: 100px;
-  border-radius: 100%;
-  overflow: hidden;
-  border: 2px solid #fff;
+  flex: 0 0 100%;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .profile-image img {
-  width: 100%;
-  height: 100%;
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  border: 2px solid #fff;
 }
 
 .profile-info {
-  padding: 0 20px;
-  width: 15rem;
+  flex: 1;
+  padding-left: 20px;
 }
 
 .profile-name {
-  font-weight: 800;
-  font-size: x-large;
-  text-shadow: var(--neon-color-2);
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .profile-username {
+  font-size: 18px;
+  font-weight: bold;
   color: var(--color-1);
-  margin-top: 5px;
+  margin-bottom: 10px;
   cursor: pointer;
+  transition: color 0.3s;
+  display: inline-flex;
+}
+
+.profile-username:hover {
+  color: var(--color-2);
 }
 
 .profile-bio {
-  margin-top: 5px;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 10px;
 }
 
 .profile-stats {
   display: flex;
-  align-items: center;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.profile-stats > div {
+  flex: 0 0 48%;
   text-align: center;
-  margin-top: 5px;
+}
+
+.stat-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  font-size: 24px;
 }
 
 @keyframes flicker {
