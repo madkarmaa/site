@@ -74,7 +74,7 @@ $(() => {
 
     <div class="profile-info">
         <div class="profile-name">${data.name || data.login}</div>
-        <div class="profile-username" onclick='window.open("${
+        <div class="profile-username action" onclick='window.open("${
           data.html_url
         }", "_blank")'>@${data.login}</div>
         <div class="profile-bio">${data.bio || "No bio provided."}</div>
@@ -98,7 +98,7 @@ $(() => {
 
   fetchGitHubUserData(username)
     .then((data) => {
-      // console.log(data);
+      console.log(data);
       profileCardBuilder(data);
     })
     .catch((error) => {
