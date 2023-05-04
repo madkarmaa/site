@@ -21,7 +21,8 @@
 
 html {
   scroll-behavior: smooth;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 body {
@@ -349,6 +350,27 @@ footer:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+}
+
+.text-container:has(.container-content) {
+  top: 40%;
+}
+
+.text-container > .container-title {
+  font-size: xx-large;
+  font-weight: 700;
+  text-shadow: var(--neon-color-2);
+}
+
+.text-container > .container-content {
+  text-align: justify;
+}
+
+.text-container > .container-content span {
+  font-style: italic;
+  /* text-decoration: line-through; */
+  color: #ccc;
 }
 
 .profile-card {

@@ -38,7 +38,10 @@ $(() => {
 $(() => {
   const pageArrows = [];
 
-  $('section[id^="section"]').each(function () {
+  $("section").each(function (idx) {
+    const sectionId = "section" + (idx + 1).toString().padStart(2, "0");
+
+    $(this).attr("id", sectionId);
     pageArrows.push($(this).find('a[class*="next-page"]'));
   });
 
@@ -99,7 +102,7 @@ $(() => {
     </div>
 </div>`);
 
-    $(".text-container").append(card);
+    $("#section02 > .text-container").append(card);
   }
 
   fetchGitHubUserData(username).then((data) => {
