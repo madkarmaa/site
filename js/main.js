@@ -1,8 +1,14 @@
 "use strict";
 
+let isMobile;
 window.sr = ScrollReveal({ reset: true });
 
-const isMobile = navigator.userAgentData.mobile;
+$(() => {
+  isMobile =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
+      navigator.userAgent
+    );
+});
 
 (function animateTitle(title) {
   let i = 0;
@@ -98,7 +104,7 @@ $(() => {
 
   fetchGitHubUserData(username)
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       profileCardBuilder(data);
     })
     .catch((error) => {
