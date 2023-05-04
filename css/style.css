@@ -358,7 +358,7 @@ footer:hover {
 }
 
 .text-container > .container-title {
-  font-size: xx-large;
+  font-size: x-large;
   font-weight: 700;
   text-shadow: var(--neon-color-2);
 }
@@ -369,7 +369,7 @@ footer:hover {
 
 .text-container > .container-content span {
   font-style: italic;
-  /* text-decoration: line-through; */
+  text-decoration: line-through;
   color: #ccc;
 }
 
