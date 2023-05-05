@@ -456,13 +456,16 @@ footer:hover {
 .warning {
   font-size: x-small;
   padding: 5px 0 5px 0;
-  text-decoration: underline;
 }
 
 .warning span {
-  color: #f00;
   text-decoration: underline;
-  text-decoration-color: #f00;
+}
+
+.warning mark {
+  background-color: #f00;
+  text-decoration: none;
+  display: inline-block;
 }
 
 @keyframes flicker {
