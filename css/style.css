@@ -252,6 +252,7 @@ footer:hover {
   --toggle-transition: 200ms ease-out;
 
   margin-top: 5px;
+  margin-bottom: 10px;
 }
 
 .toggle input {
@@ -325,6 +326,7 @@ footer:hover {
   font-weight: 600;
   font-size: x-large;
   text-align: center;
+  width: 100%;
 }
 
 .setting {
