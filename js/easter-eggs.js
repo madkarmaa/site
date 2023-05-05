@@ -25,24 +25,30 @@ $(() => {
   });
 });
 
-$(() => {
+function scrollingMessageCheck(enable) {
   const scrollMsg = $(".user-scroll-message");
   let scrolling = false;
 
-  $(window).on("mousewheel touchmove", function () {
-    if (!scrolling) {
-      scrollMsg.fadeIn(250);
-      scrolling = true;
-    }
+  if (!enable) {
+    $(window).on("mousewheel touchmove", function () {
+      if (!scrolling) {
+        scrollMsg.fadeIn(250);
+        scrolling = true;
+      }
 
-    clearTimeout($.data(this, "scrollCheck"));
-    $.data(
-      this,
-      "scrollCheck",
-      setTimeout(() => {
-        scrollMsg.fadeOut(250);
-        scrolling = false;
-      }, 3000)
-    );
-  });
-});
+      clearTimeout($.data(this, "scrollCheck"));
+      $.data(
+        this,
+        "scrollCheck",
+        setTimeout(() => {
+          scrollMsg.fadeOut(250);
+          scrolling = false;
+        }, 3000)
+      );
+    });
+  } else {
+    $(window).off("mousewheel touchmove");
+  }
+}
+
+scrollingMessageCheck(pageScrolling);

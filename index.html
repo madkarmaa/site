@@ -41,11 +41,22 @@
         <div class="settings-menu">
             <fieldset class="settings-field">
                 <legend>Settings</legend>
-
+                <!-- Enable/disable custom cursor -->
                 <label for="custom-cursor" class="setting">Custom cursor</label>
                 <div class="toggle" id="custom-cursor">
                     <input type="checkbox" id="a" class="for-cursor" />
                     <label for="a" class="action">
+                        <span class="sr-only">Toggle Switch</span>
+                    </label>
+                </div>
+
+                <!-- Enable/disable scrolling -->
+                <label for="page-scrolling" class="setting">Page scrolling
+                    <div class="warning"><span>Notice</span>: the effects look trash if you scroll</div>
+                </label>
+                <div class="toggle" id="page-scrolling">
+                    <input type="checkbox" id="b" class="for-scrolling" />
+                    <label for="b" class="action">
                         <span class="sr-only">Toggle Switch</span>
                     </label>
                 </div>

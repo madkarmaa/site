@@ -1,6 +1,7 @@
 "use strict";
 
 let displayCursor = true;
+let pageScrolling = false;
 
 function enableCustomCursor() {
   const cursorFollow = $(".cursor-follow");
@@ -65,18 +66,18 @@ $(function settingsCursor() {
   const cursorToggle = $(".toggle input.for-cursor");
   const storedDisplayCursor = JSON.parse(localStorage.getItem("displayCursor"));
 
+  if (storedDisplayCursor != null) {
+    displayCursor = storedDisplayCursor;
+  } else {
+    localStorage.setItem("displayCursor", displayCursor);
+  }
+
   function cursorCheck() {
     if (!isMobile && displayCursor) {
       enableCustomCursor();
     } else {
       enableDefaultCursor();
     }
-  }
-
-  if (storedDisplayCursor != null) {
-    displayCursor = storedDisplayCursor;
-  } else {
-    localStorage.setItem("displayCursor", displayCursor);
   }
 
   cursorToggle
@@ -89,4 +90,36 @@ $(function settingsCursor() {
     .prop("checked", displayCursor);
 
   cursorCheck();
+});
+
+$(function settingsScrolling() {
+  const scrollingToggle = $(".toggle input.for-scrolling");
+  const storedScrolling = JSON.parse(localStorage.getItem("pageScrolling"));
+
+  if (storedScrolling != null) {
+    pageScrolling = storedScrolling;
+  } else {
+    localStorage.setItem("pageScrolling", pageScrolling);
+  }
+
+  function scrollingCheck() {
+    if (pageScrolling) {
+      $("html").css("overflow-y", "visible");
+      scrollingMessageCheck(pageScrolling);
+    } else {
+      $("html").css("overflow-y", "hidden");
+      scrollingMessageCheck(pageScrolling);
+    }
+  }
+
+  scrollingToggle
+    .on("change", function () {
+      pageScrolling = $(this).is(":checked");
+      localStorage.setItem("pageScrolling", pageScrolling);
+
+      scrollingCheck();
+    })
+    .prop("checked", pageScrolling);
+
+  scrollingCheck();
 });

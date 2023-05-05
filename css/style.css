@@ -453,6 +453,18 @@ footer:hover {
   font-size: 24px;
 }
 
+.warning {
+  font-size: x-small;
+  padding: 5px 0 5px 0;
+  text-decoration: underline;
+}
+
+.warning span {
+  color: #f00;
+  text-decoration: underline;
+  text-decoration-color: #f00;
+}
+
 @keyframes flicker {
   0%,
   19.999%,

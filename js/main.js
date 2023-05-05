@@ -1,6 +1,6 @@
 "use strict";
 
-let isMobile;
+let isMobile = false;
 window.sr = ScrollReveal({ reset: true });
 
 $(() => {
