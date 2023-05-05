@@ -92,6 +92,25 @@ $(function settingsCursor() {
   cursorCheck();
 });
 
+function scrollToSection() {
+  var winHeight = $(window).height();
+  var scrollTop = $(window).scrollTop();
+  var winHeightHalf = winHeight / 2;
+  var winCenterScroll = scrollTop + winHeightHalf;
+
+  $("section").each(function () {
+    var elemHeight = $(this).height();
+    var elementTop = $(this).position().top;
+    var elemBottomPos = elementTop + elemHeight;
+
+    if (
+      (winCenterScroll > elementTop && elementTop > scrollTop) ||
+      (scrollTop + winHeight > elemBottomPos && elemBottomPos > winCenterScroll)
+    )
+      window.location.href = "#" + this.id;
+  });
+}
+
 $(function settingsScrolling() {
   const scrollingToggle = $(".toggle input.for-scrolling");
   const storedScrolling = JSON.parse(localStorage.getItem("pageScrolling"));
@@ -108,6 +127,7 @@ $(function settingsScrolling() {
       scrollingMessageCheck(pageScrolling);
     } else {
       $("html").css("overflow-y", "hidden");
+      scrollToSection();
       scrollingMessageCheck(pageScrolling);
     }
   }
