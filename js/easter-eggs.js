@@ -30,7 +30,7 @@ function scrollingMessageCheck(enable) {
   let scrolling = false;
 
   if (!enable) {
-    $(window).on("mousewheel touchmove", function () {
+    $(window).on("mousewheel wheel touchmove", function () {
       if (!scrolling) {
         scrollMsg.fadeIn(250);
         scrolling = true;
@@ -47,7 +47,7 @@ function scrollingMessageCheck(enable) {
       );
     });
   } else {
-    $(window).off("mousewheel touchmove");
+    $(window).off("mousewheel wheel touchmove");
   }
 }
 
