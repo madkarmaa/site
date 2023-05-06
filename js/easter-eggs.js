@@ -18,7 +18,32 @@ $(() => {
       $(this).on("keypress", function (e) {
         input += e.key;
         if (input === "magic") {
-          alert("Hello there!");
+          // function openFullscreen(el) {
+          //   var el = document.documentElement,
+          //     rfs = // for newer Webkit and Firefox
+          //       el.requestFullscreen ||
+          //       el.webkitRequestFullScreen ||
+          //       el.mozRequestFullScreen ||
+          //       el.msRequestFullscreen;
+          //   if (typeof rfs != "undefined" && rfs) {
+          //     rfs.call(el);
+          //   } else if (typeof window.ActiveXObject != "undefined") {
+          //     // for Internet Explorer
+          //     var wscript = new ActiveXObject("WScript.Shell");
+          //     if (wscript != null) {
+          //       wscript.SendKeys("{F11}");
+          //     }
+          //   }
+          // }
+          // $("body").append(
+          //   '<iframe style="display: none; width: 100%; height: 100%; z-index: 100;" class="centered" src="https://www.youtube.com/embed/xvFZjo5PgG0?controls=0?autoplay=1?mute=1" title="YouTube video player" frameborder="0" allowfullscreen></iframe>'
+          // );
+          // const YTvideo = document.querySelector(
+          //   'iframe[title="YouTube video player"]'
+          // );
+          // $(YTvideo).css("display", "block");
+          // openFullscreen(YTvideo);
+          window.open("https://www.youtube.com/watch?v=xvFZjo5PgG0", "_self");
         }
       });
     }

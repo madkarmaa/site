@@ -339,7 +339,7 @@ footer:hover {
   top: 10px;
   left: 10px;
   font-family: var(--font);
-  color: #fff;
+  color: rgba(255, 255, 255, 0.3);
   display: none;
   font-weight: 400;
   font-style: italic;
@@ -456,7 +456,7 @@ footer:hover {
 }
 
 .warning {
-  font-size: x-small;
+  font-size: 12px;
   padding: 5px 0 5px 0;
 }
 
@@ -464,10 +464,8 @@ footer:hover {
   text-decoration: underline;
 }
 
-.warning mark {
-  background-color: #f00;
-  text-decoration: none;
-  display: inline-block;
+.warning span.message {
+  color: #f00;
 }
 
 @keyframes flicker {
