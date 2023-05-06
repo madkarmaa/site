@@ -47,7 +47,8 @@ $(() => {
           $(window).on("fullscreenchange", () => {
             if (
               !(
-                (screen.availHeight || screen.height - 30) <= window.innerHeight
+                (screen.availHeight || screen.height - 30) <=
+                  window.innerHeight && document.fullscreenElement
               )
             ) {
               iframeYT.remove();
