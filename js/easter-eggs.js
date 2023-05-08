@@ -12,7 +12,7 @@ $(() => {
 });
 
 $(() => {
-  $(window).on("tap", () => {
+  $(window).on("touchstart", () => {
     console.log("tap");
   });
 
