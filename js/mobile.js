@@ -9,7 +9,7 @@ $(() => {
     $(".text-container > .container-content").css("font-size", "smaller");
     $(".text-container:has(.container-content)").css("top", "45%");
 
-    screen.orientation.lock("portrait");
+    // screen.orientation.lock("portrait");
 
     $(window).on("orientationchange", () => {
       if (screen.availHeight < screen.availWidth) {
