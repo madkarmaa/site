@@ -16,6 +16,7 @@ $(() => {
   const iframeYT = $(
     '<iframe style="width: 100%; height: 100%; z-index: 100; position: fixed; top: 0; left: 0;" src="https://www.youtube.com/embed/f8mL0_4GeV0?rel=0&modestbranding=1&autohide=1&mute=0&showinfo=0&controls=0&autoplay=1" title="YouTube video player" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>'
   );
+  const secretWord = "magic".split("");
 
   function openFullscreen(el) {
     var el = document.documentElement,
@@ -62,11 +63,11 @@ $(() => {
   });
 
   $(window).on("keypress", function (e) {
-    if (e.key === "m" || e.key === "M") {
+    if (e.key === secretWord[0] || e.key === secretWord[0].toUpperCase()) {
       let input = e.key;
       $(this).on("keypress", function (e) {
         input += e.key;
-        if (input === "magic") {
+        if (input === secretWord.join("")) {
           payload();
         }
       });
