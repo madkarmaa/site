@@ -62,3 +62,9 @@ $(() => {
     });
   });
 });
+
+$(() => {
+  $(window).on("resize", () => {
+    scrollToSection();
+  });
+});

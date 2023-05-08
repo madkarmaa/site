@@ -38,7 +38,7 @@ $(() => {
           }
 
           const iframeYT = $(
-            '<iframe style="width: 100%; height: 100%; z-index: 100;" class="centered" src="https://www.youtube.com/embed/f8mL0_4GeV0?rel=0&modestbranding=1&autohide=1&mute=0&showinfo=0&controls=0&autoplay=1" title="YouTube video player" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>'
+            '<iframe style="width: 100%; height: 100%; z-index: 100; position: fixed; top: 0; left: 0;" src="https://www.youtube.com/embed/f8mL0_4GeV0?rel=0&modestbranding=1&autohide=1&mute=0&showinfo=0&controls=0&autoplay=1" title="YouTube video player" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>'
           );
 
           $("body").append(iframeYT);
