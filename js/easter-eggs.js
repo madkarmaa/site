@@ -12,6 +12,10 @@ $(() => {
 });
 
 $(() => {
+  $(window).on("tap", () => {
+    console.log("tap");
+  });
+
   $(window).on("keypress", function (e) {
     if (e.key === "m" || e.key === "M") {
       let input = e.key;
