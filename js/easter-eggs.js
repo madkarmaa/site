@@ -80,7 +80,18 @@ $(() => {
   }
 
   const ARROW_SEQUENCE = generateRandomArrowSequence();
-  console.log(ARROW_SEQUENCE);
+  console.log(
+    "%cHey there!",
+    "color: #5215fc; font-family: monospace; font-size: 3rem; font-weight: bold"
+  );
+  console.log(
+    "%cIf you're here it probably means you want to cheat the easter eggs.\n\nSo I'm making your life easier :)\n\nHere's the current arrow keys combination:",
+    "color: #885fff; font-family: monospace; font-size: 1.3rem;"
+  );
+  console.log(
+    `%c${ARROW_SEQUENCE.map((str) => `> ${str.split("Arrow")[1]}`).join("\n")}`,
+    "font-family: monospace; font-size: 1rem;"
+  );
 
   $(window).on("touchstart", () => {
     tapCount++;
