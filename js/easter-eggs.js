@@ -18,6 +18,7 @@ $(() => {
     '<iframe style="width: 100%; height: 100%; z-index: 100; position: fixed; top: 0; left: 0;" src="https://www.youtube.com/embed/KdaD5K67kAE?rel=0&modestbranding=1&autohide=1&mute=0&showinfo=0&controls=0&autoplay=1" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>'
   );
   const secretWord = "magic".split("");
+  let arrowSequenceIndex = 0;
 
   function openFullscreen(el) {
     var el = document.documentElement,
@@ -54,6 +55,33 @@ $(() => {
     });
   }
 
+  function generateRandomArrowSequence() {
+    const arrowChoices = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
+    const sequenceLength = Math.floor(Math.random() * 6) + 5; // random length between 5 and 10
+    const sequence = [];
+
+    for (let i = 0; i < sequenceLength; i++) {
+      sequence.push(choose(arrowChoices));
+    }
+
+    return sequence;
+  }
+
+  function showEasterEggs() {
+    const scrollMsg = $(".user-scroll-message");
+    $(".title").attr("title", "Double click me");
+
+    scrollMsg.text('Try to type "magic" :)');
+    scrollMsg.fadeIn(250, () => {
+      setTimeout(() => {
+        scrollMsg.fadeOut(250);
+      }, 10000);
+    });
+  }
+
+  const ARROW_SEQUENCE = generateRandomArrowSequence();
+  console.log(ARROW_SEQUENCE);
+
   $(window).on("touchstart", () => {
     tapCount++;
 
@@ -70,15 +98,27 @@ $(() => {
     }
   });
 
-  $(window).on("keypress", function (e) {
+  window.addEventListener("keydown", function (e) {
+    if (e.key === ARROW_SEQUENCE[arrowSequenceIndex]) {
+      arrowSequenceIndex++;
+      if (arrowSequenceIndex === ARROW_SEQUENCE.length) {
+        showEasterEggs();
+        arrowSequenceIndex = 0;
+      }
+    } else {
+      arrowSequenceIndex = 0;
+    }
+
     if (e.key === secretWord[0] || e.key === secretWord[0].toUpperCase()) {
-      let input = e.key;
-      $(this).on("keypress", function (e) {
+      let input = "";
+      const keyPressHandler = function (e) {
         input += e.key;
         if (input === secretWord.join("")) {
           payload();
+          window.removeEventListener("keypress", keyPressHandler);
         }
-      });
+      };
+      window.addEventListener("keypress", keyPressHandler);
     }
   });
 });
