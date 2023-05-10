@@ -85,7 +85,7 @@ $(() => {
     "color: #5215fc; font-family: monospace; font-size: 3rem; font-weight: bold"
   );
   console.log(
-    "%cIf you're here it probably means you want to cheat the easter eggs.\n\nSo I'm making your life easier :)\n\nHere's the current arrow keys combination:",
+    "%cIf you're here it probably means you want to cheat the easter eggs, so I'm making your life easier :)\n\nHere's the current arrow keys combination:",
     "color: #885fff; font-family: monospace; font-size: 1.3rem;"
   );
   console.log(
