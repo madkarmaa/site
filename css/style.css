@@ -182,10 +182,10 @@ a:hover {
 /* https://stackoverflow.com/questions/14942081/detect-if-a-browser-in-a-mobile-device-ios-android-phone-tablet-is-used */
 @media (pointer:none), (pointer:coarse) {
     p {
-        font-size: 20px;
+        font-size: 15px;
     }
 
-    h2 {
+    h2, h1 {
         font-size: 9vmin;
     }
 }
