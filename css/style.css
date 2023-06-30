@@ -79,10 +79,6 @@
     border-bottom: 2px solid #fff;
 }
 
-.content:first-of-type {
-    text-align: justify;
-}
-
 .content h1 {
     text-align: center;
     margin: 0;
