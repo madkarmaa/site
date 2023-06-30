@@ -172,13 +172,22 @@ a:hover {
 }
   
 .profile-container h2 {
-    font-size: 24px;
     margin-bottom: 10px;
 }
   
 .profile-container p {
-    font-size: 16px;
     margin-bottom: 8px;
+}
+
+/* https://stackoverflow.com/questions/14942081/detect-if-a-browser-in-a-mobile-device-ios-android-phone-tablet-is-used */
+@media (pointer:none), (pointer:coarse) {
+    p {
+        font-size: 20px;
+    }
+
+    h2 {
+        font-size: 9vmin;
+    }
 }
 
 @keyframes flicker {
