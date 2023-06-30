@@ -3,8 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
+    <script src="./js/main.js" defer></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/color/jquery.color-2.2.0.min.js"
@@ -13,107 +15,43 @@
         integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
-    <script src="./js/main.js" defer></script>
-    <script src="./js/settings.js" defer></script>
-    <script src="./js/ui.js" defer></script>
-    <script src="./js/mobile.js" defer></script>
-    <script src="./js/easter-eggs.js" defer></script>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="shortcut icon" href="./images/icon-256x256.ico" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
-        rel="stylesheet">
+    <script>
+        ScrollReveal({ reset: true });
+    </script>
     <title>mk_</title>
 </head>
 
 <body class="noselect">
-    <section class="page">
-        <h1 class="title elevated centered ">mk_</h1>
-
-        <button class="action elevated settings-button">
-            <span class="material-symbols-outlined">
-                settings
-            </span>
-        </button>
-
-        <div class="settings-menu">
-            <fieldset class="settings-field">
-                <legend>Settings</legend>
-                <!-- Enable/disable custom cursor -->
-                <label for="custom-cursor" class="setting">Custom cursor</label>
-                <div class="toggle" id="custom-cursor">
-                    <input type="checkbox" id="a" class="for-cursor" />
-                    <label for="a" class="action">
-                        <span class="sr-only">Toggle Switch</span>
-                    </label>
-                </div>
-
-                <!-- Enable/disable scrolling -->
-                <label for="page-scrolling" class="setting">Page scrolling
-                    <div class="warning"><span class="message">Notice</span>: <span>the effects look trash if you
-                            scroll</span></div>
-                </label>
-                <div class="toggle" id="page-scrolling">
-                    <input type="checkbox" id="b" class="for-scrolling" />
-                    <label for="b" class="action">
-                        <span class="sr-only">Toggle Switch</span>
-                    </label>
-                </div>
-            </fieldset>
-
-            <div class="bg-container-menu"></div>
-        </div>
-
-        <a class="action elevated next-page"><span></span></a>
+    <div class="parallax parallax-1">
+        <h1>Welcome, I'm <span>madkarmaa</span></h1>
+    </div>
+    <section class="content">
+        <h1>I am <span class="censor">(maybe)</span> a developer</h1>
+        <p>
+            I'm a self-taught developer who happens to love automating tasks and creating projects for such automations.
+            <br>
+            <br>
+            My main goal is to make everyone's life easier because I'm a <span class="censor">very</span> lazy person myself.
+            <br>
+            So, like every sane person would do <span class="censor">(I'm lying)</span>, I spend hours working on projects that drive me insane.
+            <br>
+            <br>
+            It all started with me getting heavily annoyed of repeating the same, multiple operations, too many times, and so I thought
+            <span class="thoughts">Why not creating something that does all of this for me?</span>. And yeah, here I am
+            <span class="censor">, smashing my head against the wall to make things work because I suck</span>.
+        </p>
     </section>
-
-    <section class="page">
-        <div class="text-container centered elevated"></div>
-        <a class="action elevated next-page"><span></span></a>
+    <div class="parallax parallax-2"></div>
+    <section class="content">
+        <h1>My GitHub profile</h1>
     </section>
-
-    <section class="page">
-        <div class="text-container centered elevated">
-            <h2 class="container-title elevated">Who am I?</h2>
-            <div class="container-content elevated">
-                <p>
-                    Hey there! Thanks for checking out my website! If you're wondering who I am, well, I'm just
-                    the average who happens to love IT and coding. My coding skills might not be the best, but I do know
-                    enough Python and JavaScript to get some nice projects done.
-                </p>
-
-                <p>
-                    But when it comes to HTML and CSS, I'm a pro! (<span>kinda,
-                        let's... not get started on my lack of knowledge about flexbox; I mean, who needs it,
-                        right?</span>) I love
-                    playing around with different designs, and I especially love anything that involves shades of blue
-                    and purple. That's why you'll see those colors popping up all over my website.
-                </p>
-
-                <p>
-                    So, if you're looking for a website that's fluent, friendly, and full of personality, you've come to
-                    the
-                    right place. <span>Just don't expect any fancy flexbox tricks from me.</span>
-                </p>
-            </div>
-        </div>
-        <a class="action elevated next-page"><span></span></a>
+    <div class="parallax parallax-3"></div>
+    <section class="content">
+        <h1>My best project (so far)!</h1>
     </section>
-
-    <section class="page last-page">
-        <h2 class="centered elevated end-title">The end, <span>maybe?</span></h2>
-        <a class="action elevated next-page"><span></span></a>
-        <footer class="action elevated">&#169; mk_ 2023</footer>
-    </section>
-
-    <div class="user-scroll-message elevated">Psst... use the arrow buttons :&#41;</div>
-
-    <div class="cursor"></div>
-    <div class="cursor-follow"></div>
+    <div class="parallax parallax-4">
+        <h1>The end, <span>maybe?</span></h1>
+    </div>
 </body>
 
 </html>
