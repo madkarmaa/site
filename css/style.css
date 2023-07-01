@@ -34,7 +34,7 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-scheme-light); 
+    background: var(--color-scheme-light);
 }
 
 a {
@@ -44,6 +44,10 @@ a {
 a:hover {
     color: #ffffffaa;
     text-decoration: underline;
+}
+
+p {
+    font-size: 1.3rem;
 }
 
 html, body {
@@ -185,18 +189,18 @@ html, body {
     margin: 0 auto;
     gap: 5px;
 }
-  
+
 .profile-container img {
     width: 150px;
     height: 150px;
     border-radius: 50%;
     margin-bottom: 10px;
 }
-  
+
 .profile-container h2 {
     margin-bottom: 10px;
 }
-  
+
 .profile-container p {
     margin-bottom: 8px;
 }
