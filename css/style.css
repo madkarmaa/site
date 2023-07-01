@@ -215,6 +215,10 @@ html, body {
         background-position: 37.5% 50%;
     }
 
+    .parallax:not(.parallax-1) {
+        height: 40vh;
+    }
+
     p {
         font-size: 16px;
     }
