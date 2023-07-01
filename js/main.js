@@ -229,7 +229,7 @@ fetchGitHubProfile('madkarmaa')
   .catch((error) => console.error(error));
 
 (() => {
-  ScrollReveal().reveal('.parallax > h1');
+  ScrollReveal().reveal('.title');
   skulls();
 
   var name = document.querySelector('.parallax-1 > h1 > span');
