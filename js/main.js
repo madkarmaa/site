@@ -3,6 +3,8 @@ isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windo
   navigator.userAgent
 );
 
+ScrollReveal({ reset: true });
+
 function choose(choices) {
   const index = Math.floor(Math.random() * choices.length);
   return choices[index];
