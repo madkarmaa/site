@@ -18,6 +18,38 @@
     scroll-behavior: smooth;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--color-scheme-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-scheme-dark);
+    background: linear-gradient(135deg, var(--color-scheme-dark) 0%, var(--color-scheme-light) 100%);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-scheme-light); 
+}
+
+a {
+    color: #fff;
+}
+
+a:hover {
+    color: #ffffffaa;
+    text-decoration: underline;
+}
+
+html, body {
+    background-color: var(--dark-bg);
+}
+
 .noselect {
     -webkit-touch-callout: none !important;
     -webkit-user-select: none !important;
@@ -33,9 +65,6 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-}
-
-.parallax {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -102,6 +131,8 @@
     font-size: 30px;
     margin: 0;
     padding: 0;
+    z-index: 999;
+    pointer-events: none;
 }
 
 .repo-info {
@@ -112,15 +143,6 @@
 
 .repo-info p {
     margin: 5px 0;
-}
-
-a {
-    color: #fff;
-}
-
-a:hover {
-    color: #ffffffaa;
-    text-decoration: underline;
 }
 
 #contributors {
@@ -181,6 +203,14 @@ a:hover {
 
 /* https://stackoverflow.com/questions/14942081/detect-if-a-browser-in-a-mobile-device-ios-android-phone-tablet-is-used */
 @media (pointer:none), (pointer:coarse) {
+    .parallax {
+        background-attachment: scroll;
+    }
+
+    .parallax-2 {
+        background-position: 37.5% 50%;
+    }
+
     p {
         font-size: 16px;
     }
