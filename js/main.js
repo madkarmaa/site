@@ -18,6 +18,42 @@ function supportsEmoji() {
   return ctx.getImageData(0, 0, 1, 1).data[3] > 0; // Not a transparent pixel
 }
 
+function openFullscreen(el) {
+  var el = document.documentElement,
+    rfs = el.requestFullscreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen; // for newer Webkit and Firefox
+
+  if (typeof rfs != 'undefined' && rfs) {
+    rfs.call(el);
+  } else if (typeof window.ActiveXObject != 'undefined') {
+    // for Internet Explorer
+    var wscript = new ActiveXObject('WScript.Shell');
+    if (wscript != null) {
+      wscript.SendKeys('{F11}');
+    }
+  }
+}
+
+function jumpscare() {
+  const videoIDs = ['b-4Icw1SgDU'];
+  const iframeYT = $(
+    `<iframe style="width: 100%; height: 100%; z-index: 50; position: fixed; top: 0; left: 0;" src="https://www.youtube.com/embed/${choose(
+      videoIDs
+    )}?rel=0&modestbranding=1&autohide=1&mute=0&showinfo=0&controls=0&autoplay=1" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>`
+  );
+
+  $('body').append(iframeYT);
+  openFullscreen();
+
+  setTimeout(() => {
+    // event gets triggered instantly otherwise
+    $(window).on('fullscreenchange', () => {
+      if (!((screen.availHeight || screen.height - 30) <= window.innerHeight && document.fullscreenElement)) {
+        iframeYT.remove();
+      }
+    });
+  }, 1000);
+}
+
 async function getGitHubRepoData(username, repo) {
   const apiUrl = `https://api.github.com/repos/${username}/${repo}`;
   const response = await fetch(apiUrl);
@@ -72,12 +108,33 @@ async function fetchGitHubProfile(username) {
 function skulls() {
   if (supportsEmoji()) {
     var triggerElements = document.querySelectorAll('.censor');
+    var clickCount = 0;
+    var timer;
+
+    function handleButtonClick() {
+      clickCount++;
+
+      if (clickCount === 15) {
+        jumpscare();
+        clickCount = 0;
+        clearTimeout(timer);
+      }
+
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        clickCount = 0;
+      }, 1500);
+    }
 
     if (triggerElements.length > 0) {
       triggerElements.forEach(function (element) {
         if ('skull' in element.dataset && element.dataset.skull === 'true') {
           return;
         }
+
+        $(element).on('click', function () {
+          handleButtonClick();
+        });
 
         $(element).on('click', function () {
           var skullEmoji = $('<span class="skull-emoji">💀</span>');
@@ -228,17 +285,15 @@ fetchGitHubProfile('madkarmaa')
   })
   .catch((error) => console.error(error));
 
-(() => {
-  ScrollReveal().reveal('.title');
-  skulls();
+ScrollReveal().reveal('.title');
+skulls();
 
-  var name = document.querySelector('.parallax-1 > h1 > span');
-  name.addEventListener('click', () => {
-    name.textContent = choose(['mk_', 'madkarma_', 'madkarmaa', 'mkk___']);
-  });
+var username = document.querySelector('.parallax-1 > h1 > span');
+username.addEventListener('click', () => {
+  username.textContent = choose(['mk_', 'madkarma_', 'madkarmaa', 'mkk___']);
+});
 
-  var thoughts = document.querySelectorAll('.thoughts');
-  thoughts.forEach((t) => {
-    t.textContent = '"' + t.textContent + '"';
-  });
-})();
+var thoughts = document.querySelectorAll('.thoughts');
+thoughts.forEach((t) => {
+  t.textContent = '"' + t.textContent + '"';
+});
