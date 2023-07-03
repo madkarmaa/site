@@ -205,7 +205,7 @@ getGitHubRepoData('madkarmaa', 'automatic-chatgpt-dan')
 
     const url = document.createElement('p');
     const urlLink = document.createElement('a');
-    urlLink.href = data.url;
+    urlLink.href = './dan';
     urlLink.target = '_blank';
     urlLink.textContent = 'Click me';
     url.innerHTML = `<strong>Check it out!</strong> `;
