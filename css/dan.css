@@ -50,7 +50,7 @@ img[alt="separator"] {
 @media (pointer:none), (pointer:coarse) {
     html, body {
         background-attachment: scroll;
-        background-position: 80% 50%;
+        background-position: 77.5% 50%;
     }
 
     img {
