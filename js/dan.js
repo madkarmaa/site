@@ -20,4 +20,9 @@ getMarkdownText('https://raw.githubusercontent.com/madkarmaa/automatic-chatgpt-d
   document.title = $('h1').toArray()[0].textContent; // in case the project's title changes
   $('.container > p > a:contains("Back to top")').remove();
   $('img[alt*="screenshot"]').toArray()[0].style = 'margin: 0 auto; display: block;';
+  $('a')
+    .toArray()
+    .forEach((a) => {
+      if (a.target != '_blank') a.target = '_blank';
+    });
 });
