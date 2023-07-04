@@ -37,6 +37,11 @@ p:has(img[alt="separator"]) {
     align-self: center;
 }
 
+a {
+    /* clickable images */
+    display: inline-block;
+}
+
 img[alt*="screenshot"] {
     width: 100%;
     height: auto;
