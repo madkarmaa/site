@@ -28,11 +28,7 @@ b {
     color: #fff;
 }
 
-p>a:has(img) {
-    color: transparent;
-}
-
-p>a:hover:has(img) {
+p>a:has(img), p>a:hover:has(img) {
     color: transparent;
 }
 
