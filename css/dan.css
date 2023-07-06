@@ -42,13 +42,13 @@ a {
     display: inline-block;
 }
 
-img {
+img:not([src*="img.shields.io"]):not(picture > img) {
     width: 100%;
     height: auto;
 }
 
 img[alt="separator"] {
-    width: calc(100vw - (var(--cont-padding) * 2));
+    width: calc(100vw - (var(--cont-padding) * 2)) !important;
     height: auto;
 }
 
