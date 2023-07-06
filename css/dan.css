@@ -42,7 +42,7 @@ a {
     display: inline-block;
 }
 
-img[alt*="screenshot"] {
+img {
     width: 100%;
     height: auto;
 }
