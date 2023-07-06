@@ -42,13 +42,13 @@ a {
     display: inline-block;
 }
 
-img:not([src*="img.shields.io"]):not(picture > img) {
+img[alt*="screenshot"] {
     width: 100%;
     height: auto;
 }
 
 img[alt="separator"] {
-    width: calc(100vw - (var(--cont-padding) * 2)) !important;
+    width: calc(100vw - (var(--cont-padding) * 2));
     height: auto;
 }
 
@@ -56,6 +56,18 @@ img[alt="separator"] {
     html, body {
         background-attachment: scroll;
         background-position: 77.5% 50%;
+    }
+
+    a:has(img[alt="star-history-chart"]) {
+        display: flex;
+        align-self: center;
+        align-items: center;
+        justify-content: center;
+    }
+
+    img[alt="star-history-chart"] {
+        width: 100%;
+        height: auto;
     }
 
     img {
