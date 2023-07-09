@@ -34,7 +34,7 @@ function openFullscreen(el) {
 }
 
 function jumpscare() {
-  const videoIDs = ['b-4Icw1SgDU'];
+  const videoIDs = ['b-4Icw1SgDU', 'mZ05ZKqfBsc'];
   const iframeYT = $(
     `<iframe style="width: 100%; height: 100%; z-index: 50; position: fixed; top: 0; left: 0;" src="https://www.youtube.com/embed/${choose(
       videoIDs
