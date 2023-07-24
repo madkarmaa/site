@@ -1,0 +1,251 @@
+/* TODO INSPIRATION: https://moffett.ai/ */
+
+html, body {
+    background-color: #000;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+canvas {
+    display: block;
+}
+
+#tsparticles {
+    z-index: 0 !important;
+}
+
+*:not(#tsparticles) {
+    z-index: 1;
+}
+
+section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+}
+
+section .content {
+    min-height: 85vh;
+    min-width: 85vw;
+    max-width: 85vw;
+    background: rgba(255, 255, 255, 0.11);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 8px;
+    visibility: hidden;
+    padding: 15px;
+    /* https: //stackoverflow.com/a/46955323 */
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.title {
+    text-align: center;
+    margin: 25px;
+    padding: 5px;
+}
+
+.title>.username, .title>.username * {
+    color: var(--easter-egg);
+    /* animation: flicker 3s linear infinite;
+    -webkit-animation: flicker 3s linear infinite; */
+}
+
+.comment {
+    position: absolute;
+    font-size: large;
+    font-weight: 500;
+    padding: 10px;
+}
+
+.comment:hover, .comment:active {
+    color: var(--easter-egg);
+}
+
+.comment1 {
+    top: 20%;
+    left: 20%;
+}
+
+.comment2 {
+    top: 80%;
+    left: 55%;
+}
+
+.comment3 {
+    top: 30%;
+    left: 75%;
+}
+
+.glitching {
+    animation: shake 110ms infinite ease-in-out
+}
+
+.repo-container, .profile-container {
+    width: 100%;
+    background: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+h1 *, h2, h2 *, h3, h3 * {
+    color: var(--easter-egg);
+}
+
+.repo, .profile {
+    width: 100%;
+    background: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.repo>div, .profile>div {
+    width: 100%;
+}
+
+.repo-presentation, .repo-data, .profile-presentation, .profile-data {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* .repo-presentation *, .repo-data *, .profile-presentation *, .profile-data * {
+    text-align: justify;
+} */
+
+.repo-container h3, .profile-container h3 {
+    text-decoration: underline;
+}
+
+.repo-presentation>.repo-best, .repo-presentation>.repo-best * {
+    color: var(--easter-egg);
+}
+
+a {
+    text-decoration: none;
+    /* Clickable images */
+    display: inline-block;
+}
+
+/* Clickable images */
+/* a:has(img) {
+    display: inline-block;
+} */
+
+a:hover {
+    text-decoration: underline;
+}
+
+.repo-stars, .repo-forks, .followers, .following, .repositories {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 9px;
+}
+
+.profile-details-container {
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+}
+
+.top-details {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.info-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.socials-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.social {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
+.social>i {
+    font-size: 20px !important;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (pointer:none), (pointer:coarse) {
+    section {
+        margin-bottom: 75px;
+    }
+
+    section .content {
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        padding: 0;
+    }
+
+    .comment2 {
+        top: 77.5%;
+        left: 45%;
+    }
+
+    .comment3 {
+        left: 65%;
+    }
+
+    .repo, .profile {
+        flex-direction: column;
+    }
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(-2px, 5px);
+    }
+
+    50% {
+        transform: translate(5px, 4px);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+@-webkit-keyframes shake {
+    0% {
+        transform: translate(-2px, 5px);
+    }
+
+    50% {
+        transform: translate(5px, 4px);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}

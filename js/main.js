@@ -1,9 +1,5 @@
-let isMobile = false;
-isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
-  navigator.userAgent
-);
-
-ScrollReveal({ reset: true });
+console.clear();
+document.documentElement.style.setProperty('--easter-egg', '#0f0');
 
 function choose(choices) {
   const index = Math.floor(Math.random() * choices.length);
@@ -18,282 +14,402 @@ function supportsEmoji() {
   return ctx.getImageData(0, 0, 1, 1).data[3] > 0; // Not a transparent pixel
 }
 
-function openFullscreen(el) {
-  var el = document.documentElement,
-    rfs = el.requestFullscreen || el.webkitRequestFullScreen || el.mozRequestFullScreen || el.msRequestFullscreen; // for newer Webkit and Firefox
+const particleNumber = 50;
+// https://particles.js.org/
+tsParticles
+  .load('tsparticles', {
+    background: {
+      color: {
+        value: '#000',
+      },
+    },
+    fpsLimit: 120,
+    interactivity: {
+      events: {
+        // onClick: {
+        //   enable: !isMobile,
+        //   mode: 'push',
+        // },
+        onHover: {
+          enable: !isMobile,
+          mode: 'repulse',
+        },
+        resize: true,
+      },
+      modes: {
+        push: {
+          quantity: 4,
+        },
+        repulse: {
+          distance: 100,
+          duration: 0.4,
+        },
+      },
+    },
+    particles: {
+      color: {
+        value: document.documentElement.style.getPropertyValue('--easter-egg'),
+      },
+      links: {
+        color: document.documentElement.style.getPropertyValue('--easter-egg'),
+        distance: 150,
+        enable: true,
+        opacity: 0.5,
+        width: 1,
+      },
+      move: {
+        direction: 'none',
+        enable: true,
+        outModes: {
+          default: 'bounce',
+        },
+        random: false,
+        speed: 3,
+        straight: false,
+      },
+      number: {
+        density: {
+          enable: true,
+          area: 800,
+        },
+        value: particleNumber,
+      },
+      opacity: {
+        value: 0.5,
+      },
+      shape: {
+        type: 'circle',
+      },
+      size: {
+        value: { min: 1, max: 5 },
+      },
+    },
+    detectRetina: true,
+  })
+  .then((container) => {
+    console.log('%ctsParticles loaded', 'font-family: monospace; color: #00ff00; font-size: 22px;');
+  })
+  .catch((error) => {
+    console.error('tsParticles\n\n' + error);
+  });
+const tsParticlesContainer = tsParticles.domItem(0);
 
-  if (typeof rfs != 'undefined' && rfs) {
-    rfs.call(el);
-  } else if (typeof window.ActiveXObject != 'undefined') {
-    // for Internet Explorer
-    var wscript = new ActiveXObject('WScript.Shell');
-    if (wscript != null) {
-      wscript.SendKeys('{F11}');
-    }
-  }
-}
+// https://scrollrevealjs.org/api/reveal.html
+ScrollReveal().reveal('.content', { duration: 1250 });
 
-function jumpscare() {
-  const videoIDs = ['b-4Icw1SgDU', 'mZ05ZKqfBsc'];
-  const iframeYT = $(
-    `<iframe style="width: 100%; height: 100%; z-index: 50; position: fixed; top: 0; left: 0;" src="https://www.youtube.com/embed/${choose(
-      videoIDs
-    )}?rel=0&modestbranding=1&autohide=1&mute=0&showinfo=0&controls=0&autoplay=1" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>`
-  );
+// https://anseki.github.io/leader-line/
+const landingTitle = document.querySelector('.title');
+const comment1 = document.querySelector('.comment1');
+const comment2 = document.querySelector('.comment2');
+const comment3 = document.querySelector('.comment3');
+const lineStyle = {
+  size: 2,
+  startPlug: 'behind',
+  endPlug: 'behind',
+  color: 'var(--easter-egg)',
+  path: 'straight',
+  hide: true,
+};
 
-  $('body').append(iframeYT);
-  openFullscreen();
+const line1 = new LeaderLine(
+  LeaderLine.pointAnchor(comment1, { x: isMobile ? '50%' : '100%', y: '100%' }),
+  LeaderLine.pointAnchor(landingTitle, { x: isMobile ? '25%' : '20%', y: 0 }),
+  lineStyle
+);
+const line2 = new LeaderLine(
+  LeaderLine.pointAnchor(comment2, { x: isMobile ? '20%' : 0, y: 0 }),
+  LeaderLine.pointAnchor(landingTitle, { x: '45%', y: '100%' }),
+  lineStyle
+);
+const line3 = new LeaderLine(
+  LeaderLine.pointAnchor(comment3, {
+    x: isMobile ? '35%' : 0,
+    y: isMobile ? '100%' : '50%',
+  }),
+  LeaderLine.pointAnchor(landingTitle, { x: isMobile ? '80%' : '90%', y: 0 }),
+  lineStyle
+);
 
-  setTimeout(() => {
-    // event gets triggered instantly otherwise
-    $(window).on('fullscreenchange', () => {
-      if (!((screen.availHeight || screen.height - 30) <= window.innerHeight && document.fullscreenElement)) {
-        iframeYT.remove();
-      }
-    });
-  }, 1000);
-}
+const lines = [
+  { line: line1, shown: false },
+  { line: line2, shown: false },
+  { line: line3, shown: false },
+];
 
-async function getGitHubRepoData(username, repo) {
-  const apiUrl = `https://api.github.com/repos/${username}/${repo}`;
-  const response = await fetch(apiUrl);
+const username = document.querySelector('.title > .username');
+const options = {
+  ...GlitchedWriter.presets.encrypted,
+  steps: [3, 8],
+  letterize: true,
+};
 
-  if (response.ok) {
-    const data = await response.json();
-    const { stargazers_count, forks_count, contributors_url, html_url, owner, name, description } = data;
+// https://github.com/thetarnav/glitched-writer#cdn
+const writer = GlitchedWriter.create(username, options),
+  defaultTime = 3500;
+// https://github.com/thetarnav/glitched-writer#queue-writing
+writer.queueWrite(['madkarma', 'mk_', 'madkarma_', 'madkarmaa', 'mkk___'], defaultTime, true);
 
-    const contributorsResponse = await fetch(contributors_url);
-    const contributorsData = await contributorsResponse.json();
-    const contributors = contributorsData.map((contributor) => contributor.login);
+var holdTimeout;
+var timeoutRunned = false;
+const toShake = [landingTitle, comment1, comment2, comment3, ...document.querySelectorAll('.leader-line')];
 
-    return {
-      stars: stargazers_count,
-      forks: forks_count,
-      contributors,
-      url: html_url,
-      creator: owner.login,
-      repoName: name,
-      about: description,
-    };
-  } else {
-    throw new Error('Failed to fetch GitHub repository data');
-  }
-}
+[comment1, comment2, comment3].forEach((comment, idx) => {
+  comment.addEventListener('click', () => {
+    lines[idx].shown ? lines[idx].line.hide('draw') : lines[idx].line.show('draw');
+    lines[idx].shown = !lines[idx].shown;
+  });
+  ['mousedown', 'touchstart'].forEach((ev) => {
+    comment.addEventListener(ev, () => {
+      holdTimeout = setTimeout(() => {
+        document.documentElement.style.setProperty('--easter-egg', '#f00');
+        timeoutRunned = true;
 
-async function fetchGitHubProfile(username) {
-  try {
-    const response = await fetch(`https://api.github.com/users/${username}`);
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
+        toShake.forEach((element) => {
+          element.classList.add('glitching');
+        });
 
-    const data = await response.json();
-    const profile = {
-      username: data.login,
-      displayName: data.name,
-      profilePictureUrl: data.avatar_url,
-      bio: data.bio,
-      followers: data.followers,
-      following: data.following,
-      repositories: data.public_repos,
-    };
+        writer.pause();
+        writer.endless(true);
+        writer.write('madkarma');
+        writer.play();
 
-    return profile;
-  } catch (error) {
-    console.error('Error fetching GitHub profile:', error);
-    throw error;
-  }
-}
+        // https://github.com/matteobruni/tsparticles/issues/195#issuecomment-757562810
+        tsParticlesContainer.options.load({
+          particles: {
+            color: {
+              value: document.documentElement.style.getPropertyValue('--easter-egg'),
+            },
+            links: {
+              color: {
+                value: document.documentElement.style.getPropertyValue('--easter-egg'),
+              },
+            },
+            move: {
+              speed: 12,
+            },
+          },
+        });
 
-function skulls() {
-  if (supportsEmoji()) {
-    var triggerElements = document.querySelectorAll('.censor');
-    var clickCount = 0;
-    var timer;
-
-    function handleButtonClick() {
-      clickCount++;
-
-      if (clickCount === 15) {
-        jumpscare();
-        clickCount = 0;
-        clearTimeout(timer);
-      }
-
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        clickCount = 0;
+        tsParticlesContainer.refresh();
       }, 1500);
-    }
-
-    if (triggerElements.length > 0) {
-      triggerElements.forEach(function (element) {
-        if ('skull' in element.dataset && element.dataset.skull === 'true') {
-          return;
-        }
-
-        $(element).on('click', function () {
-          handleButtonClick();
-        });
-
-        $(element).on('click', function () {
-          var skullEmoji = $('<span class="skull-emoji">💀</span>');
-          var windowWidth = $(window).width();
-          var windowHeight = $(window).height();
-
-          var posX = Math.random() * windowWidth;
-          var posY = Math.random() * windowHeight;
-
-          skullEmoji.css({ top: posY, left: posX });
-          skullEmoji.appendTo('body').fadeIn(500);
-
-          setTimeout(function () {
-            skullEmoji.fadeOut(500, function () {
-              skullEmoji.remove();
-            });
-          }, 1000);
-        });
-
-        element.dataset.skull = 'true';
-      });
-    }
-  }
-}
-
-getGitHubRepoData('madkarmaa', 'automatic-chatgpt-dan')
-  .then((data) => {
-    const repoInfoContainer = document.createElement('div');
-    repoInfoContainer.classList.add('repo-info');
-
-    const repoName = document.createElement('p');
-    repoName.innerHTML = `<strong>Repository:</strong> ${data.repoName}`;
-    repoInfoContainer.appendChild(repoName);
-
-    const about = document.createElement('p');
-    about.innerHTML = `<em>${data.about}</em>`;
-    repoInfoContainer.appendChild(about);
-
-    const creator = document.createElement('p');
-    creator.innerHTML = `by <strong>${data.creator}</strong> ${
-      data.creator == 'madkarmaa' ? '<span class="censor">(me lol)</span>' : ''
-    }`;
-    repoInfoContainer.appendChild(creator);
-
-    const cont = document.createElement('p');
-    cont.style = 'display: flex; flex-direction: row; gap: 25px;';
-    repoInfoContainer.appendChild(cont);
-
-    const stars = document.createElement('div');
-    stars.innerHTML = `<span class="material-symbols-outlined">star</span> ${data.stars}`;
-    stars.style = 'display: flex; flex-direction: row; align-items: center; gap: 5px;';
-    stars.title = 'Stars';
-    cont.appendChild(stars);
-
-    const forks = document.createElement('div');
-    forks.innerHTML = `<span class="material-symbols-outlined">fork_right</span> ${data.forks}`;
-    forks.style = 'display: flex; flex-direction: row; align-items: center; gap: 5px;';
-    forks.title = 'Forks';
-    cont.appendChild(forks);
-
-    const contributors = document.createElement('p');
-    contributors.innerHTML = '<strong>Contributors:</strong>';
-    repoInfoContainer.appendChild(contributors);
-
-    const contributorsList = document.createElement('ul');
-    contributorsList.id = 'contributors';
-    repoInfoContainer.appendChild(contributorsList);
-
-    const url = document.createElement('p');
-    const urlLink = document.createElement('a');
-    urlLink.href = './dan';
-    urlLink.target = '_blank';
-    urlLink.textContent = 'Click me';
-    url.innerHTML = `<strong>Check it out!</strong> `;
-    url.appendChild(urlLink);
-    repoInfoContainer.appendChild(url);
-
-    const appendTo = document.querySelectorAll('.content');
-    appendTo[2].appendChild(repoInfoContainer);
-
-    data.contributors.forEach((contributor) => {
-      const contributorListItem = document.createElement('li');
-      contributorListItem.title = contributor;
-      const contributorLink = document.createElement('a');
-      contributorLink.href = `https://github.com/${contributor}`;
-      contributorLink.target = '_blank';
-      const contributorImage = document.createElement('img');
-      contributorImage.src = `https://github.com/${contributor}.png?size=64`;
-      contributorImage.alt = contributor;
-      contributorLink.appendChild(contributorImage);
-      contributorListItem.appendChild(contributorLink);
-      contributorsList.appendChild(contributorListItem);
     });
+  });
+  ['mouseup', 'touchend'].forEach((ev) => {
+    comment.addEventListener(ev, () => {
+      clearTimeout(holdTimeout);
 
-    skulls();
-  })
-  .catch((error) => console.error(error));
+      if (timeoutRunned) {
+        document.documentElement.style.setProperty('--easter-egg', '#0f0');
 
-fetchGitHubProfile('madkarmaa')
-  .then((profile) => {
-    const profileContainer = document.createElement('div');
-    profileContainer.className = 'profile-container';
+        toShake.forEach((element) => {
+          element.classList.remove('glitching');
+        });
 
-    const profilePicture = document.createElement('img');
-    profilePicture.src = profile.profilePictureUrl;
-    profilePicture.alt = 'Profile Picture';
-    profilePicture.style = 'pointer-events: none';
-    profileContainer.appendChild(profilePicture);
+        writer.pause();
+        writer.endless(false);
+        writer.queueWrite(['madkarma', 'mk_', 'madkarma_', 'madkarmaa', 'mkk___'], defaultTime, true);
+        writer.play();
 
-    const displayName = document.createElement('h2');
-    displayName.innerHTML = `<strong>${profile.displayName}</strong>`;
-    profileContainer.appendChild(displayName);
+        tsParticlesContainer.options.load({
+          particles: {
+            color: {
+              value: document.documentElement.style.getPropertyValue('--easter-egg'),
+            },
+            links: {
+              color: {
+                value: document.documentElement.style.getPropertyValue('--easter-egg'),
+              },
+            },
+            move: {
+              speed: 3,
+            },
+          },
+        });
 
-    const usernameElement = document.createElement('p');
-    usernameElement.innerHTML = `<a href="https://github.com/${profile.username}" target="_blank"><strong>@${profile.username}</strong></a>`;
-    profileContainer.appendChild(usernameElement);
+        tsParticlesContainer.refresh();
+        timeoutRunned = false;
+      }
+    });
+  });
+  ['mouseleave', 'touchmove', 'touchcancel'].forEach((ev) => {
+    comment.addEventListener(ev, () => {
+      clearTimeout(holdTimeout);
 
-    const bio = document.createElement('p');
-    bio.innerHTML = `<em>${profile.bio}</em>`;
-    profileContainer.appendChild(bio);
+      if (timeoutRunned) {
+        document.documentElement.style.setProperty('--easter-egg', '#0f0');
 
-    const cont = document.createElement('p');
-    cont.style = 'display: flex; flex-direction: row; gap: 25px;';
-    profileContainer.appendChild(cont);
+        toShake.forEach((element) => {
+          element.classList.remove('glitching');
+        });
 
-    const followers = document.createElement('p');
-    followers.innerHTML = `<span class="material-symbols-outlined">person_add</span> ${profile.followers}`;
-    followers.style = 'display: flex; flex-direction: row; align-items: center; gap: 10px;';
-    followers.title = 'Followers';
-    cont.appendChild(followers);
+        writer.pause();
+        writer.endless(false);
+        writer.queueWrite(['madkarma', 'mk_', 'madkarma_', 'madkarmaa', 'mkk___'], defaultTime, true);
+        writer.play();
 
-    const following = document.createElement('p');
-    following.innerHTML = `<span class="material-symbols-outlined">person</span> ${profile.following}`;
-    following.style = 'display: flex; flex-direction: row; align-items: center; gap: 10px;';
-    following.title = 'Following';
-    cont.appendChild(following);
+        tsParticlesContainer.options.load({
+          particles: {
+            color: {
+              value: document.documentElement.style.getPropertyValue('--easter-egg'),
+            },
+            links: {
+              color: {
+                value: document.documentElement.style.getPropertyValue('--easter-egg'),
+              },
+            },
+            move: {
+              speed: 3,
+            },
+          },
+        });
 
-    const repositories = document.createElement('p');
-    repositories.innerHTML = `<span class="material-symbols-outlined">book</span> ${profile.repositories}`;
-    repositories.style = 'display: flex; flex-direction: row; align-items: center; gap: 10px;';
-    repositories.title = 'Repositories';
-    cont.appendChild(repositories);
-
-    const appendTo = document.querySelectorAll('.content');
-    appendTo[1].appendChild(profileContainer);
-
-    skulls();
-  })
-  .catch((error) => console.error(error));
-
-ScrollReveal().reveal('.title');
-skulls();
-
-var username = document.querySelector('.parallax-1 > h1 > span');
-username.addEventListener('click', () => {
-  username.textContent = choose(['mk_', 'madkarma_', 'madkarmaa', 'mkk___']);
+        tsParticlesContainer.refresh();
+        timeoutRunned = false;
+      }
+    });
+  });
 });
 
-var thoughts = document.querySelectorAll('.thoughts');
-thoughts.forEach((t) => {
-  t.textContent = '"' + t.textContent + '"';
+var observer = new MutationObserver((mutations) => {
+  for (const line of lines) if (line.shown) line.line.position();
+});
+
+observer.observe(username, { characterData: false, childList: true, attributes: true });
+
+const contentContainers = document.querySelectorAll('section > .content');
+
+fetchGitHubProfileData('madkarmaa').then((data) => {
+  console.log(data);
+  contentContainers[0].innerHTML = `
+<div class="profile-container">
+  <h2>
+    <i class="fa-regular fa-face-smile-wink"></i>
+    What's up?
+  </h2>
+  <div class="profile">
+    <div class="profile-presentation">
+      <h3>Who am I?</h3>
+      <p>I'm a random guy, still a student, who happens to <i style="color: var(--easter-egg);">love</i> Information Technology.</p>
+      <p>I have a passion for coding, I'm a seriously dedicated <i style="color: var(--easter-egg);">gym rat</i>, and gaming is
+      my favorite method of spending my free time.</p>
+      <h3>What do I do?</h3>
+      <p>I usually spend most of my time working on coding projects which automate time-consuming tasks.</p>
+      <p><i style="color: var(--easter-egg);">Why?</i> Because nobody likes to waste their time repeating the same actions over and over again.</p>
+    </div>
+    <div class="profile-data">
+      <h3>GitHub profile details</h3>
+      <div class="profile-details-container">
+        <div class="top-details">
+          <img style="border-radius: 100%; width: 110px;" src="${data.profilePictureUrl}">
+          <div style="display: flex; flex-direction: column; justify-content: space-evenly;">
+            <h2>${data.displayName}</h2>
+            <p style="margin-left: 5px;">
+              <a href="https://github.com/${data.username}"><span style="color: var(--easter-egg);">@</span>${data.username}</a>
+            </p>
+          </div>
+        </div>
+        <p><i>"${data.bio}"</i></p>
+        
+        <div class="info-container">
+          <div class="followers">
+            <i class="fa-solid fa-user-group" style="color: var(--easter-egg);"></i>
+            <a href="https://github.com/${data.username}?tab=followers">${data.followers} Followers</a>
+          </div>
+          <div class="following">
+            <i class="fa-solid fa-user-plus" style="color: var(--easter-egg);"></i>
+            <a href="https://github.com/${data.username}?tab=following">${data.following} Following</a>
+          </div>
+          <div class="repositories">
+            <i class="fa-solid fa-code" style="color: var(--easter-egg);"></i>
+            <a href="https://github.com/${data.username}?tab=repositories">${data.repositories} Repositories</a>
+          </div>
+        </div>
+
+      </div>
+      <h3>My socials</h3>
+
+        <div class="social">
+          <i class="fa-brands fa-discord"></i>
+          <a href="https://discord.com/users/826489186327724095"><span style="color: var(--easter-egg);">@</span>madkarma_</a>
+        </div>
+        <div class="social">
+          <i class="fa-brands fa-instagram"></i>
+          <a href="https://www.instagram.com/fk.mk__/"><span style="color: var(--easter-egg);">@</span>fk.mk__</a>
+        </div>
+        <div class="social">
+          <i class="fa-brands fa-tiktok"></i>
+          <a href="https://www.tiktok.com/@madk__"><span style="color: var(--easter-egg);">@</span>madk__</a>
+        </div>
+
+    </div>
+  </div>
+</div>
+`;
+  refreshLinks();
+});
+
+// <img src="https://github-readme-stats.vercel.app/api/pin/?username=madkarmaa&repo=automatic-chatgpt-dan&show_owner=true&title_color=0f0&text_color=fff&border_color=0f0&bg_color=000&icon_color=0f0">
+fetchGitHubRepoData('madkarmaa', 'automatic-chatgpt-dan').then((data) => {
+  contentContainers[1].innerHTML = `
+<div class="repo-container">
+  <h2>
+    <i class="fa-regular fa-folder-open"></i>
+    <a href="https://github.com/${data.creator}">${data.creator}</a>/<a href="${data.url}">${data.repoName}</a>
+  </h2>
+  <div class="repo">
+    <div class="repo-presentation">
+      <h3>What is it?</h3>
+      <p class="repo-best">
+        <i class="fa-solid fa-ranking-star"></i>
+        <span>My best project (so far)!</span>
+      </p>
+      <p>Simply, a ${data.about.charAt(0).toLowerCase() + data.about.slice(1)}.</p>
+      <h3>Why?</h3>
+      <p>Because I got annoyed with copy-pasting the prompts to ChatGPT and searching through my browsing history
+      to find the websites I was getting the prompts from, so I created this userscript to simplify my own life, but
+      it seems that a lot of people like it, not just me.</p>
+    </div>
+    <div class="repo-data">
+      <h3>Repo details</h3>
+
+      <div class="info-container">
+        <div class="repo-stars">
+          <i class="fa-regular fa-star" style="color: var(--easter-egg);"></i>
+          <a href="${data.url}/stargazers">${data.stars} Stars</a>
+        </div>
+        <div class="repo-forks">
+          <i class="fa-solid fa-code-fork" style="color: var(--easter-egg);"></i>
+          <a href="${
+            data.url
+          }/forks?include=active%2Carchived%2Cinactive%2Cnetwork&page=1&period=2y&sort_by=stargazer_counts">
+            ${data.forks} Forks
+          </a>
+        </div>
+      </div>
+
+      <h3>Contributors</h3>
+      <p style="display: flex; flex-direction: row; gap: 10px;">
+        ${data.contributors
+          .map(
+            (contributor) => `<a href="https://github.com/${contributor}" title="@${contributor}">
+            <img style="border-radius: 100%; width: 75px;" src="https://github.com/${contributor}.png?size=256">
+          </a>`
+          )
+          .join('')}
+      </p>
+      <h3>Tags</h3>
+      <p>${data.topics
+        .slice(0, 6)
+        .map(
+          (topic) =>
+            `<a href="https://github.com/topics/${topic}"><span style="color: var(--easter-egg);">#</span>${topic}</a>`
+        )
+        .join(' ')}
+        <a href="${data.url}" style="color: var(--easter-egg);">...</a>
+      </p>
+    </div>
+  </div>
+</div>
+`;
+  refreshLinks();
 });
