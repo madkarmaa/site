@@ -354,7 +354,9 @@ fetchGitHubRepoData('madkarmaa', 'automatic-chatgpt-dan').then((data) => {
 <div class="repo-container">
   <h2>
     <i class="fa-regular fa-folder-open"></i>
-    <a href="https://github.com/${data.creator}">${data.creator}</a>/<a href="${data.url}">${data.repoName}</a>
+    <a href="https://github.com/${data.creator}">${data.creator}</a>/<a href="${data.url}" title="Check it out!">${
+    data.repoName
+  }</a>
   </h2>
   <div class="repo">
     <div class="repo-presentation">
@@ -363,11 +365,11 @@ fetchGitHubRepoData('madkarmaa', 'automatic-chatgpt-dan').then((data) => {
         <i class="fa-solid fa-ranking-star"></i>
         <span>My best project (so far)!</span>
       </p>
-      <p>Simply, a ${data.about.charAt(0).toLowerCase() + data.about.slice(1)}.</p>
+      <p>${data.about}.</p>
       <h3>Why?</h3>
       <p>Because I got annoyed with copy-pasting the prompts to ChatGPT and searching through my browsing history
-      to find the websites I was getting the prompts from, so I created this userscript to simplify my own life, but
-      it seems that a lot of people like it, not just me.</p>
+      to find the websites I was getting the prompts from.</p>
+      <p>So I created this userscript to simplify my own life, but it seems that a lot of people like it, not just me.</p>
     </div>
     <div class="repo-data">
       <h3>Repo details</h3>
