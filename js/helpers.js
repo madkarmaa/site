@@ -156,26 +156,19 @@ async function fetchGitHubRepoData(username, repo) {
 }
 
 async function fetchGitHubProfileData(username) {
-  try {
-    const response = await fetch(`https://api.github.com/users/${username}`);
-    if (!response.ok) {
-      throw new Error(response.statusText);
-    }
+  const response = await fetch(`https://api.github.com/users/${username}`);
+  if (!response.ok) throw new Error(response.statusText);
 
-    const data = await response.json();
-    const profile = {
-      username: data.login,
-      displayName: data.name,
-      profilePictureUrl: data.avatar_url,
-      bio: data.bio,
-      followers: data.followers,
-      following: data.following,
-      repositories: data.public_repos,
-    };
+  const data = await response.json();
+  const profile = {
+    username: data.login,
+    displayName: data.name,
+    profilePictureUrl: data.avatar_url,
+    bio: data.bio,
+    followers: data.followers,
+    following: data.following,
+    repositories: data.public_repos,
+  };
 
-    return profile;
-  } catch (error) {
-    console.error('Error fetching GitHub profile:', error);
-    throw error;
-  }
+  return profile;
 }
