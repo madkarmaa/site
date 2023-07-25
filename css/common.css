@@ -21,6 +21,7 @@
     font-family: 'Roboto Mono', monospace;
     word-break: break-word;
     color: #fff;
+    scroll-behavior: smooth;
     transition: all .3s ease;
 }
 
@@ -71,6 +72,7 @@ h3, h3 * {
     -moz-user-select: none !important;
     -ms-user-select: none !important;
     user-select: none !important;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .github-corner {

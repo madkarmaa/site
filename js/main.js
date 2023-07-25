@@ -279,7 +279,6 @@ observer.observe(username, { characterData: false, childList: true, attributes: 
 const contentContainers = document.querySelectorAll('section > .content');
 
 fetchGitHubProfileData('madkarmaa').then((data) => {
-  console.log(data);
   contentContainers[0].innerHTML = `
 <div class="profile-container">
   <h2>
@@ -372,7 +371,7 @@ fetchGitHubRepoData('madkarmaa', 'automatic-chatgpt-dan').then((data) => {
       <p>So I created this userscript to simplify my own life, but it seems that a lot of people like it, not just me.</p>
     </div>
     <div class="repo-data">
-      <h3>Repo details</h3>
+      <h3>Repository details</h3>
 
       <div class="info-container">
         <div class="repo-stars">
@@ -414,4 +413,15 @@ fetchGitHubRepoData('madkarmaa', 'automatic-chatgpt-dan').then((data) => {
 </div>
 `;
   refreshLinks();
+});
+
+const backToTop = document.querySelector('.back-to-top');
+backToTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  if (scrollTop > 0) $(backToTop).fadeIn(500);
+  else $(backToTop).fadeOut(500);
 });

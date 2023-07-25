@@ -196,6 +196,24 @@ a:hover {
     justify-content: center;
 }
 
+.back-to-top {
+    position: fixed;
+    bottom: 4%;
+    right: 2.25%;
+    background: none;
+    cursor: pointer;
+    display: none;
+    z-index: 10 !important;
+}
+
+.back-to-top:hover {
+    text-decoration: underline;
+}
+
+.back-to-top, .back-to-top * {
+    color: var(--easter-egg);
+}
+
 @media (pointer:none), (pointer:coarse) {
     section {
         margin-bottom: 75px;
@@ -219,6 +237,11 @@ a:hover {
 
     .repo, .profile {
         flex-direction: column;
+    }
+
+    .back-to-top {
+        bottom: 5%;
+        right: 5%;
     }
 }
 
