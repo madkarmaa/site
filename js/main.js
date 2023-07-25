@@ -434,8 +434,3 @@ window.addEventListener('scroll', () => {
   if (scrollTop > 0) $(backToTop).fadeIn(500);
   else $(backToTop).fadeOut(500);
 });
-
-// [landingTitle, comment1, comment2, comment3].forEach((el) => {
-//   const w = GlitchedWriter.create(el, options);
-//   w.queueWrite(['madkarma', 'mk_', 'madkarma_', 'madkarmaa', 'mkk___'], defaultTime, true);
-// });

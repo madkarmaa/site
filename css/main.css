@@ -98,7 +98,7 @@ section .content {
     gap: 15px;
 }
 
-h1 *, h2, h2 *, h3, h3 * {
+h2, h2 *, h3, h3 * {
     color: var(--easter-egg);
 }
 
