@@ -316,7 +316,7 @@ fetchGitHubProfileData('madkarmaa').then((data) => {
             </p>
           </div>
         </div>
-        <p><i>"${data.bio}"</i></p>
+        <p><i><span style="color: var(--easter-egg);">"</span>${data.bio}<span style="color: var(--easter-egg);">"</span></i></p>
         
         <div class="info-container">
           <div class="followers">
