@@ -36,12 +36,12 @@
 }
 
 ::-webkit-scrollbar-track {
-    background-color: #343434;
+    background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #343434;
-    background: linear-gradient(135deg, #343434 0%, var(--easter-egg) 100%);
+    background: transparent;
+    background: linear-gradient(135deg, transparent 0%, var(--easter-egg) 100%);
     border-radius: 10px;
 }
 
