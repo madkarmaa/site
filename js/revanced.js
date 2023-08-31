@@ -82,4 +82,14 @@ refreshLinks();
     });
 
     refreshLinks();
-})();
+})().catch(() => {
+    document.body.innerHTML = `
+<div id="adblocker">
+    <div>
+        If you're seeing this, it means an AdBlocker is blocking the connection with the <span class="comment">ReVanced API</span>.
+        Please disable the extension(s) for this website.
+    </div>
+    <img src="../img/adblocker.png">
+</div>
+`;
+});
