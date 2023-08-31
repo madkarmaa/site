@@ -26,9 +26,6 @@ refreshLinks();
     const manager = managerData.release;
     const patches = patchesData.patches;
 
-    if (manager && patches) document.body.innerHTML = '';
-    else return;
-
     const latestManagerDate = new Date(Date.parse(manager.metadata.published_at));
     const suggestedYtVersion = latestYtSuggestedVersion(patches);
 

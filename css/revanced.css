@@ -47,6 +47,17 @@ img {
     border-radius: 4px;
 }
 
+footer {
+    color: #fff;
+    position: fixed;
+    bottom: 2%;
+    right: 1%;
+}
+
+footer, footer * {
+    font-size: small;
+}
+
 .app-container h1 {
     color: #D2042D;
 }
@@ -93,5 +104,9 @@ img {
 @media (pointer:none), (pointer:coarse) {
     #adblocker {
         max-width: 100%;
+    }
+
+    footer {
+        display: none;
     }
 }
