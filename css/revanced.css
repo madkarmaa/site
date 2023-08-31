@@ -30,7 +30,7 @@ button {
     color: #f00;
 }
 
-.app-container > .comment {
+.app-container>.comment {
     display: inline-block;
 }
 
@@ -41,6 +41,10 @@ button {
 
 button:hover {
     background-color: #f00;
+}
+
+img {
+    border-radius: 4px;
 }
 
 .app-container h1 {
