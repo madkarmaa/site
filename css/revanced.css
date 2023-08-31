@@ -1,0 +1,79 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 25px;
+    height: 100vh;
+    background-color: #000;
+    padding: 25px;
+}
+
+.app-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+button {
+    background-color: #D2042D;
+    padding: 3px 7px;
+    border-radius: 99999px;
+    text-align: center;
+    vertical-align: middle;
+    color: #fff;
+}
+
+.app-container .comment {
+    color: #f00;
+}
+
+button {
+    cursor: pointer;
+    font-size: inherit;
+}
+
+button:hover {
+    background-color: #f00;
+}
+
+.app-container h1 {
+    color: #D2042D;
+}
+
+.app-container div:has(button) {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.app-container div:has(button) * {
+    max-width: max-content;
+}
+
+.app-container #images-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#images-container img {
+    display: flex;
+    align-self: flex-end;
+    margin-top: 5px;
+    max-width: 100%;
+}
+
+.comment {
+    display: inline-block;
+}
+
+/* @media (pointer:none), (pointer:coarse) {
+    body {
+        flex-direction: column;
+    }
+} */

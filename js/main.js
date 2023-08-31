@@ -2,96 +2,96 @@ console.clear();
 document.documentElement.style.setProperty('--easter-egg', '#0f0');
 
 function choose(choices) {
-  const index = Math.floor(Math.random() * choices.length);
-  return choices[index];
+    const index = Math.floor(Math.random() * choices.length);
+    return choices[index];
 }
 
 // https://stackoverflow.com/questions/45576748/how-can-i-detect-rendering-support-for-emoji-in-javascript
 function supportsEmoji() {
-  const ctx = document.createElement('canvas').getContext('2d');
-  ctx.canvas.width = ctx.canvas.height = 1;
-  ctx.fillText('😗', -4, 4);
-  return ctx.getImageData(0, 0, 1, 1).data[3] > 0; // Not a transparent pixel
+    const ctx = document.createElement('canvas').getContext('2d');
+    ctx.canvas.width = ctx.canvas.height = 1;
+    ctx.fillText('😗', -4, 4);
+    return ctx.getImageData(0, 0, 1, 1).data[3] > 0; // Not a transparent pixel
 }
 
 const particleNumber = 50;
 // https://particles.js.org/
 tsParticles
-  .load('tsparticles', {
-    background: {
-      color: {
-        value: '#000',
-      },
-    },
-    fpsLimit: 120,
-    interactivity: {
-      events: {
-        // onClick: {
-        //   enable: !isMobile,
-        //   mode: 'push',
-        // },
-        onHover: {
-          enable: !isMobile,
-          mode: 'repulse',
+    .load('tsparticles', {
+        background: {
+            color: {
+                value: '#000',
+            },
         },
-        resize: true,
-      },
-      modes: {
-        push: {
-          quantity: 4,
+        fpsLimit: 120,
+        interactivity: {
+            events: {
+                // onClick: {
+                //   enable: !isMobile,
+                //   mode: 'push',
+                // },
+                onHover: {
+                    enable: !isMobile,
+                    mode: 'repulse',
+                },
+                resize: true,
+            },
+            modes: {
+                push: {
+                    quantity: 4,
+                },
+                repulse: {
+                    distance: 100,
+                    duration: 0.4,
+                },
+            },
         },
-        repulse: {
-          distance: 100,
-          duration: 0.4,
+        particles: {
+            color: {
+                value: document.documentElement.style.getPropertyValue('--easter-egg'),
+            },
+            links: {
+                color: document.documentElement.style.getPropertyValue('--easter-egg'),
+                distance: 150,
+                enable: true,
+                opacity: 0.5,
+                width: 1,
+            },
+            move: {
+                direction: 'none',
+                enable: true,
+                outModes: {
+                    default: 'bounce',
+                },
+                random: false,
+                speed: 3,
+                straight: false,
+            },
+            number: {
+                density: {
+                    enable: true,
+                    area: 800,
+                },
+                value: particleNumber,
+            },
+            opacity: {
+                value: 0.5,
+            },
+            shape: {
+                type: 'circle',
+            },
+            size: {
+                value: { min: 1, max: 5 },
+            },
         },
-      },
-    },
-    particles: {
-      color: {
-        value: document.documentElement.style.getPropertyValue('--easter-egg'),
-      },
-      links: {
-        color: document.documentElement.style.getPropertyValue('--easter-egg'),
-        distance: 150,
-        enable: true,
-        opacity: 0.5,
-        width: 1,
-      },
-      move: {
-        direction: 'none',
-        enable: true,
-        outModes: {
-          default: 'bounce',
-        },
-        random: false,
-        speed: 3,
-        straight: false,
-      },
-      number: {
-        density: {
-          enable: true,
-          area: 800,
-        },
-        value: particleNumber,
-      },
-      opacity: {
-        value: 0.5,
-      },
-      shape: {
-        type: 'circle',
-      },
-      size: {
-        value: { min: 1, max: 5 },
-      },
-    },
-    detectRetina: true,
-  })
-  .then((container) => {
-    console.log('%ctsParticles loaded', 'font-family: monospace; color: #00ff00; font-size: 22px;');
-  })
-  .catch((error) => {
-    console.error('tsParticles\n\n' + error);
-  });
+        detectRetina: true,
+    })
+    .then((container) => {
+        console.log('%ctsParticles loaded', 'font-family: monospace; color: #00ff00; font-size: 22px;');
+    })
+    .catch((error) => {
+        console.error('tsParticles\n\n' + error);
+    });
 const tsParticlesContainer = tsParticles.domItem(0);
 
 // https://scrollrevealjs.org/api/reveal.html
@@ -103,54 +103,54 @@ const comment1 = document.querySelector('.comment1');
 const comment2 = document.querySelector('.comment2');
 const comment3 = document.querySelector('.comment3');
 const lineStyle = {
-  size: 2,
-  startPlug: 'behind',
-  endPlug: 'behind',
-  color: 'var(--easter-egg)',
-  path: 'straight',
-  hide: true,
+    size: 2,
+    startPlug: 'behind',
+    endPlug: 'behind',
+    color: 'var(--easter-egg)',
+    path: 'straight',
+    hide: true,
 };
 
 const line1 = new LeaderLine(
-  LeaderLine.pointAnchor(comment1, { x: isMobile ? '50%' : '100%', y: '100%' }),
-  LeaderLine.pointAnchor(landingTitle, { x: isMobile ? '25%' : '20%', y: 0 }),
-  lineStyle
+    LeaderLine.pointAnchor(comment1, { x: isMobile ? '50%' : '100%', y: '100%' }),
+    LeaderLine.pointAnchor(landingTitle, { x: isMobile ? '25%' : '20%', y: 0 }),
+    lineStyle
 );
 const line2 = new LeaderLine(
-  LeaderLine.pointAnchor(comment2, { x: isMobile ? '20%' : 0, y: 0 }),
-  LeaderLine.pointAnchor(landingTitle, { x: '45%', y: '100%' }),
-  lineStyle
+    LeaderLine.pointAnchor(comment2, { x: isMobile ? '20%' : 0, y: 0 }),
+    LeaderLine.pointAnchor(landingTitle, { x: '45%', y: '100%' }),
+    lineStyle
 );
 const line3 = new LeaderLine(
-  LeaderLine.pointAnchor(comment3, {
-    x: isMobile ? '35%' : 0,
-    y: isMobile ? '100%' : '50%',
-  }),
-  LeaderLine.pointAnchor(landingTitle, { x: isMobile ? '80%' : '90%', y: 0 }),
-  lineStyle
+    LeaderLine.pointAnchor(comment3, {
+        x: isMobile ? '35%' : 0,
+        y: isMobile ? '100%' : '50%',
+    }),
+    LeaderLine.pointAnchor(landingTitle, { x: isMobile ? '80%' : '90%', y: 0 }),
+    lineStyle
 );
 
 const lines = [
-  { line: line1, shown: false },
-  { line: line2, shown: false },
-  { line: line3, shown: false },
+    { line: line1, shown: false },
+    { line: line2, shown: false },
+    { line: line3, shown: false },
 ];
 
 const username = document.querySelector('.title > .username');
 const options = {
-  ...GlitchedWriter.presets.encrypted,
-  steps: [3, 8],
-  letterize: true,
+    ...GlitchedWriter.presets.encrypted,
+    steps: [3, 8],
+    letterize: true,
 };
 const glitchOptions = {
-  ...GlitchedWriter.presets.neo,
-  steps: [3, 8],
-  letterize: true,
+    ...GlitchedWriter.presets.neo,
+    steps: [3, 8],
+    letterize: true,
 };
 
 // https://github.com/thetarnav/glitched-writer#cdn
 const writer = GlitchedWriter.create(username, options),
-  defaultTime = 3500;
+    defaultTime = 3500;
 // https://github.com/thetarnav/glitched-writer#queue-writing
 writer.queueWrite(['madkarma', 'mk_', 'madkarma_', 'madkarmaa', 'mkk___'], defaultTime, true);
 
@@ -159,128 +159,128 @@ var timeoutRunned = false;
 const toShake = [landingTitle, comment1, comment2, comment3, ...document.querySelectorAll('.leader-line')];
 
 [comment1, comment2, comment3].forEach((comment, idx) => {
-  comment.addEventListener('click', () => {
-    lines[idx].shown ? lines[idx].line.hide('draw') : lines[idx].line.show('draw');
-    lines[idx].shown = !lines[idx].shown;
-  });
-  ['mousedown', 'touchstart'].forEach((ev) => {
-    comment.addEventListener(ev, () => {
-      holdTimeout = setTimeout(() => {
-        document.documentElement.style.setProperty('--easter-egg', '#f00');
-        timeoutRunned = true;
-
-        toShake.forEach((element) => {
-          element.classList.add('glitching');
-        });
-
-        writer.pause();
-        // https://github.com/thetarnav/glitched-writer#changing-options-post-initialization
-        writer.options.extend(glitchOptions);
-        writer.endless(true);
-        writer.write('madkarma');
-        writer.play();
-
-        // https://github.com/matteobruni/tsparticles/issues/195#issuecomment-757562810
-        tsParticlesContainer.options.load({
-          particles: {
-            color: {
-              value: document.documentElement.style.getPropertyValue('--easter-egg'),
-            },
-            links: {
-              color: {
-                value: document.documentElement.style.getPropertyValue('--easter-egg'),
-              },
-            },
-            move: {
-              speed: 12,
-            },
-          },
-        });
-
-        tsParticlesContainer.refresh();
-      }, 1500);
+    comment.addEventListener('click', () => {
+        lines[idx].shown ? lines[idx].line.hide('draw') : lines[idx].line.show('draw');
+        lines[idx].shown = !lines[idx].shown;
     });
-  });
-  ['mouseup', 'touchend'].forEach((ev) => {
-    comment.addEventListener(ev, () => {
-      clearTimeout(holdTimeout);
+    ['mousedown', 'touchstart'].forEach((ev) => {
+        comment.addEventListener(ev, () => {
+            holdTimeout = setTimeout(() => {
+                document.documentElement.style.setProperty('--easter-egg', '#f00');
+                timeoutRunned = true;
 
-      if (timeoutRunned) {
-        document.documentElement.style.setProperty('--easter-egg', '#0f0');
+                toShake.forEach((element) => {
+                    element.classList.add('glitching');
+                });
 
-        toShake.forEach((element) => {
-          element.classList.remove('glitching');
+                writer.pause();
+                // https://github.com/thetarnav/glitched-writer#changing-options-post-initialization
+                writer.options.extend(glitchOptions);
+                writer.endless(true);
+                writer.write('madkarma');
+                writer.play();
+
+                // https://github.com/matteobruni/tsparticles/issues/195#issuecomment-757562810
+                tsParticlesContainer.options.load({
+                    particles: {
+                        color: {
+                            value: document.documentElement.style.getPropertyValue('--easter-egg'),
+                        },
+                        links: {
+                            color: {
+                                value: document.documentElement.style.getPropertyValue('--easter-egg'),
+                            },
+                        },
+                        move: {
+                            speed: 12,
+                        },
+                    },
+                });
+
+                tsParticlesContainer.refresh();
+            }, 1500);
         });
-
-        writer.pause();
-        writer.options.extend(options);
-        writer.endless(false);
-        writer.queueWrite(['madkarma', 'mk_', 'madkarma_', 'madkarmaa', 'mkk___'], defaultTime, true);
-        writer.play();
-
-        tsParticlesContainer.options.load({
-          particles: {
-            color: {
-              value: document.documentElement.style.getPropertyValue('--easter-egg'),
-            },
-            links: {
-              color: {
-                value: document.documentElement.style.getPropertyValue('--easter-egg'),
-              },
-            },
-            move: {
-              speed: 3,
-            },
-          },
-        });
-
-        tsParticlesContainer.refresh();
-        timeoutRunned = false;
-      }
     });
-  });
-  ['mouseleave', 'touchmove', 'touchcancel'].forEach((ev) => {
-    comment.addEventListener(ev, () => {
-      clearTimeout(holdTimeout);
+    ['mouseup', 'touchend'].forEach((ev) => {
+        comment.addEventListener(ev, () => {
+            clearTimeout(holdTimeout);
 
-      if (timeoutRunned) {
-        document.documentElement.style.setProperty('--easter-egg', '#0f0');
+            if (timeoutRunned) {
+                document.documentElement.style.setProperty('--easter-egg', '#0f0');
 
-        toShake.forEach((element) => {
-          element.classList.remove('glitching');
+                toShake.forEach((element) => {
+                    element.classList.remove('glitching');
+                });
+
+                writer.pause();
+                writer.options.extend(options);
+                writer.endless(false);
+                writer.queueWrite(['madkarma', 'mk_', 'madkarma_', 'madkarmaa', 'mkk___'], defaultTime, true);
+                writer.play();
+
+                tsParticlesContainer.options.load({
+                    particles: {
+                        color: {
+                            value: document.documentElement.style.getPropertyValue('--easter-egg'),
+                        },
+                        links: {
+                            color: {
+                                value: document.documentElement.style.getPropertyValue('--easter-egg'),
+                            },
+                        },
+                        move: {
+                            speed: 3,
+                        },
+                    },
+                });
+
+                tsParticlesContainer.refresh();
+                timeoutRunned = false;
+            }
         });
-
-        writer.pause();
-        writer.options.extend(options);
-        writer.endless(false);
-        writer.queueWrite(['madkarma', 'mk_', 'madkarma_', 'madkarmaa', 'mkk___'], defaultTime, true);
-        writer.play();
-
-        tsParticlesContainer.options.load({
-          particles: {
-            color: {
-              value: document.documentElement.style.getPropertyValue('--easter-egg'),
-            },
-            links: {
-              color: {
-                value: document.documentElement.style.getPropertyValue('--easter-egg'),
-              },
-            },
-            move: {
-              speed: 3,
-            },
-          },
-        });
-
-        tsParticlesContainer.refresh();
-        timeoutRunned = false;
-      }
     });
-  });
+    ['mouseleave', 'touchmove', 'touchcancel'].forEach((ev) => {
+        comment.addEventListener(ev, () => {
+            clearTimeout(holdTimeout);
+
+            if (timeoutRunned) {
+                document.documentElement.style.setProperty('--easter-egg', '#0f0');
+
+                toShake.forEach((element) => {
+                    element.classList.remove('glitching');
+                });
+
+                writer.pause();
+                writer.options.extend(options);
+                writer.endless(false);
+                writer.queueWrite(['madkarma', 'mk_', 'madkarma_', 'madkarmaa', 'mkk___'], defaultTime, true);
+                writer.play();
+
+                tsParticlesContainer.options.load({
+                    particles: {
+                        color: {
+                            value: document.documentElement.style.getPropertyValue('--easter-egg'),
+                        },
+                        links: {
+                            color: {
+                                value: document.documentElement.style.getPropertyValue('--easter-egg'),
+                            },
+                        },
+                        move: {
+                            speed: 3,
+                        },
+                    },
+                });
+
+                tsParticlesContainer.refresh();
+                timeoutRunned = false;
+            }
+        });
+    });
 });
 
 var observer = new MutationObserver((mutations) => {
-  for (const line of lines) if (line.shown) line.line.position();
+    for (const line of lines) if (line.shown) line.line.position();
 });
 
 observer.observe(username, { characterData: false, childList: true, attributes: true });
@@ -288,7 +288,7 @@ observer.observe(username, { characterData: false, childList: true, attributes: 
 const contentContainers = document.querySelectorAll('section > .content');
 
 fetchGitHubProfileData('madkarmaa').then((data) => {
-  contentContainers[0].innerHTML = `
+    contentContainers[0].innerHTML = `
 <div class="profile-container">
   <h2>
     <i class="fa-regular fa-face-smile-wink"></i>
@@ -353,18 +353,18 @@ fetchGitHubProfileData('madkarmaa').then((data) => {
   </div>
 </div>
 `;
-  refreshLinks();
+    refreshLinks();
 });
 
 // <img src="https://github-readme-stats.vercel.app/api/pin/?username=madkarmaa&repo=automatic-chatgpt-dan&show_owner=true&title_color=0f0&text_color=fff&border_color=0f0&bg_color=000&icon_color=0f0">
 fetchGitHubRepoData('madkarmaa', 'automatic-chatgpt-dan').then((data) => {
-  contentContainers[1].innerHTML = `
+    contentContainers[1].innerHTML = `
 <div class="repo-container">
   <h2>
     <i class="fa-regular fa-folder-open"></i>
     <a href="https://github.com/${data.creator}">${data.creator}</a>/<a href="${data.url}" title="Check it out!">${
-    data.repoName
-  }</a>
+        data.repoName
+    }</a>
   </h2>
   <div class="repo">
     <div class="repo-presentation">
@@ -390,7 +390,7 @@ fetchGitHubRepoData('madkarmaa', 'automatic-chatgpt-dan').then((data) => {
         <div class="repo-forks">
           <i class="fa-solid fa-code-fork" style="color: var(--easter-egg);"></i>
           <a href="${
-            data.url
+              data.url
           }/forks?include=active%2Carchived%2Cinactive%2Cnetwork&page=1&period=2y&sort_by=stargazer_counts">
             ${data.forks} Forks
           </a>
@@ -400,37 +400,37 @@ fetchGitHubRepoData('madkarmaa', 'automatic-chatgpt-dan').then((data) => {
       <h3>Contributors</h3>
       <p style="display: flex; flex-direction: row; gap: 10px;">
         ${data.contributors
-          .map(
-            (contributor) => `<a href="https://github.com/${contributor}" title="@${contributor}">
+            .map(
+                (contributor) => `<a href="https://github.com/${contributor}" title="@${contributor}">
             <img style="border-radius: 100%; width: 75px;" src="https://github.com/${contributor}.png?size=256">
           </a>`
-          )
-          .join('')}
+            )
+            .join('')}
       </p>
       <h3>Tags</h3>
       <p>${data.topics
-        .slice(0, 6)
-        .map(
-          (topic) =>
-            `<a href="https://github.com/topics/${topic}"><span style="color: var(--easter-egg);">#</span>${topic}</a>`
-        )
-        .join(' ')}
+          .slice(0, 6)
+          .map(
+              (topic) =>
+                  `<a href="https://github.com/topics/${topic}"><span style="color: var(--easter-egg);">#</span>${topic}</a>`
+          )
+          .join(' ')}
         <a href="${data.url}" style="color: var(--easter-egg);">...</a>
       </p>
     </div>
   </div>
 </div>
 `;
-  refreshLinks();
+    refreshLinks();
 });
 
 const backToTop = document.querySelector('.back-to-top');
 backToTop.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 window.addEventListener('scroll', () => {
-  const scrollTop = window.scrollY || document.documentElement.scrollTop;
-  if (scrollTop > 0) $(backToTop).fadeIn(500);
-  else $(backToTop).fadeOut(500);
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    if (scrollTop > 0) $(backToTop).fadeIn(500);
+    else $(backToTop).fadeOut(500);
 });
