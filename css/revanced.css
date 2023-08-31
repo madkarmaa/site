@@ -26,8 +26,12 @@ button {
     color: #fff;
 }
 
-.app-container .comment {
+.comment {
     color: #f00;
+}
+
+.app-container > .comment {
+    display: inline-block;
 }
 
 button {
@@ -66,10 +70,6 @@ button:hover {
     align-self: flex-end;
     margin-top: 5px;
     max-width: 100%;
-}
-
-.comment {
-    display: inline-block;
 }
 
 #adblocker {
