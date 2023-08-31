@@ -59,7 +59,8 @@ refreshLinks();
 </div>
 <div id="images-container">
     <div>Make sure it's only the apk <img src="../img/apkmirror-correct-apk.png"></div>
-    <div>And <span class="comment">NOT</span> a bundled apk <img src="../img/apkmirror-wrong-apk.png"></div>
+    <div>And <span class="comment" style="text-decoration: underline; font-weight: 700;">NOT</span> a bundled apk
+    <img src="../img/apkmirror-wrong-apk.png"></div>
     <div>Then click the download button <img src="../img/apkmirror-dl-button.png"></div>
 </div>
 `,
