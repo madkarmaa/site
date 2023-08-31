@@ -23,10 +23,13 @@ refreshLinks();
 (async () => {
     const patchesData = await (await fetch('https://api.revanced.app/v2/patches/latest')).json();
     const managerData = await (await fetch('https://api.revanced.app/v2/revanced-manager/releases/latest')).json();
-    const manager = managerData.release;
+    const microGData = await (await fetch('https://api.github.com/repos/inotia00/VancedMicroG/releases/latest')).json();
     const patches = patchesData.patches;
+    const manager = managerData.release;
 
+    const microGApk = microGData.assets.find((asset) => /microg.*\.apk/.test(asset.name));
     const latestManagerDate = new Date(Date.parse(manager.metadata.published_at));
+    const latestMicroGDate = new Date(Date.parse(microGData.published_at));
     const suggestedYtVersion = latestYtSuggestedVersion(patches);
 
     const managerContainer = createEl('div', {
@@ -62,7 +65,22 @@ refreshLinks();
 `,
     });
 
-    document.body.append(managerContainer, ytContainer);
+    const microGContainer = createEl('div', {
+        id: 'microg-container',
+        classList: 'app-container',
+        innerHTML: `
+<h1>MicroG</h1>
+<div>Version <span class="comment">${microGData.tag_name.replace(/v|version /i, '')}</span></div>
+<div>Published ${latestMicroGDate.toLocaleString()}</div>
+<div>
+    <span class="comment">${microGApk.name}</span>
+    <button id="microg-download">Download</button>
+    <button id="microg-open" onclick="window.open('//github.com/inotia00/VancedMicroG', '_blank')">Go to website</button>
+</div>
+`,
+    });
+
+    document.body.append(managerContainer, ytContainer, microGContainer);
 
     const downloadManagerBtn = document.querySelector('#manager-download');
     downloadManagerBtn.addEventListener('click', () => {
@@ -76,6 +94,11 @@ refreshLinks();
             `https://www.apkmirror.com/apk/google-inc/youtube/youtube-${versionDashed}-release/youtube-${versionDashed}-android-apk-download/`,
             '_blank'
         );
+    });
+
+    const downloadMicroGBtn = document.querySelector('#microg-download');
+    downloadMicroGBtn.addEventListener('click', () => {
+        window.open(microGApk.browser_download_url, '_blank');
     });
 
     refreshLinks();

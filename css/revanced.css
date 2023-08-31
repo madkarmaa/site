@@ -5,7 +5,7 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     gap: 25px;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #000;
     padding: 25px;
 }
@@ -108,5 +108,9 @@ footer, footer * {
 
     footer {
         display: none;
+    }
+
+    body {
+        justify-content: space-between;
     }
 }
