@@ -18,11 +18,16 @@ function latestYtSuggestedVersion(patches) {
     }
 }
 
+refreshLinks();
+
 (async () => {
     const patchesData = await (await fetch('https://api.revanced.app/v2/patches/latest')).json();
     const managerData = await (await fetch('https://api.revanced.app/v2/revanced-manager/releases/latest')).json();
     const manager = managerData.release;
     const patches = patchesData.patches;
+
+    if (manager && patches) document.body.innerHTML = '';
+    else return;
 
     const latestManagerDate = new Date(Date.parse(manager.metadata.published_at));
     const suggestedYtVersion = latestYtSuggestedVersion(patches);
@@ -75,4 +80,6 @@ function latestYtSuggestedVersion(patches) {
             '_blank'
         );
     });
+
+    refreshLinks();
 })();

@@ -72,8 +72,22 @@ button:hover {
     display: inline-block;
 }
 
-/* @media (pointer:none), (pointer:coarse) {
-    body {
-        flex-direction: column;
+#adblocker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    flex-direction: column;
+    text-align: center;
+    max-width: 70%;
+}
+
+#adblocker img {
+    max-width: 100%;
+}
+
+@media (pointer:none), (pointer:coarse) {
+    #adblocker {
+        max-width: 100%;
     }
-} */
+}
