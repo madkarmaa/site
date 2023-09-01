@@ -1,7 +1,7 @@
 name: Refresh ReVanced Manager data
 on:
     schedule:
-        - cron: '*/2 * * * *'
+        - cron: '* * * * *'
 jobs:
     refresh-feed:
         runs-on: ubuntu-latest
@@ -14,12 +14,12 @@ jobs:
             - name: Fetch API Data 📦
               uses: JamesIves/fetch-api-data-action@v2.3.0
               with:
-                  ENDPOINT: https://api.revanced.app/v2/revanced-manager/releases/latest
+                  endpoint: https://api.revanced.app/v2/revanced-manager/releases/latest
                   retry: true
             - name: Build and Deploy 🚀
               uses: JamesIves/github-pages-deploy-action@releases/v4
               with:
-                  ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-                  BRANCH: master # Pushes the updates to the master branch.
-                  FOLDER: fetch-api-data-action # The location of the data.json file saved by the Fetch API Data action.
-                  TARGET_FOLDER: data # Saves the data into the 'data' directory on the master branch.
+                  token: ${{ secrets.ACCESS_TOKEN }}
+                  branch: master # Pushes the updates to the master branch.
+                  folder: fetch-api-data-action # The location of the data.json file saved by the Fetch API Data action.
+                  target-folder: data # Saves the data into the 'data' directory on the master branch.
