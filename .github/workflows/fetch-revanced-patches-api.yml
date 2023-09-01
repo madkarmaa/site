@@ -14,7 +14,7 @@ jobs:
             - name: Fetch API Data 📦
               uses: JamesIves/fetch-api-data-action@v2.3.0
               with:
-                  endpoint: https://api.revanced.app/v2/revanced-manager/releases/latest
+                  endpoint: https://api.revanced.app/v2/patches/latest
                   retry: true
             - name: Build and Deploy 🚀
               uses: JamesIves/github-pages-deploy-action@releases/v4
