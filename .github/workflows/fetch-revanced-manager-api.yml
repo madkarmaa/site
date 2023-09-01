@@ -1,4 +1,4 @@
-name: Refresh Feed
+name: Refresh ReVanced Manager data
 on:
     schedule:
         - cron: '*/2 * * * *'
