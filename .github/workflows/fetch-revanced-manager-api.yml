@@ -1,4 +1,4 @@
-name: Refresh ReVanced Manager data
+name: Refresh ReVanced manager data
 on:
     schedule:
         - cron: '* * * * *'
