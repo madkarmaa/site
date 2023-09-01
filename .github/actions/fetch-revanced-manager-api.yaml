@@ -1,0 +1,25 @@
+name: Refresh Feed
+on:
+    schedule:
+        - cron: '*/2 * * * *'
+jobs:
+    refresh-feed:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout 🛎️
+              uses: actions/checkout@v2
+              with:
+                  persist-credentials: false
+
+            - name: Fetch API Data 📦
+              uses: JamesIves/fetch-api-data-action@v2.3.0
+              with:
+                  ENDPOINT: https://api.revanced.app/v2/revanced-manager/releases/latest
+                  retry: true
+            - name: Build and Deploy 🚀
+              uses: JamesIves/github-pages-deploy-action@releases/v4
+              with:
+                  ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+                  BRANCH: master # Pushes the updates to the master branch.
+                  FOLDER: fetch-api-data-action # The location of the data.json file saved by the Fetch API Data action.
+                  TARGET_FOLDER: data # Saves the data into the 'data' directory on the master branch.

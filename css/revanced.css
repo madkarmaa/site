@@ -1,6 +1,7 @@
 body {
     display: flex;
-    align-items: center;
+    /* https: //stackoverflow.com/a/32466333 */
+    align-items: stretch;
     justify-content: space-evenly;
     flex-direction: row;
     flex-wrap: wrap;
@@ -15,6 +16,7 @@ body {
     justify-content: center;
     flex-direction: column;
     gap: 10px;
+    height: 100%;
 }
 
 button {
