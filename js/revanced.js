@@ -76,7 +76,7 @@ refreshLinks();
 <div>
     <span class="comment">${microGApk.name}</span>
     <button id="microg-download">Download</button>
-    <button id="microg-open" onclick="window.open('//github.com/inotia00/VancedMicroG', '_blank')">Go to website</button>
+    <button id="microg-open" onclick="window.open('//github.com/inotia00/VancedMicroG/releases/latest', '_blank')">Go to website</button>
 </div>
 `,
     });
