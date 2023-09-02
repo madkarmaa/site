@@ -1,49 +1,70 @@
+/* https://github.com/ReVanced/revanced-website/blob/main/src/app.scss#L36-L60 */
+:root {
+    --white: hsl(206, 100%, 94%);
+    --accent-color: hsl(206, 100%, 81%);
+    --accent-color-two: hsl(208, 75%, 82%);
+    --accent-low-opacity: hsla(205, 91%, 69%, .15);
+    --bg-color: hsl(252, 10%, 11%);
+    --grey-one: hsl(210, 14%, 17%);
+    --grey-two: hsl(212, 19%, 19%);
+    --grey-three: hsl(221, 17%, 26%);
+    --grey-four: hsl(226, 48%, 18%);
+    --grey-five: hsl(208, 30%, 75%);
+    --grey-six: hsl(230, 9%, 13%);
+    --grey-seven: hsl(240, 9%, 13.5%);
+    --grey-eight: hsla(207, 30%, 75%, .577);
+    --grey-nine: hsla(240, 6%, 7%, .3);
+    --grey-ten: hsl(230, 9.5%, 17.5%);
+    --grey-eleven: hsl(208, 10%, 40%);
+    --red-one: hsl(333, 84%, 62%);
+    --bezier-one: cubic-bezier(.25, .46, .45, .94);
+    --drop-shadow-one: 0px 4px 5px 0px rgba(0, 0, 0, .14), 0px 1px 10px 0px rgba(0, 0, 0, .12), 0px 2px 4px -1px rgba(0, 0, 0, .2)
+}
+
+* {
+    color: inherit !important;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
 body {
+    min-height: 100vh;
     display: flex;
-    /* https: //stackoverflow.com/a/32466333 */
-    /* align-items: stretch; */
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: var(--bg-color) !important;
+}
+
+body * {
+    color: var(--grey-five) !important;
+}
+
+main {
+    display: flex;
     align-items: center;
     justify-content: space-evenly;
     flex-direction: row;
-    flex-wrap: wrap;
-    gap: 25px;
-    min-height: 100vh;
-    background-color: #000;
+    width: 100%;
     padding: 25px;
+    gap: 25px;
+    flex: 1;
 }
 
-.app-container {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    gap: 10px;
-    /* height: 100%; */
+main * {
+    margin: 0;
+    padding: 0;
 }
 
-button {
-    background-color: #D2042D;
-    padding: 3px 7px;
-    border-radius: 99999px;
-    text-align: center;
-    vertical-align: middle;
-    color: #fff;
-}
-
-.comment {
-    color: #f00;
-}
-
-.app-container>.comment {
-    display: inline-block;
-}
-
-button {
-    cursor: pointer;
-    font-size: inherit;
-}
-
-button:hover {
-    background-color: #f00;
+svg {
+    margin: 0;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    z-index: -1;
 }
 
 img {
@@ -51,18 +72,53 @@ img {
 }
 
 footer {
-    color: #fff;
-    position: fixed;
-    bottom: 2%;
-    right: 1%;
+    align-self: center flex-end !important;
+    margin-bottom: 10px;
 }
 
 footer, footer * {
     font-size: small;
+    color: var(--grey-four) !important;
 }
 
-.app-container h1 {
-    color: #D2042D;
+h1 {
+    color: var(--accent-color) !important;
+}
+
+a.button:hover {
+    text-decoration: none !important;
+}
+
+a[id*="download"] {
+    background-color: var(--accent-color);
+    color: var(--grey-four) !important;
+}
+
+.button {
+    margin: 0 !important;
+}
+
+a.button[id*="open"] {
+    color: var(--white) !important;
+    background-color: var(--grey-two) !important;
+}
+
+.app-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 100%;
+}
+
+.app-container > div:has(a.button) {
+    display: flex;
+    gap: 10px;
+    margin-top: 50px;
+}
+
+.app-container>.comment {
+    display: inline-block;
 }
 
 .app-container div:has(button) {
@@ -83,11 +139,8 @@ footer, footer * {
     gap: 10px;
 }
 
-#images-container img {
-    display: flex;
-    align-self: flex-end;
-    margin-top: 5px;
-    max-width: 100%;
+.comment {
+    color: var(--accent-color) !important;
 }
 
 #adblocker {
@@ -104,16 +157,26 @@ footer, footer * {
     max-width: 100%;
 }
 
-@media (pointer:none), (pointer:coarse) {
-    #adblocker {
-        max-width: 100%;
+@media (max-width: 874px) {
+    main {
+        flex-direction: column;
     }
 
-    footer {
+    main .app-container {
+        width: 100%;
+    }
+
+    svg {
         display: none;
     }
 
-    body {
-        justify-content: space-between;
+    footer, footer * {
+        color: var(--white) !important;
+    }
+}
+
+@media (pointer:none), (pointer:coarse) {
+    #adblocker {
+        max-width: 100%;
     }
 }

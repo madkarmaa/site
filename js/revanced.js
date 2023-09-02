@@ -19,10 +19,18 @@ function latestYtSuggestedVersion(patches) {
 }
 
 refreshLinks();
+// let isLightTheme = true;
 
 (async () => {
-    const patchesData = await (await fetch('https://api.revanced.app/v2/patches/latest')).json();
-    const managerData = await (await fetch('https://api.revanced.app/v2/revanced-manager/releases/latest')).json();
+    const requestOptions = {
+        headers: {
+            'User-Agent': 'All-in-one ReVanced Links (https://github.com/madkarmaa/madkarmaa.github.io)',
+        },
+    };
+    const patchesData = await (await fetch('https://api.revanced.app/v2/patches/latest', requestOptions)).json();
+    const managerData = await (
+        await fetch('https://api.revanced.app/v2/revanced-manager/releases/latest', requestOptions)
+    ).json();
     const microGData = await (await fetch('https://api.github.com/repos/inotia00/VancedMicroG/releases/latest')).json();
     const patches = patchesData.patches;
     const manager = managerData.release;
@@ -39,10 +47,10 @@ refreshLinks();
 <h1>ReVanced Manager</h1>
 <div>Version <span class="comment">${manager.metadata.tag_name.replace(/v|version /i, '')}</span></div>
 <div>Published ${latestManagerDate.toLocaleString()}</div>
+<span class="comment">${manager.assets[0].name}</span>
 <div>
-    <span class="comment">${manager.assets[0].name}</span>
-    <button id="manager-download">Download</button>
-    <button id="manager-open" onclick="window.open('//revanced.app/download', '_blank')">Go to website</button>
+    <a id="manager-download" class="button large">Download</a>
+    <a id="manager-open" class="button large" onclick="window.open('//revanced.app/download', '_blank')">Go to website</a>
 </div>
 `,
     });
@@ -54,14 +62,12 @@ refreshLinks();
 <h1>YouTube</h1>
 <div>Suggested version by ReVanced: <span class="comment">${suggestedYtVersion}</span></div>
 <div>
-    <span class="comment">Download from ApkMirror</span>
-    <button id="youtube-download">Download</button>
+    Make sure it's only the apk and <b class="comment" style="text-decoration: underline;">NOT</b> a bundled apk,
+    <br>
+    then click the download button.
 </div>
-<div id="images-container">
-    <div>Make sure it's only the apk <img src="../img/apkmirror-correct-apk.png"></div>
-    <div>And <span class="comment" style="text-decoration: underline; font-weight: 700;">NOT</span> a bundled apk
-    <img src="../img/apkmirror-wrong-apk.png"></div>
-    <div>Then click the download button <img src="../img/apkmirror-dl-button.png"></div>
+<div>
+    <a id="youtube-download" class="button large">Download from ApkMirror</a>
 </div>
 `,
     });
@@ -73,15 +79,16 @@ refreshLinks();
 <h1>MicroG</h1>
 <div>Version <span class="comment">${microGData.tag_name.replace(/v|version /i, '')}</span></div>
 <div>Published ${latestMicroGDate.toLocaleString()}</div>
+<span class="comment">${microGApk.name}</span>
 <div>
-    <span class="comment">${microGApk.name}</span>
-    <button id="microg-download">Download</button>
-    <button id="microg-open" onclick="window.open('//github.com/inotia00/VancedMicroG/releases/latest', '_blank')">Go to website</button>
+    <a id="microg-download" class="button large">Download</a>
+    <a id="microg-open" class="button large"
+        onclick="window.open('//github.com/inotia00/VancedMicroG/releases/latest', '_blank')">Go to website</a>
 </div>
 `,
     });
 
-    document.body.append(managerContainer, ytContainer, microGContainer);
+    document.querySelector('main').append(managerContainer, ytContainer, microGContainer);
 
     const downloadManagerBtn = document.querySelector('#manager-download');
     downloadManagerBtn.addEventListener('click', () => {
