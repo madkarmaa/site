@@ -22,14 +22,9 @@ refreshLinks();
 // let isLightTheme = true;
 
 (async () => {
-    const requestOptions = {
-        headers: {
-            'User-Agent': 'All-in-one ReVanced Links (https://github.com/madkarmaa/madkarmaa.github.io)',
-        },
-    };
-    const patchesData = await (await fetch('https://api.revanced.app/v2/patches/latest', requestOptions)).json();
+    const patchesData = await (await fetch('https://api.revanced.app/v2/patches/latest', { mode: 'cors' })).json();
     const managerData = await (
-        await fetch('https://api.revanced.app/v2/revanced-manager/releases/latest', requestOptions)
+        await fetch('https://api.revanced.app/v2/revanced-manager/releases/latest', { mode: 'cors' })
     ).json();
     const microGData = await (await fetch('https://api.github.com/repos/inotia00/VancedMicroG/releases/latest')).json();
     const patches = patchesData.patches;
