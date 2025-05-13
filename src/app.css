@@ -1,0 +1,94 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+:root {
+	--text: theme('colors.text');
+	--background: theme('colors.background');
+	--primary: theme('colors.primary');
+	--secondary: theme('colors.secondary');
+	--accent: theme('colors.accent');
+}
+
+:not(pre, pre > code) {
+	margin: 0;
+	padding: 0;
+	outline: none;
+	box-sizing: border-box;
+
+	font-family: 'Fira Code', serif;
+	font-optical-sizing: auto;
+	font-size: 1rem;
+	color: var(--text);
+
+	scroll-behavior: smooth;
+}
+
+::selection {
+	background-color: var(--accent);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0.8rem 0;
+	font-weight: 600 !important;
+}
+
+h1 {
+	font-size: 2.4rem !important;
+	text-align: center;
+	color: var(--primary) !important;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: var(--accent) !important;
+}
+
+h2 {
+	font-size: 2rem !important;
+}
+
+h3 {
+	font-size: 1.8rem !important;
+}
+
+h4 {
+	font-size: 1.6rem !important;
+}
+
+h5 {
+	font-size: 1.4rem !important;
+}
+
+h6 {
+	font-size: 1.2rem !important;
+}
+
+input[type='text'],
+input[type='text']:focus {
+	border: none !important;
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+img {
+	pointer-events: none;
+}
+
+.noselect, img {
+	-webkit-user-drag: none !important;
+	-webkit-touch-callout: none !important;
+	-webkit-user-select: none !important;
+	-khtml-user-select: none !important;
+	-moz-user-select: none !important;
+	-ms-user-select: none !important;
+	user-select: none !important;
+}
