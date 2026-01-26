@@ -12,7 +12,6 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
-		"me": "bun ./scripts/update-me-file.ts",
 		"postinstall": "simple-git-hooks"
 	},
 	"devDependencies": {

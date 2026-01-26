@@ -34,14 +34,11 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Update "me" file
-        run: bun run me
-        env:
-          DATE: ${{ secrets.DATE }}
-
       - name: Build
         id: build
         run: bun run build
+        env:
+          PUBLIC_GITHUB_USERNAME: ${{ github.repository_owner }}
 
       - name: Upload static files
         id: deployment
