@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 @import 'tailwindcss';
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -188,15 +189,21 @@
 	--color-accent-950: var(--color-accent-950);
 }
 
+@utility jetbrains-mono-* {
+	font-family: 'JetBrains Mono', monospace;
+	font-optical-sizing: auto;
+	font-weight: --value('100', '200', '300', '400', '500', '600', '700', '800');
+	font-style: normal;
+}
+
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	border: none;
-	outline: none;
 }
 
 html,
 body {
 	@apply bg-background-50 text-text-950;
+	@apply jetbrains-mono-400;
 }

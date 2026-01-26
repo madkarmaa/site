@@ -22,11 +22,25 @@ export const fetchGitHubUser = async (username: string, fetchFn: typeof fetch) =
 };
 
 export const userReposUrl = (username: string) => `${userUrl(username)}/repos` as const;
-export const fetchGitHubUserRepos = async (username: string, fetchFn: typeof fetch) => {
+
+type Options = { showForks?: boolean; showArchived?: boolean };
+export const fetchGitHubUserRepos = async (
+	username: string,
+	fetchFn: typeof fetch,
+	options: Options = {}
+) => {
+	const opts: Required<Options> = { showForks: false, showArchived: false, ...options };
+
 	const response = await fetchFn(userReposUrl(username));
 	if (!response.ok) await throwError(response, `Error fetching user repositories`);
 
 	const data = await response.json();
-	const repos = GitHubRepoSchema.array().parse(data);
+	let repos = GitHubRepoSchema.array().parse(data);
+
+	if (!opts.showForks) repos = repos.filter((repo) => !repo.fork);
+	if (!opts.showArchived) repos = repos.filter((repo) => !repo.archived);
+
+	repos = repos.sort((a, b) => b.pushed_at.getTime() - a.pushed_at.getTime());
+
 	return repos;
 };
