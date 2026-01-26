@@ -209,3 +209,7 @@ body {
 img {
 	@apply pointer-events-none select-none;
 }
+
+::selection {
+	@apply bg-accent-200 text-text-900;
+}

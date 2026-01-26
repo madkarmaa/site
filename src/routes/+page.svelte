@@ -4,8 +4,15 @@
 	import Section from '$components/atoms/Section.svelte';
 	import { PUBLIC_GITHUB_USERNAME } from '$env/static/public';
 	import { onMount } from 'svelte';
-	import Landing from '$components/organisms/Landing.svelte';
+	import Landing, { type Button } from '$components/organisms/Landing.svelte';
 	import Code from '~icons/material-symbols/code-rounded';
+	import GitHub from '~icons/mdi/github';
+	import Email from '~icons/material-symbols/alternate-email-rounded';
+
+	const buttons = [
+		{ label: 'GitHub', href: `https://github.com/${PUBLIC_GITHUB_USERNAME}`, icon: GitHub },
+		{ label: 'Email', href: 'mailto:me@madkarma.top', icon: Email }
+	] satisfies Button[];
 
 	let userPromise: ReturnType<typeof fetchGitHubUser> | undefined;
 	let reposPromise: ReturnType<typeof fetchGitHubUserRepos> | undefined;
@@ -20,9 +27,9 @@
 {/snippet}
 
 <main class="mx-auto flex max-w-[90%] flex-col gap-10 px-0 py-8 md:max-w-[80%] md:px-5">
-	<Landing>
+	<Landing {buttons}>
 		{#snippet title()}
-			Salutations! I'm
+			Sup,
 			<span class="text-text-700">
 				{#if userPromise}
 					{#await userPromise}
@@ -38,6 +45,7 @@
 					{PUBLIC_GITHUB_USERNAME}
 				{/if}
 			</span>
+			here!
 		{/snippet}
 		{#snippet description()}
 			<p>
