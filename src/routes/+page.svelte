@@ -28,7 +28,7 @@
 						{@render message('No repositories found.')}
 					{:else}
 						{#each repos as repo, i (repo.id)}
-							<GitHubRepoCard {repo} delay={i * 50} />
+							<GitHubRepoCard {repo} showDelay={i * 50} />
 						{/each}
 					{/if}
 				{/await}

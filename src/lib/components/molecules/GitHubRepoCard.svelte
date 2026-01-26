@@ -5,11 +5,11 @@
 	import { fly } from 'svelte/transition';
 	import { onMount } from 'svelte';
 
-	type Props = { repo: GitHubRepo; delay?: number };
-	let { repo, delay = 0 }: Props = $props();
+	type Props = { repo: GitHubRepo; showDelay?: number };
+	let { repo, showDelay = 0 }: Props = $props();
 
 	let show = $state(false);
-	onMount(() => setTimeout(() => (show = true), delay));
+	onMount(() => setTimeout(() => (show = true), showDelay));
 </script>
 
 {#if show}
