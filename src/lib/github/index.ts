@@ -10,14 +10,14 @@ const logApiError = async (response: Response, message?: string) => {
 
 	console.error(`[${response.status}] ${message}:\n\n${error.message}`);
 
-	return { error: error.message, status: response.status } as const;
+	return { message: error.message, status: response.status } as const;
 };
 
 export const userUrl = (username: string) => `${API_BASE_URL}/users/${username.trim()}` as const;
-export const fetchGitHubUser = async (username: string, fetchFn: typeof fetch) => {
-	const response = await fetchFn(userUrl(username));
+export const fetchGitHubUser = async (username: string) => {
+	const response = await fetch(userUrl(username));
 	if (!response.ok) {
-		const error = await logApiError(response, `Error fetching user`);
+		const error = await logApiError(response, 'Error fetching user');
 		return [null, error] as const;
 	}
 
@@ -25,20 +25,17 @@ export const fetchGitHubUser = async (username: string, fetchFn: typeof fetch) =
 	const user = GitHubUserSchema.parse(data);
 	return [user, null] as const;
 };
+export type GitHubUserResult = Awaited<ReturnType<typeof fetchGitHubUser>>;
 
 export const userReposUrl = (username: string) => `${userUrl(username)}/repos` as const;
 
 type Options = { showForks?: boolean; showArchived?: boolean };
-export const fetchGitHubUserRepos = async (
-	username: string,
-	fetchFn: typeof fetch,
-	options: Options = {}
-) => {
+export const fetchGitHubUserRepos = async (username: string, options: Options = {}) => {
 	const opts: Required<Options> = { showForks: false, showArchived: false, ...options };
 
-	const response = await fetchFn(userReposUrl(username));
+	const response = await fetch(userReposUrl(username));
 	if (!response.ok) {
-		const error = await logApiError(response, `Error fetching user repositories`);
+		const error = await logApiError(response, 'Error fetching user repositories');
 		return [null, error] as const;
 	}
 
@@ -52,3 +49,4 @@ export const fetchGitHubUserRepos = async (
 
 	return [repos, null] as const;
 };
+export type GitHubUserReposResult = Awaited<ReturnType<typeof fetchGitHubUserRepos>>;

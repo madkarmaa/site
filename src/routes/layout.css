@@ -196,6 +196,10 @@
 	font-style: normal;
 }
 
+* {
+	@apply duration-200;
+}
+
 html,
 body {
 	@apply bg-background-50 text-text-950;
