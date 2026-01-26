@@ -12,22 +12,27 @@ export const GitHubUserSchema = z.object({
 });
 export type GitHubUser = z.infer<typeof GitHubUserSchema>;
 
-export const GitHubRepoSchema = z.object({
-	id: z.number(),
-	name: z.string().trim(),
-	full_name: z.string().trim(),
-	html_url: z.url().trim(),
-	description: z.string().trim().nullable(),
-	stargazers_count: z.number(),
-	forks_count: z.number(),
-	fork: z.boolean(),
-	archived: z.boolean(),
-	pushed_at: z
-		.string()
-		.trim()
-		.transform((dateString) => new Date(dateString)),
-	topics: z.string().trim().array()
-});
+export const GitHubRepoSchema = z
+	.object({
+		id: z.number(),
+		name: z.string().trim(),
+		full_name: z.string().trim(),
+		html_url: z.url().trim(),
+		description: z.string().trim().nullable(),
+		stargazers_count: z.number(),
+		forks_count: z.number(),
+		fork: z.boolean(),
+		archived: z.boolean(),
+		pushed_at: z
+			.string()
+			.trim()
+			.transform((dateString) => new Date(dateString)),
+		topics: z.string().trim().array()
+	})
+	.transform((repo) => ({
+		...repo,
+		picture_url: `https://opengraph.githubassets.com/1/${repo.full_name}`
+	}));
 export type GitHubRepo = z.infer<typeof GitHubRepoSchema>;
 
 export const ErrorResponseSchema = z.object({

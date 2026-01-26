@@ -196,14 +196,12 @@
 	font-style: normal;
 }
 
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
 html,
 body {
 	@apply bg-background-50 text-text-950;
 	@apply jetbrains-mono-400;
+}
+
+img {
+	@apply pointer-events-none select-none;
 }
