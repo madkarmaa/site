@@ -6,7 +6,7 @@
 </script>
 
 <section class="relative flex flex-col gap-6">
-	<h1 class="flex items-center gap-4 text-2xl">
+	<h1 class="flex items-center gap-4 jetbrains-mono-700 text-2xl">
 		<Icon class="inline-block text-accent-800" />
 		{title}
 	</h1>
