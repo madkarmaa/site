@@ -5,14 +5,31 @@
 	import { PUBLIC_GITHUB_USERNAME } from '$env/static/public';
 	import { onMount } from 'svelte';
 	import Landing, { type Button } from '$components/organisms/Landing.svelte';
+	import SkillCard, { type Props as Skill } from '$components/atoms/SkillCard.svelte';
 	import Code from '~icons/material-symbols/code-rounded';
+	import Widgets from '~icons/material-symbols/widgets-outline-rounded';
 	import GitHub from '~icons/mdi/github';
 	import Email from '~icons/material-symbols/alternate-email-rounded';
+	import TypeScript from '~icons/simple-icons/typescript';
+	import Svelte from '~icons/simple-icons/svelte';
+	import TailwindCSS from '~icons/simple-icons/tailwindcss';
+	import Python from '~icons/simple-icons/python';
+	import CSharp from '~icons/simple-icons/csharp';
+	import Git from '~icons/simple-icons/git';
 
 	const buttons = [
 		{ label: 'GitHub', href: `https://github.com/${PUBLIC_GITHUB_USERNAME}`, icon: GitHub },
 		{ label: 'Email', href: 'mailto:me@madkarma.top', icon: Email }
 	] satisfies Button[];
+
+	const skills = [
+		{ label: 'TypeScript', icon: TypeScript },
+		{ label: 'Svelte', icon: Svelte },
+		{ label: 'Tailwind CSS', icon: TailwindCSS },
+		{ label: 'Python', icon: Python },
+		{ label: 'C#', icon: CSharp },
+		{ label: 'Git', icon: Git }
+	] satisfies Skill[];
 
 	const highlightedRepos = ['wsg', 'site', 'BSOD'];
 
@@ -99,6 +116,14 @@
 			{:else}
 				{@render message('Loading...')}
 			{/if}
+		</div>
+	</Section>
+
+	<Section title="Skills" icon={Widgets}>
+		<div class="grid grid-cols-3 gap-6 sm:grid-cols-6 lg:grid-cols-9">
+			{#each skills as skill, i (i)}
+				<SkillCard {...skill} />
+			{/each}
 		</div>
 	</Section>
 </main>

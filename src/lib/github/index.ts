@@ -1,5 +1,5 @@
 import {
-	ErrorResponseSchema,
+	GitHubErrorResponseSchema,
 	GitHubRepoSchema,
 	GitHubUserSchema,
 	type GitHubRepo
@@ -12,7 +12,7 @@ const logApiError = async (response: Response, message?: string) => {
 	message = message?.trim() ?? 'GitHub API Error';
 
 	const data = await response.json();
-	const error = ErrorResponseSchema.parse(data);
+	const error = GitHubErrorResponseSchema.parse(data);
 
 	console.error(`[${response.status}] ${message}:\n\n${error.message}`);
 

@@ -35,7 +35,29 @@ export const GitHubRepoSchema = z
 	}));
 export type GitHubRepo = z.infer<typeof GitHubRepoSchema>;
 
-export const ErrorResponseSchema = z.object({
+export const GitHubErrorResponseSchema = z.object({
 	message: z.string().trim()
 });
-export type ErrorResponse = z.infer<typeof ErrorResponseSchema>;
+export type GitHubErrorResponse = z.infer<typeof GitHubErrorResponseSchema>;
+
+export const ContributionsSchema = z.object({
+	total: z.object({
+		lastYear: z.number()
+	}),
+	contributions: z
+		.object({
+			date: z
+				.string()
+				.trim()
+				.transform((dateString) => new Date(dateString)),
+			count: z.number(),
+			level: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3), z.literal(4)])
+		})
+		.array()
+});
+export type Contributions = z.infer<typeof ContributionsSchema>;
+
+export const ContributionsErrorResponseSchema = z.object({
+	error: z.string().trim()
+});
+export type ContributionsErrorResponse = z.infer<typeof ContributionsErrorResponseSchema>;
