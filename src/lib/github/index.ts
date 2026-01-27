@@ -1,4 +1,9 @@
-import { ErrorResponseSchema, GitHubRepoSchema, GitHubUserSchema } from './schemas';
+import {
+	ErrorResponseSchema,
+	GitHubRepoSchema,
+	GitHubUserSchema,
+	type GitHubRepo
+} from './schemas';
 
 const API_BASE_URL = 'https://api.github.com' as const;
 
@@ -27,11 +32,39 @@ export const fetchGitHubUser = async (username: string) => {
 };
 export type GitHubUserResult = Awaited<ReturnType<typeof fetchGitHubUser>>;
 
+const orderReposByPushedAt = (order: 'asc' | 'desc') => (a: GitHubRepo, b: GitHubRepo) =>
+	order === 'desc'
+		? b.pushed_at.getTime() - a.pushed_at.getTime()
+		: a.pushed_at.getTime() - b.pushed_at.getTime();
+
+const highlightRepos = (repos: GitHubRepo[], highlights: string[]) => {
+	const index = new Map(highlights.map((h, i) => [h.toLowerCase(), i]));
+
+	return [...repos].sort((a, b) => {
+		const ia = index.get(a.name.toLowerCase());
+		const ib = index.get(b.name.toLowerCase());
+		if (ia === undefined && ib === undefined) return 0;
+		if (ia === undefined) return 1;
+		if (ib === undefined) return -1;
+		return ia - ib;
+	});
+};
+
 export const userReposUrl = (username: string) => `${userUrl(username)}/repos` as const;
 
-type Options = { showForks?: boolean; showArchived?: boolean };
+type Options = { showForks?: boolean; showArchived?: boolean; highlights?: string[] };
 export const fetchGitHubUserRepos = async (username: string, options: Options = {}) => {
-	const opts: Required<Options> = { showForks: false, showArchived: false, ...options };
+	const opts: Required<Options> = {
+		showForks: false,
+		showArchived: false,
+		highlights: [],
+		...options
+	};
+
+	opts.highlights = opts.highlights
+		.map((h) => h.trim())
+		.filter((h) => h)
+		.slice(0, 3); // limit to first 3 highlights
 
 	const response = await fetch(userReposUrl(username));
 	if (!response.ok) {
@@ -45,7 +78,9 @@ export const fetchGitHubUserRepos = async (username: string, options: Options = 
 	if (!opts.showForks) repos = repos.filter((repo) => !repo.fork);
 	if (!opts.showArchived) repos = repos.filter((repo) => !repo.archived);
 
-	repos = repos.sort((a, b) => b.pushed_at.getTime() - a.pushed_at.getTime());
+	repos = repos.sort(orderReposByPushedAt('desc'));
+
+	if (opts.highlights.length) repos = highlightRepos(repos, opts.highlights);
 
 	return [repos, null] as const;
 };

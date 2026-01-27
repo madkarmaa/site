@@ -14,11 +14,15 @@
 		{ label: 'Email', href: 'mailto:me@madkarma.top', icon: Email }
 	] satisfies Button[];
 
+	const highlightedRepos = ['wsg', 'site', 'BSOD'];
+
 	let userPromise: ReturnType<typeof fetchGitHubUser> | undefined;
 	let reposPromise: ReturnType<typeof fetchGitHubUserRepos> | undefined;
 	onMount(() => {
 		userPromise = fetchGitHubUser(PUBLIC_GITHUB_USERNAME);
-		reposPromise = fetchGitHubUserRepos(PUBLIC_GITHUB_USERNAME);
+		reposPromise = fetchGitHubUserRepos(PUBLIC_GITHUB_USERNAME, {
+			highlights: highlightedRepos
+		});
 	});
 </script>
 
