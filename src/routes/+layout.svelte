@@ -9,7 +9,7 @@
 </script>
 
 <svelte:head>
-	<title>{page.url.pathname}</title>
+	<title>~{page.url.pathname}</title>
 	<link rel="shortcut icon" href={favicon} type="image/x-icon" />
 </svelte:head>
 
