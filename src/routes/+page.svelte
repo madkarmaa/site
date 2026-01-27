@@ -91,7 +91,8 @@
 			here!
 		{/snippet}
 		{#snippet short()}
-			I'm a self-taught full-stack developer who loves building cool stuff on the web
+			I'm a self-taught full-stack developer based in <span class="text-accent-800">Italy</span> who
+			loves building cool stuff on the web
 			<span class="text-text-700 italic">and beyond</span>.
 			{#if userPromise}
 				{#await userPromise then [user]}
