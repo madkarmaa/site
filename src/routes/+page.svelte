@@ -150,7 +150,7 @@
 	<Section title="Skills" icon={Widgets}>
 		<div class="grid grid-cols-3 gap-6 sm:grid-cols-6 lg:grid-cols-9">
 			{#each skills as skill, i (i)}
-				<SkillCard {...skill} />
+				<SkillCard {...skill} showDelay={i * 50} />
 			{/each}
 		</div>
 	</Section>
