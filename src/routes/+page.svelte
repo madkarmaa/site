@@ -42,6 +42,15 @@
 		reposPromise = fetchGitHubUserRepos(PUBLIC_GITHUB_USERNAME, {
 			highlights: highlightedRepos
 		});
+
+		reposPromise.then(([repos]) => {
+			if (!repos) return;
+
+			repos.slice(MAX_HIGHLIGHTED_REPOS).forEach((repo) => {
+				const img = new Image();
+				img.src = repo.picture_url;
+			});
+		});
 	});
 </script>
 
