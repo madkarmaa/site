@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { fetchGitHubUser, fetchGitHubUserRepos, MAX_HIGHLIGHTED_REPOS } from '$lib/github';
 	import GitHubRepoCard from '$components/molecules/GitHubRepoCard.svelte';
-	import Section from '$components/atoms/Section.svelte';
+	import Section from '$components/molecules/Section.svelte';
 	import { PUBLIC_GITHUB_USERNAME } from '$env/static/public';
 	import { onMount } from 'svelte';
 	import Landing, { type Button } from '$components/organisms/Landing.svelte';
-	import SkillCard, { type Props as Skill } from '$components/atoms/SkillCard.svelte';
+	import SkillCard, { type Props as Skill } from '$components/molecules/SkillCard.svelte';
 	import Code from '~icons/material-symbols/code-rounded';
 	import Widgets from '~icons/material-symbols/widgets-outline-rounded';
 	import GitHub from '~icons/mdi/github';
