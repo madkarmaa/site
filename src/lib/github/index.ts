@@ -6,7 +6,7 @@ import {
 } from './schemas';
 
 const API_BASE_URL = 'https://api.github.com' as const;
-export const MAX_HIGHLIGHTED_REPOS = 3 as const;
+export const MAX_HIGHLIGHTED_REPOS = 4 as const;
 
 const logApiError = async (response: Response, message?: string) => {
 	message = message?.trim() ?? 'GitHub API Error';

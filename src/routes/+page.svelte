@@ -31,7 +31,7 @@
 		{ label: 'Git', icon: Git }
 	] satisfies Skill[];
 
-	const highlightedRepos = ['site', 'wsg', 'BSOD'];
+	const highlightedRepos = ['site', 'wsg'];
 
 	let showAllProjects = $state(false);
 
@@ -116,7 +116,7 @@
 	</Landing>
 
 	<Section title="Projects" icon={Code}>
-		<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+		<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 			{#if reposPromise}
 				{#await reposPromise}
 					{@render message('Loading...')}
@@ -149,7 +149,9 @@
 	</Section>
 
 	<Section title="Skills" icon={Widgets}>
-		<div class="grid grid-cols-3 gap-6 sm:grid-cols-6 lg:grid-cols-9">
+		<div
+			class="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7"
+		>
 			{#each skills as skill, i (i)}
 				<SkillCard {...skill} showDelay={i * 50} />
 			{/each}

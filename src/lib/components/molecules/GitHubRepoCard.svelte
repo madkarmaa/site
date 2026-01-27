@@ -24,13 +24,13 @@
 			<div
 				class="pointer-events-none absolute top-2 right-2 z-10 flex items-center justify-center gap-1 rounded-md bg-background-800 px-2 py-1 text-xs text-text-50 transition-colors select-none group-hover:bg-accent-700"
 			>
-				<Star class="h-4 w-4" />
+				<Star class="size-4" />
 				{repo.stargazers_count}
 			</div>
 			<div
 				class="pointer-events-none absolute top-2 left-2 z-10 flex items-center justify-center gap-1 rounded-md bg-background-800 px-2 py-1 text-xs text-text-50 select-none"
 			>
-				<Fork class="h-4 w-4" />
+				<Fork class="size-4" />
 				{repo.forks_count}
 			</div>
 			<img
