@@ -22,13 +22,13 @@
 	>
 		<div class="relative overflow-hidden">
 			<div
-				class="absolute top-2 right-2 z-10 flex items-center justify-center gap-1 rounded-md bg-background-800 px-2 py-1 text-xs text-text-50 transition-colors group-hover:bg-accent-700"
+				class="pointer-events-none absolute top-2 right-2 z-10 flex items-center justify-center gap-1 rounded-md bg-background-800 px-2 py-1 text-xs text-text-50 transition-colors select-none group-hover:bg-accent-700"
 			>
 				<Star class="h-4 w-4" />
 				{repo.stargazers_count}
 			</div>
 			<div
-				class="absolute top-2 left-2 z-10 flex items-center justify-center gap-1 rounded-md bg-background-800 px-2 py-1 text-xs text-text-50"
+				class="pointer-events-none absolute top-2 left-2 z-10 flex items-center justify-center gap-1 rounded-md bg-background-800 px-2 py-1 text-xs text-text-50 select-none"
 			>
 				<Fork class="h-4 w-4" />
 				{repo.forks_count}
@@ -52,7 +52,7 @@
 				<div class="flex max-h-6 flex-wrap gap-2 overflow-hidden">
 					{#each repo.topics as topic, i (i)}
 						<div
-							class="rounded-md bg-background-800 px-2 py-1 text-xs whitespace-nowrap text-text-50"
+							class="pointer-events-none rounded-md bg-background-800 px-2 py-1 text-xs whitespace-nowrap text-text-50 select-none"
 						>
 							{topic}
 						</div>

@@ -17,7 +17,7 @@
 </script>
 
 {#snippet sep()}
-	<span class="text-accent-800">|</span>
+	<span class="pointer-events-none text-accent-800 select-none">|</span>
 {/snippet}
 
 <div class="flex flex-col gap-6">
@@ -53,7 +53,7 @@
 				<button
 					type="button"
 					onclick={() => (showLong = !showLong)}
-					class="flex cursor-pointer items-center gap-3 underline-offset-2 hover:underline"
+					class="flex cursor-pointer items-center gap-3 underline-offset-2 select-none hover:underline"
 				>
 					{#if showLong}
 						Show less

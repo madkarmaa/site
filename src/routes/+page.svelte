@@ -87,7 +87,7 @@
 						{#if repos.length > MAX_HIGHLIGHTED_REPOS}
 							<div class="col-span-full flex items-center justify-center">
 								<button
-									class="cursor-pointer text-sm underline"
+									class="cursor-pointer text-sm underline select-none"
 									onclick={() => (showAllProjects = !showAllProjects)}
 								>
 									{showAllProjects ? 'Show less' : 'Show all'}
