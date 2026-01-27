@@ -6,6 +6,7 @@ export const GitHubUserSchema = z.object({
 	avatar_url: z.url().trim(),
 	html_url: z.url().trim(),
 	name: z.string().trim().nullable(),
+	company: z.string().trim().nullable(),
 	public_repos: z.number(),
 	followers: z.number(),
 	following: z.number()

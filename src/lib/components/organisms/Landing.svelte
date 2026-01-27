@@ -24,6 +24,7 @@
 	<h1 class="jetbrains-mono-700 text-3xl">{@render title()}</h1>
 	<p class="max-w-prose text-lg">
 		{#if long && showLong}
+			{@render short()}
 			{@render long()}
 		{:else}
 			{@render short()}

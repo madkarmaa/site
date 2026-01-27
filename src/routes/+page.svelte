@@ -58,6 +58,16 @@
 	<p class="col-span-full text-center text-2xl text-accent-800">{msg.trim()}</p>
 {/snippet}
 
+{#snippet descLink(href: string, label: string)}
+	<a
+		href={href.trim()}
+		rel="noopener noreferrer external"
+		class="text-text-700 underline decoration-dotted underline-offset-2 hover:text-accent-800"
+	>
+		{label.trim()}
+	</a>
+{/snippet}
+
 <main class="mx-auto flex max-w-[90%] flex-col gap-10 px-0 py-8 md:max-w-[80%] md:px-5">
 	<Landing {buttons}>
 		{#snippet title()}
@@ -80,18 +90,27 @@
 			here!
 		{/snippet}
 		{#snippet short()}
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam eligendi minima accusantium
-			id? Saepe hic sit dicta libero blanditiis corrupti delectus doloremque laborum illum sed. Odit
-			assumenda eius fugiat quas.
+			I'm a self-taught full-stack developer who loves building cool stuff on the web
+			<span class="text-text-700 italic">and beyond</span>.
+			{#if userPromise}
+				{#await userPromise then [user]}
+					{#if user && user.company}
+						I'm currently working at {@render descLink(
+							`https://github.com/${user.company}`,
+							user.company
+						)}.
+					{/if}
+				{/await}
+			{/if}
+			I love building whatever crosses my mind, always open to learning new things.
 		{/snippet}
 		{#snippet long()}
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos fugit, maxime mollitia assumenda
-			nobis illum at quia consequuntur expedita nulla dolorum qui, saepe omnis temporibus quasi
-			distinctio reiciendis sed voluptas! Consectetur quaerat dignissimos corrupti quas perferendis
-			quasi minus excepturi numquam a alias at explicabo ab, deserunt officia vel qui laborum ipsa
-			sapiente illo odit! Ab architecto voluptas sint sit minima? Suscipit maiores facere nulla
-			modi, dolor repellendus quis quae aut omnis aperiam vel. Aut voluptatem quas harum, aliquam
-			adipisci cumque rem obcaecati ullam ipsam labore debitis mollitia, incidunt a omnis!
+			Outside of coding, I'm an obsessed {@render descLink(
+				'http://gym-rat.urbanup.com/4855932',
+				'gym rat'
+			)} &#40;yes, <span class="italic">really</span>&#41;, and I love photography and videography.
+			There's something special in capturing moments in time. See you at the gym, I guess
+			<span class="text-accent-800">;&#41;</span>
 		{/snippet}
 	</Landing>
 
