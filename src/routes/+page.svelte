@@ -47,12 +47,19 @@
 			</span>
 			here!
 		{/snippet}
-		{#snippet description()}
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam eligendi minima accusantium
-				id? Saepe hic sit dicta libero blanditiis corrupti delectus doloremque laborum illum sed.
-				Odit assumenda eius fugiat quas.
-			</p>
+		{#snippet short()}
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam eligendi minima accusantium
+			id? Saepe hic sit dicta libero blanditiis corrupti delectus doloremque laborum illum sed. Odit
+			assumenda eius fugiat quas.
+		{/snippet}
+		{#snippet long()}
+			Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos fugit, maxime mollitia assumenda
+			nobis illum at quia consequuntur expedita nulla dolorum qui, saepe omnis temporibus quasi
+			distinctio reiciendis sed voluptas! Consectetur quaerat dignissimos corrupti quas perferendis
+			quasi minus excepturi numquam a alias at explicabo ab, deserunt officia vel qui laborum ipsa
+			sapiente illo odit! Ab architecto voluptas sint sit minima? Suscipit maiores facere nulla
+			modi, dolor repellendus quis quae aut omnis aperiam vel. Aut voluptatem quas harum, aliquam
+			adipisci cumque rem obcaecati ullam ipsam labore debitis mollitia, incidunt a omnis!
 		{/snippet}
 	</Landing>
 

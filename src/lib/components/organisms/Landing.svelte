@@ -1,19 +1,34 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import ArrowDown from '~icons/material-symbols/arrow-downward-rounded';
+	import ArrowUp from '~icons/material-symbols/arrow-upward-rounded';
 
 	export type Button = { label: string; href: string; icon: typeof import('~icons/*').default };
 
 	type Props = {
 		title: Snippet;
-		description: Snippet;
+		short: Snippet;
+		long?: Snippet;
 		buttons?: Button[];
 	};
-	let { title, description, buttons }: Props = $props();
+	let { title, short, long, buttons }: Props = $props();
+
+	let showLong = $state(false);
 </script>
+
+{#snippet sep()}
+	<span class="text-accent-800">|</span>
+{/snippet}
 
 <div class="flex flex-col gap-6">
 	<h1 class="jetbrains-mono-700 text-3xl">{@render title()}</h1>
-	<div class="max-w-prose text-lg">{@render description()}</div>
+	<p class="max-w-prose text-lg">
+		{#if long && showLong}
+			{@render long()}
+		{:else}
+			{@render short()}
+		{/if}
+	</p>
 
 	{#if buttons && buttons.length}
 		<div class="flex flex-wrap gap-4 text-sm">
@@ -29,9 +44,26 @@
 				</a>
 
 				{#if i < buttons.length - 1}
-					<span class="text-accent-800">|</span>
+					{@render sep()}
 				{/if}
 			{/each}
+
+			{#if long}
+				{@render sep()}
+				<button
+					type="button"
+					onclick={() => (showLong = !showLong)}
+					class="flex cursor-pointer items-center gap-3 underline-offset-2 hover:underline"
+				>
+					{#if showLong}
+						Show less
+						<ArrowUp class="text-text-800 transition-transform duration-200" />
+					{:else}
+						Read more
+						<ArrowDown class="text-text-800 transition-transform duration-200" />
+					{/if}
+				</button>
+			{/if}
 		</div>
 	{/if}
 </div>
