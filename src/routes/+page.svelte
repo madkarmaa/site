@@ -69,7 +69,7 @@
 	</a>
 {/snippet}
 
-<main class="mx-auto flex max-w-[90%] flex-col gap-10 px-0 py-14 md:max-w-[80%] md:px-5">
+<main class="mx-auto flex max-w-[90%] flex-col gap-10 px-0 py-12 md:max-w-[80%] md:px-5">
 	<Landing {buttons}>
 		{#snippet title()}
 			Sup,
