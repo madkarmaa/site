@@ -38,15 +38,19 @@ const orderReposByPushedAt = (order: 'asc' | 'desc') => (a: GitHubRepo, b: GitHu
 		: a.pushed_at.getTime() - b.pushed_at.getTime();
 
 const highlightRepos = (repos: GitHubRepo[], highlights: string[]) => {
+	// create a lookup table where each highlighted repo name is mapped to its priority order
+	// lower index = higher priority
 	const index = new Map(highlights.map((h, i) => [h.toLowerCase(), i]));
 
 	return [...repos].sort((a, b) => {
+		// get the priority index of each repo, if it exists
 		const ia = index.get(a.name.toLowerCase());
 		const ib = index.get(b.name.toLowerCase());
-		if (ia === undefined && ib === undefined) return 0;
-		if (ia === undefined) return 1;
-		if (ib === undefined) return -1;
-		return ia - ib;
+
+		if (ia === undefined && ib === undefined) return 0; // if neither repo is highlighted, keep their relative order
+		if (ia === undefined) return 1; // if only `b` is highlighted, move it before `a`
+		if (ib === undefined) return -1; // if only `a` is highlighted, move it before `b`
+		return ia - ib; // if both are highlighted, order them according to their position in the `highlights` array
 	});
 };
 
