@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { fetchGitHubUser, fetchGitHubUserRepos } from '$lib/github';
+	import { fetchGitHubUser, fetchGitHubUserRepos, MAX_HIGHLIGHTED_REPOS } from '$lib/github';
 	import GitHubRepoCard from '$components/molecules/GitHubRepoCard.svelte';
 	import Section from '$components/atoms/Section.svelte';
 	import { PUBLIC_GITHUB_USERNAME } from '$env/static/public';
@@ -16,8 +16,10 @@
 
 	const highlightedRepos = ['wsg', 'site', 'BSOD'];
 
-	let userPromise: ReturnType<typeof fetchGitHubUser> | undefined;
-	let reposPromise: ReturnType<typeof fetchGitHubUserRepos> | undefined;
+	let showAllProjects = $state(false);
+
+	let userPromise: ReturnType<typeof fetchGitHubUser> | undefined = $state(undefined);
+	let reposPromise: ReturnType<typeof fetchGitHubUserRepos> | undefined = $state(undefined);
 	onMount(() => {
 		userPromise = fetchGitHubUser(PUBLIC_GITHUB_USERNAME);
 		reposPromise = fetchGitHubUserRepos(PUBLIC_GITHUB_USERNAME, {
@@ -78,9 +80,20 @@
 					{:else if !repos.length}
 						{@render message('No repositories found.')}
 					{:else}
-						{#each repos as repo, i (repo.id)}
+						{#each showAllProjects ? repos : repos.slice(0, MAX_HIGHLIGHTED_REPOS) as repo, i (repo.id)}
 							<GitHubRepoCard {repo} showDelay={i * 50} />
 						{/each}
+
+						{#if repos.length > MAX_HIGHLIGHTED_REPOS}
+							<div class="col-span-full flex items-center justify-center">
+								<button
+									class="cursor-pointer text-sm underline"
+									onclick={() => (showAllProjects = !showAllProjects)}
+								>
+									{showAllProjects ? 'Show less' : 'Show all'}
+								</button>
+							</div>
+						{/if}
 					{/if}
 				{/await}
 			{:else}

@@ -6,6 +6,7 @@ import {
 } from './schemas';
 
 const API_BASE_URL = 'https://api.github.com' as const;
+export const MAX_HIGHLIGHTED_REPOS = 3 as const;
 
 const logApiError = async (response: Response, message?: string) => {
 	message = message?.trim() ?? 'GitHub API Error';
@@ -68,7 +69,7 @@ export const fetchGitHubUserRepos = async (username: string, options: Options = 
 	opts.highlights = opts.highlights
 		.map((h) => h.trim())
 		.filter((h) => h)
-		.slice(0, 3); // limit to first 3 highlights
+		.slice(0, MAX_HIGHLIGHTED_REPOS); // limit to first 3 highlights
 
 	const response = await fetch(userReposUrl(username));
 	if (!response.ok) {
