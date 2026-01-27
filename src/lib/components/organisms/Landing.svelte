@@ -36,7 +36,7 @@
 			{#each buttons as { label, href, icon: Icon }, i (i)}
 				<a
 					{href}
-					class="flex items-center gap-3 underline-offset-2 hover:underline"
+					class="flex items-center gap-3 hover:underline"
 					rel="noopener noreferrer external"
 					target="_blank"
 				>
@@ -54,7 +54,7 @@
 				<button
 					type="button"
 					onclick={() => (showLong = !showLong)}
-					class="flex cursor-pointer items-center gap-3 underline-offset-2 select-none hover:underline"
+					class="flex cursor-pointer items-center gap-3 select-none hover:underline"
 				>
 					{#if showLong}
 						Show less

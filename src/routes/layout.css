@@ -203,7 +203,7 @@
 html,
 body {
 	@apply bg-background-50 text-text-950;
-	@apply jetbrains-mono-400;
+	@apply jetbrains-mono-400 underline-offset-2;
 }
 
 img {

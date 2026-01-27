@@ -63,7 +63,7 @@
 		href={href.trim()}
 		rel="noopener noreferrer external"
 		target="_blank"
-		class="text-text-700 underline decoration-dotted underline-offset-2 hover:text-accent-800"
+		class="text-text-700 underline decoration-dotted hover:text-accent-800"
 	>
 		{label.trim()}
 	</a>
