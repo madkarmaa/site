@@ -103,14 +103,14 @@
 					{/if}
 				{/await}
 			{/if}
-			I love building whatever crosses my mind, always open to learning new things.
+			I love building whatever crosses my mind and am always open to learning new things.
 		{/snippet}
 		{#snippet long()}
 			Outside of coding, I'm an obsessed {@render descLink(
 				'http://gym-rat.urbanup.com/4855932',
 				'gym rat'
-			)} &#40;yes, <span class="italic">really</span>&#41;, and I love photography and videography;
-			there's something special in capturing moments in time. See you at the gym, I guess
+			)} &#40;yes, <span class="italic">really</span>&#41;. I love photography and videography;
+			there's something special about capturing moments in time. See you at the gym, I guess
 			<span class="text-accent-800">;&#41;</span>
 		{/snippet}
 	</Landing>
