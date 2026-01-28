@@ -20,10 +20,12 @@
 	import Python from '~icons/simple-icons/python';
 	import CSharp from '~icons/simple-icons/csharp';
 	import Git from '~icons/simple-icons/git';
+	import Key from '~icons/material-symbols/key-outline-rounded';
 
 	const buttons = [
 		{ label: 'GitHub', href: `https://github.com/${PUBLIC_GITHUB_USERNAME}`, icon: GitHub },
-		{ label: 'Email', href: 'mailto:me@madkarma.top', icon: Email }
+		{ label: 'Email', href: 'mailto:me@madkarma.top', icon: Email },
+		{ label: 'GPG key', href: `https://github.com/${PUBLIC_GITHUB_USERNAME}.gpg`, icon: Key }
 	] satisfies Button[];
 
 	const skills = [
