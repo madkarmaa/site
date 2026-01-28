@@ -40,7 +40,8 @@
 	onMount(() => {
 		userPromise = fetchGitHubUser(PUBLIC_GITHUB_USERNAME);
 		reposPromise = fetchGitHubUserRepos(PUBLIC_GITHUB_USERNAME, {
-			highlights: highlightedRepos
+			highlights: highlightedRepos,
+			ignore: [PUBLIC_GITHUB_USERNAME]
 		});
 
 		reposPromise.then(([repos]) => {

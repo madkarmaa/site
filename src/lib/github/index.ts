@@ -57,12 +57,18 @@ const highlightRepos = (repos: GitHubRepo[], highlights: string[]) => {
 
 export const userReposUrl = (username: string) => `${userUrl(username)}/repos` as const;
 
-type Options = { showForks?: boolean; showArchived?: boolean; highlights?: string[] };
+type Options = {
+	showForks?: boolean;
+	showArchived?: boolean;
+	highlights?: string[];
+	ignore?: string[];
+};
 export const fetchGitHubUserRepos = async (username: string, options: Options = {}) => {
 	const opts: Required<Options> = {
 		showForks: false,
 		showArchived: false,
 		highlights: [],
+		ignore: [],
 		...options
 	};
 
@@ -70,6 +76,8 @@ export const fetchGitHubUserRepos = async (username: string, options: Options = 
 		.map((h) => h.trim())
 		.filter((h) => h)
 		.slice(0, MAX_HIGHLIGHTED_REPOS); // limit to first 3 highlights
+
+	opts.ignore = opts.ignore.map((i) => i.trim()).filter((i) => i);
 
 	const response = await fetch(userReposUrl(username));
 	if (!response.ok) {
@@ -82,9 +90,8 @@ export const fetchGitHubUserRepos = async (username: string, options: Options = 
 
 	if (!opts.showForks) repos = repos.filter((repo) => !repo.fork);
 	if (!opts.showArchived) repos = repos.filter((repo) => !repo.archived);
-
+	repos = repos.filter((repo) => !opts.ignore.includes(repo.name));
 	repos = repos.sort(orderReposByPushedAt('desc'));
-
 	if (opts.highlights.length) repos = highlightRepos(repos, opts.highlights);
 
 	return [repos, null] as const;
