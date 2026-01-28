@@ -21,6 +21,7 @@
 	import CSharp from '~icons/simple-icons/csharp';
 	import Git from '~icons/simple-icons/git';
 	import Key from '~icons/material-symbols/key-outline-rounded';
+	import Embed from '$components/molecules/Embed.svelte';
 
 	const buttons = [
 		{ label: 'GitHub', href: `https://github.com/${PUBLIC_GITHUB_USERNAME}`, icon: GitHub },
@@ -71,6 +72,13 @@
 		{label.trim()}
 	</a>
 {/snippet}
+
+<Embed
+	title="MadKarma"
+	description="Self-taught full-stack developer"
+	url="https://madkarma.top"
+	image="https://madkarma.top/EcWBgAdRqrQ.jpg"
+/>
 
 <main
 	class="mx-auto flex min-h-screen max-w-[90%] flex-col gap-10 px-0 py-12 md:max-w-[80%] md:px-5"
