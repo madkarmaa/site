@@ -1,11 +1,15 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import { PUBLIC_GITHUB_USERNAME } from '$env/static/public';
+
+	import { prefetchImages } from '$lib/utils';
 	import { fetchGitHubUser, fetchGitHubUserRepos, MAX_HIGHLIGHTED_REPOS } from '$lib/github';
+
 	import GitHubRepoCard from '$components/molecules/GitHubRepoCard.svelte';
 	import Section from '$components/molecules/Section.svelte';
-	import { PUBLIC_GITHUB_USERNAME } from '$env/static/public';
-	import { onMount } from 'svelte';
 	import Landing, { type Button } from '$components/organisms/Landing.svelte';
 	import SkillCard, { type Props as Skill } from '$components/molecules/SkillCard.svelte';
+
 	import Code from '~icons/material-symbols/code-rounded';
 	import Widgets from '~icons/material-symbols/widgets-outline-rounded';
 	import GitHub from '~icons/mdi/github';
@@ -46,11 +50,7 @@
 
 		reposPromise.then(([repos]) => {
 			if (!repos) return;
-
-			repos.slice(MAX_HIGHLIGHTED_REPOS).forEach((repo) => {
-				const img = new Image();
-				img.src = repo.picture_url;
-			});
+			prefetchImages(...repos.slice(MAX_HIGHLIGHTED_REPOS).map((repo) => repo.picture_url));
 		});
 	});
 </script>
