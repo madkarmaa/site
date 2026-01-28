@@ -15,10 +15,10 @@
 
 {#if show}
 	<div
-		class="group flex flex-col items-center justify-center gap-4 rounded-md border-2 border-background-100 bg-background-100 p-6 transition-colors hover:border-accent-700"
+		class=" flex flex-col items-center justify-center gap-4 rounded-md bg-background-100 p-6 transition-colors"
 		transition:fly={{ y: 20, duration: 200 }}
 	>
-		<Icon class="size-18 text-secondary-900 transition-transform group-hover:scale-105" />
+		<Icon class="size-18 text-secondary-900 transition-transform " />
 		<p class="text-center jetbrains-mono-600 text-xl text-text-700">{label}</p>
 	</div>
 {/if}

@@ -33,11 +33,11 @@
 		"prettier-plugin-svelte": "^3.4.1",
 		"prettier-plugin-tailwindcss": "^0.7.2",
 		"simple-git-hooks": "^2.13.1",
-		"svelte": "^5.48.2",
+		"svelte": "^5.48.5",
 		"svelte-check": "^4.3.5",
 		"tailwindcss": "^4.1.18",
 		"typescript": "^5.9.3",
-		"typescript-eslint": "^8.53.1",
+		"typescript-eslint": "^8.54.0",
 		"unplugin-icons": "^23.0.1",
 		"vite": "^7.3.1"
 	},
