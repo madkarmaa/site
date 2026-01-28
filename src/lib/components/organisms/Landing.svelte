@@ -22,7 +22,7 @@
 
 <div class="flex flex-col gap-6">
 	<h1 class="jetbrains-mono-700 text-3xl">{@render title()}</h1>
-	<p class="max-w-prose text-lg">
+	<p class="max-w-prose text-base md:text-lg">
 		{#if long && showLong}
 			{@render short()}
 			{@render long()}
