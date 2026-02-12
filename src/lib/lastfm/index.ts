@@ -31,7 +31,12 @@ export const userGetRecentTracksUrl = (username: string) =>
 
 export const userGetRecentTracks = async (username: string) => {
 	try {
-		const response = await fetch(userGetRecentTracksUrl(username));
+		const response = await fetch(userGetRecentTracksUrl(username), {
+			headers: {
+				'Content-Type': 'application/json',
+				'Cache-Control': 'no-cache'
+			}
+		});
 		if (!response.ok) {
 			const data = await response.json();
 			const errorResponse = LastFmErrorResponseSchema.parse(data);
