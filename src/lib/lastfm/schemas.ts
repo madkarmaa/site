@@ -5,7 +5,7 @@ const LastFmImageSchema = z.object({
 	size: z.enum(['small', 'medium', 'large', 'extralarge'])
 });
 const LastFmArtistSchema = z.object({ '#text': z.string().trim() });
-const LastFmAlbumSchema = z.object({ '#text': z.url().trim() });
+const LastFmAlbumSchema = z.object({ '#text': z.string().trim() });
 
 const LastFmAttrSchema = z.object({
 	nowplaying: z
