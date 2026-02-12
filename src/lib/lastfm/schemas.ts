@@ -26,7 +26,7 @@ const LastFmAttrSchema = z.object({
 		.optional()
 });
 
-const LastFmTrackSchema = z
+export const LastFmTrackSchema = z
 	.object({
 		artist: LastFmArtistSchema,
 		image: z.array(LastFmImageSchema),
@@ -41,6 +41,7 @@ const LastFmTrackSchema = z
 		name: track.name,
 		now_playing: track['@attr']?.nowplaying ?? false
 	}));
+export type LastFmTrack = z.infer<typeof LastFmTrackSchema>;
 
 export const LastFmRecentTracksSchema = z
 	.object({

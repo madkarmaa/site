@@ -1,6 +1,6 @@
 import { ok, err } from '@madkarma/ts-utils/result';
 import { PUBLIC_LASTFM_API_KEY } from '$env/static/public';
-import { LastFmRecentTracksSchema, LastFmErrorResponseSchema } from './schemas';
+import { LastFmRecentTracksSchema, LastFmErrorResponseSchema, type LastFmTrack } from './schemas';
 
 const API_BASE_URL = 'https://ws.audioscrobbler.com/2.0' as const;
 
@@ -63,4 +63,11 @@ export const userGetRecentTracks = async (username: string) => {
 			error instanceof Error ? error.message : 'Unknown error while fetching recent tracks';
 		return err({ code: 'LASTFM_UNKNOWN_ERROR', message });
 	}
+};
+
+export const trackToYoutubeSearchUrl = (track: LastFmTrack) => {
+	const query = new URLSearchParams({
+		search_query: `${track.name} ${track.artist}`
+	});
+	return `https://www.youtube.com/results?${query.toString()}`;
 };
