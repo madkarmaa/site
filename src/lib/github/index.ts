@@ -24,8 +24,17 @@ export const fetchGitHubUser = async (username: string) => {
 		}
 
 		const data = await response.json();
-		const user = GitHubUserSchema.parse(data);
-		return ok(user);
+
+		const userResult = GitHubUserSchema.safeParse(data);
+		if (!userResult.success) {
+			return err({
+				code: 'GITHUB_USER_PARSE_ERROR' as const,
+				message: 'Failed to parse user data',
+				details: userResult.error.issues
+			});
+		}
+
+		return ok(userResult.data);
 	} catch (error) {
 		const message = error instanceof Error ? error.message : 'Unknown error while fetching user';
 		return err({ code: 'GITHUB_UNKNOWN_ERROR', message });
@@ -92,7 +101,17 @@ export const fetchGitHubUserRepos = async (username: string, options: Options = 
 		}
 
 		const data = await response.json();
-		let repos = GitHubRepoSchema.array().parse(data);
+		const reposResult = GitHubRepoSchema.array().safeParse(data);
+
+		if (!reposResult.success) {
+			return err({
+				code: 'GITHUB_USER_REPOS_PARSE_ERROR' as const,
+				message: 'Failed to parse user repositories',
+				details: reposResult.error.issues
+			});
+		}
+
+		let repos = reposResult.data;
 
 		if (!opts.showForks) repos = repos.filter((repo) => !repo.fork);
 		if (!opts.showArchived) repos = repos.filter((repo) => !repo.archived);
