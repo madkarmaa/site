@@ -36,7 +36,7 @@
 			<img
 				alt="GitHub Repo Card"
 				src={repo.picture_url}
-				class="h-auto w-full transition-transform group-hover:scale-103"
+				class="h-auto w-full object-cover transition-transform group-hover:scale-103"
 			/>
 		</div>
 
@@ -62,3 +62,9 @@
 		</div>
 	</a>
 {/if}
+
+<style>
+	img {
+		aspect-ratio: 2 / 1;
+	}
+</style>
