@@ -45,14 +45,12 @@ export const userGetRecentTracks = async (username: string) => {
 		const data = await response.json();
 
 		const recentTracks = LastFmRecentTracksSchema.safeParse(data);
-		if (!recentTracks.success) {
-			console.error(recentTracks.error);
+		if (!recentTracks.success)
 			return err({
 				code: 'LASTFM_RECENT_TRACKS_PARSE_ERROR' as const,
 				message: 'Failed to parse recent tracks',
 				details: recentTracks.error.issues
 			});
-		}
 
 		return ok(recentTracks.data.recent_tracks);
 	} catch (error) {
