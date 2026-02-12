@@ -36,9 +36,9 @@
 </script>
 
 {#snippet trackData(name: string, artist: string = 'Unknown')}
-	<div class="flex flex-col gap-2">
-		<p class="text-md font-semibold">{name.trim()}</p>
-		<p class="text-sm">
+	<div class="flex min-w-0 flex-col gap-2">
+		<p class="text-md font-semibold wrap-break-word">{name.trim()}</p>
+		<p class="text-sm wrap-break-word">
 			by <span class="text-accent-800">{artist.trim()}</span>
 		</p>
 	</div>
@@ -65,7 +65,7 @@
 
 {#if tracks && tracks.length}
 	<a
-		class="flex w-max items-center gap-4 rounded-md border-2 border-transparent p-4 transition-colors hover:border-accent-700"
+		class="flex w-max max-w-full items-center gap-4 rounded-md border-2 border-transparent p-4 transition-colors hover:border-accent-700"
 		href={trackToYoutubeSearchUrl(tracks[0])}
 		target="_blank"
 		rel="noopener noreferrer external"
@@ -76,7 +76,7 @@
 	</a>
 {:else}
 	<div
-		class="flex w-max items-center gap-4 rounded-md border-2 border-transparent p-4 transition-colors"
+		class="flex w-max max-w-full items-center gap-4 rounded-md border-2 border-transparent p-4 transition-colors"
 	>
 		{@render cardContent()}
 	</div>
