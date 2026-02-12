@@ -9,6 +9,7 @@
 	import Section from '$components/molecules/Section.svelte';
 	import Landing, { type Button } from '$components/organisms/Landing.svelte';
 	import SkillCard, { type Props as Skill } from '$components/molecules/SkillCard.svelte';
+	import Embed from '$components/molecules/Embed.svelte';
 
 	import Code from '~icons/material-symbols/code-rounded';
 	import Widgets from '~icons/material-symbols/widgets-outline-rounded';
@@ -21,7 +22,6 @@
 	import CSharp from '~icons/simple-icons/csharp';
 	import Git from '~icons/simple-icons/git';
 	import Key from '~icons/material-symbols/key-outline-rounded';
-	import Embed from '$components/molecules/Embed.svelte';
 
 	const buttons = [
 		{ label: 'GitHub', href: `https://github.com/${PUBLIC_GITHUB_USERNAME}`, icon: GitHub },
