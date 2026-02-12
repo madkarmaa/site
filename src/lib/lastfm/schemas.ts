@@ -39,14 +39,18 @@ const LastFmTrackSchema = z
 		images: track.image,
 		album: track.album,
 		name: track.name,
-		nowplaying: track['@attr']?.nowplaying ?? false
+		now_playing: track['@attr']?.nowplaying ?? false
 	}));
 
-export const LastFmRecentTracksSchema = z.object({
-	recenttracks: z.object({
-		track: z.union([LastFmTrackSchema, z.array(LastFmTrackSchema)])
+export const LastFmRecentTracksSchema = z
+	.object({
+		recenttracks: z.object({
+			track: z.union([LastFmTrackSchema, z.array(LastFmTrackSchema)])
+		})
 	})
-});
+	.transform(({ recenttracks }) => ({
+		recent_tracks: Array.isArray(recenttracks.track) ? recenttracks.track : [recenttracks.track]
+	}));
 export type LastFmRecentTracks = z.infer<typeof LastFmRecentTracksSchema>;
 
 export const LastFmErrorResponseSchema = z.object({

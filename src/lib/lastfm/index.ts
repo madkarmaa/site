@@ -54,7 +54,7 @@ export const userGetRecentTracks = async (username: string) => {
 			});
 		}
 
-		return ok(recentTracks.data.recenttracks.track);
+		return ok(recentTracks.data.recent_tracks);
 	} catch (error) {
 		const message =
 			error instanceof Error ? error.message : 'Unknown error while fetching recent tracks';
