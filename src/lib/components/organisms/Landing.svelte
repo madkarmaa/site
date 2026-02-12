@@ -1,7 +1,11 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+
+	import PlayerMiniCard from '$components/molecules/PlayerMiniCard.svelte';
+
 	import ArrowDown from '~icons/material-symbols/arrow-downward-rounded';
 	import ArrowUp from '~icons/material-symbols/arrow-upward-rounded';
+	import { PUBLIC_LASTFM_USERNAME } from '$env/static/public';
 
 	export type Button = { label: string; href: string; icon: typeof import('~icons/*').default };
 
@@ -67,4 +71,6 @@
 			{/if}
 		</div>
 	{/if}
+
+	<PlayerMiniCard username={PUBLIC_LASTFM_USERNAME} />
 </div>
