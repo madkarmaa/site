@@ -1,11 +1,22 @@
 import * as z from 'zod';
 
-const LastFmImageSchema = z.object({
-	'#text': z.url().trim(),
-	size: z.enum(['small', 'medium', 'large', 'extralarge'])
-});
-const LastFmArtistSchema = z.object({ '#text': z.string().trim() });
-const LastFmAlbumSchema = z.object({ '#text': z.string().trim() });
+const LastFmImageSchema = z
+	.object({
+		'#text': z.string().trim(),
+		size: z.enum(['small', 'medium', 'large', 'extralarge'])
+	})
+	.transform((image) => ({
+		url: image['#text'],
+		size: image.size
+	}));
+
+const LastFmArtistSchema = z
+	.object({ '#text': z.string().trim() })
+	.transform((artist) => artist['#text']);
+
+const LastFmAlbumSchema = z
+	.object({ '#text': z.string().trim() })
+	.transform((album) => album['#text']);
 
 const LastFmAttrSchema = z.object({
 	nowplaying: z
@@ -15,13 +26,21 @@ const LastFmAttrSchema = z.object({
 		.optional()
 });
 
-const LastFmTrackSchema = z.object({
-	artist: LastFmArtistSchema,
-	image: z.array(LastFmImageSchema),
-	album: LastFmAlbumSchema,
-	name: z.string().trim(),
-	'@attr': LastFmAttrSchema.optional()
-});
+const LastFmTrackSchema = z
+	.object({
+		artist: LastFmArtistSchema,
+		image: z.array(LastFmImageSchema),
+		album: LastFmAlbumSchema,
+		name: z.string().trim(),
+		'@attr': LastFmAttrSchema.optional()
+	})
+	.transform((track) => ({
+		artist: track.artist,
+		images: track.image,
+		album: track.album,
+		name: track.name,
+		nowplaying: track['@attr']?.nowplaying ?? false
+	}));
 
 export const LastFmRecentTracksSchema = z.object({
 	recenttracks: z.object({
