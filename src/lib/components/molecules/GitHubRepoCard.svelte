@@ -2,7 +2,7 @@
 	import { fly } from 'svelte/transition';
 	import { onMount } from 'svelte';
 
-	import type { GitHubRepo } from '$lib/github/schemas';
+	import { type GitHubRepo } from '$lib/github/schemas';
 
 	import Star from '~icons/material-symbols/star-rounded';
 	import Fork from '~icons/material-symbols/call-split-rounded';
@@ -14,6 +14,7 @@
 	let show = $state(false);
 	let imageLoaded = $state(false);
 	let imageErrored = $state(false);
+
 	onMount(() => setTimeout(() => (show = true), showDelay));
 </script>
 

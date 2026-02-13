@@ -1,6 +1,8 @@
 <script lang="ts">
 	import './layout.css';
-	import type { Snippet } from 'svelte';
+
+	import { type Snippet } from 'svelte';
+
 	import { page } from '$app/state';
 	import favicon from '$assets/favicon.ico';
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { PUBLIC_GITHUB_USERNAME } from '$env/static/public';
 
+	import { PUBLIC_GITHUB_USERNAME } from '$env/static/public';
 	import { prefetchImages } from '$lib/utils';
 	import { fetchGitHubUser, fetchGitHubUserRepos, MAX_HIGHLIGHTED_REPOS } from '$lib/github';
 

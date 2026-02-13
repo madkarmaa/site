@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { Snippet } from 'svelte';
+	import { type Snippet } from 'svelte';
 
+	import { PUBLIC_LASTFM_USERNAME } from '$env/static/public';
 	import PlayerMiniCard from '$components/molecules/PlayerMiniCard.svelte';
 
 	import ArrowDown from '~icons/material-symbols/arrow-downward-rounded';
 	import ArrowUp from '~icons/material-symbols/arrow-upward-rounded';
-	import { PUBLIC_LASTFM_USERNAME } from '$env/static/public';
 
 	export type Button = { label: string; href: string; icon: typeof import('~icons/*').default };
 
