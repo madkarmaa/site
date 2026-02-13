@@ -18,8 +18,16 @@ export const fetchUserContributions = async (username: string) => {
 		}
 
 		const data = await response.json();
-		const contributions = ContributionsSchema.parse(data);
-		return ok(contributions);
+
+		const contributions = ContributionsSchema.safeParse(data);
+		if (!contributions.success) {
+			return err({
+				code: 'CONTRIBUTIONS_PARSE_ERROR' as const,
+				message: 'Failed to parse contributions data'
+			});
+		}
+
+		return ok(contributions.data);
 	} catch (error) {
 		const message =
 			error instanceof Error ? error.message : 'Unknown error while fetching contributions';
