@@ -3,8 +3,8 @@
 	import { userGetRecentTracks, trackToYoutubeSearchUrl } from '$lib/lastfm';
 	import MusicNote from '~icons/material-symbols/music-note-rounded';
 
-	type Props = { username: string; refreshEveryMs?: number };
-	let { username, refreshEveryMs = 15 * 1000 }: Props = $props();
+	type Props = { username: string; updateMs?: number; liveUpdateMs?: number };
+	let { username, updateMs = 60 * 1000, liveUpdateMs = 15 * 1000 }: Props = $props();
 
 	type RecentTracksResult = Awaited<ReturnType<typeof userGetRecentTracks>>;
 
@@ -12,6 +12,16 @@
 	let error: RecentTracksResult[1] | undefined = $state(undefined);
 	let isInitialLoading = $state(true);
 	let refreshInterval: ReturnType<typeof setInterval> | undefined = $state(undefined);
+	let currentRefreshMs: number | undefined = $state(undefined);
+
+	const getRefreshMs = () =>
+		tracks && tracks.length && tracks[0].now_playing ? liveUpdateMs : updateMs;
+
+	const startRefreshInterval = (intervalMs: number) => {
+		if (refreshInterval !== undefined) clearInterval(refreshInterval);
+		refreshInterval = setInterval(refreshRecentTracks, intervalMs);
+		currentRefreshMs = intervalMs;
+	};
 
 	const refreshRecentTracks = async () => {
 		const [nextTracks, nextError] = await userGetRecentTracks(username);
@@ -19,11 +29,14 @@
 		if (!nextError) tracks = nextTracks;
 		error = nextError;
 		isInitialLoading = false;
+
+		const nextRefreshMs = getRefreshMs();
+		if (currentRefreshMs !== nextRefreshMs) startRefreshInterval(nextRefreshMs);
 	};
 
 	onMount(() => {
+		startRefreshInterval(updateMs);
 		refreshRecentTracks();
-		refreshInterval = setInterval(refreshRecentTracks, refreshEveryMs);
 	});
 
 	onDestroy(() => {
@@ -32,6 +45,7 @@
 		tracks = undefined;
 		error = undefined;
 		isInitialLoading = true;
+		currentRefreshMs = undefined;
 	});
 </script>
 
