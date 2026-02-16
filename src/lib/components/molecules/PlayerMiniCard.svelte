@@ -35,7 +35,8 @@
 	};
 
 	onMount(() => {
-		startRefreshInterval(updateMs);
+		const nextRefreshMs = getRefreshMs();
+		startRefreshInterval(nextRefreshMs);
 		refreshRecentTracks();
 	});
 
