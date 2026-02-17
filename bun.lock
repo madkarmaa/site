@@ -139,7 +139,7 @@
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.31", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw=="],
 
-    "@madkarma/ts-utils": ["@madkarma/ts-utils@4.0.0", "", { "peerDependencies": { "typescript": "^5.9.3" } }, "sha512-rlOfP5vh3x9L6p57onbB8rnVpREL01pvnQbJTtDu9krPPtmTLgNGY9N2/JbdWfuxjgrNyeYhELojoD7yrPlMBw=="],
+    "@madkarma/ts-utils": ["@madkarma/ts-utils@4.0.1", "", { "peerDependencies": { "typescript": "^5.9.3" } }, "sha512-pgwrMxr/7dx9IgfCLgkSSVTXdolFD6XQf0bIK25JFvLUrbVLsZhOb3cQKYEGeiwqMIBYZuRDp8rcDPEx/aeaSw=="],
 
     "@polka/url": ["@polka/url@1.0.0-next.29", "", {}, "sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww=="],
 

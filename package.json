@@ -41,7 +41,7 @@
 		"vite": "^7.3.1"
 	},
 	"dependencies": {
-		"@madkarma/ts-utils": "^4.0.0",
+		"@madkarma/ts-utils": "^4.0.1",
 		"zod": "^4.3.6"
 	}
 }
