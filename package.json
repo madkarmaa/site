@@ -19,7 +19,7 @@
 		"@eslint/js": "^9.39.2",
 		"@iconify-json/material-symbols": "^1.2.55",
 		"@iconify-json/mdi": "^1.2.3",
-		"@iconify-json/simple-icons": "^1.2.70",
+		"@iconify-json/simple-icons": "^1.2.71",
 		"@sveltejs/adapter-static": "^3.0.10",
 		"@sveltejs/kit": "^2.52.0",
 		"@sveltejs/vite-plugin-svelte": "^6.2.4",
@@ -36,12 +36,12 @@
 		"svelte-check": "^4.4.0",
 		"tailwindcss": "^4.1.18",
 		"typescript": "^5.9.3",
-		"typescript-eslint": "^8.55.0",
+		"typescript-eslint": "^8.56.0",
 		"unplugin-icons": "^23.0.1",
 		"vite": "^7.3.1"
 	},
 	"dependencies": {
-		"@madkarma/ts-utils": "^3.1.0",
+		"@madkarma/ts-utils": "^4.0.0",
 		"zod": "^4.3.6"
 	}
 }
