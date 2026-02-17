@@ -68,7 +68,7 @@
 	</div>
 
 	{#if isInitialLoading}
-		{@render trackData('Loading...')}
+		{@render trackData('Loading...', 'Loading...')}
 	{:else if tracks && tracks.length}
 		{@render trackData(tracks[0].name, tracks[0].artist)}
 	{:else if error}
