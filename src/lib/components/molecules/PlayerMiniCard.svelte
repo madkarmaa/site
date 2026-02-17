@@ -11,7 +11,7 @@
 	let tracks: RecentTracksResult[0] | undefined = $state(undefined);
 	let error: RecentTracksResult[1] | undefined = $state(undefined);
 	let isInitialLoading = $state(true);
-	let refreshInterval: ReturnType<typeof setInterval> | undefined = $state(undefined);
+	let refreshInterval: Interval | undefined = $state(undefined);
 	let currentRefreshMs: number | undefined = $state(undefined);
 
 	const getRefreshMs = () =>
