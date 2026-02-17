@@ -1,8 +1,7 @@
 import { ok, err } from '@madkarma/ts-utils/result';
 import { PUBLIC_LASTFM_API_KEY } from '$env/static/public';
 import { LastFmRecentTracksSchema, LastFmErrorResponseSchema, type LastFmTrack } from './schemas';
-
-const API_BASE_URL = 'https://ws.audioscrobbler.com/2.0' as const;
+import { API_BASE_URL, ERROR_CODES } from './constants';
 
 const FORBIDDEN_PARAMS = ['method', 'api_key'] as const;
 type Forbidden = (typeof FORBIDDEN_PARAMS)[number];
@@ -41,7 +40,7 @@ export const userGetRecentTracks = async (username: string) => {
 			const data = await response.json();
 			const errorResponse = LastFmErrorResponseSchema.parse(data);
 			return err({
-				code: 'LASTFM_RECENT_TRACKS_FETCH_ERROR' as const,
+				code: ERROR_CODES.FETCH,
 				message: errorResponse.message,
 				status: response.status
 			});
@@ -52,7 +51,7 @@ export const userGetRecentTracks = async (username: string) => {
 		const recentTracksResult = LastFmRecentTracksSchema.safeParse(data);
 		if (!recentTracksResult.success)
 			return err({
-				code: 'LASTFM_RECENT_TRACKS_PARSE_ERROR' as const,
+				code: ERROR_CODES.PARSE,
 				message: 'Failed to parse recent tracks',
 				details: recentTracksResult.error.issues
 			});
@@ -61,13 +60,13 @@ export const userGetRecentTracks = async (username: string) => {
 	} catch (error) {
 		const message =
 			error instanceof Error ? error.message : 'Unknown error while fetching recent tracks';
-		return err({ code: 'LASTFM_UNKNOWN_ERROR', message });
+		return err({ code: ERROR_CODES.UNKNOWN, message });
 	}
 };
 
 export const trackToYoutubeSearchUrl = (track: LastFmTrack) => {
 	const query = new URLSearchParams({
-		search_query: `${track.name} ${track.artist}`
+		search_query: `${track.name} ${track.artist}`.trim()
 	});
-	return `https://www.youtube.com/results?${query.toString()}`;
+	return `https://www.youtube.com/results?${query.toString()}` as const;
 };

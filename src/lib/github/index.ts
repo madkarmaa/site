@@ -5,8 +5,8 @@ import {
 	GitHubUserSchema,
 	type GitHubRepo
 } from './schemas';
+import { API_BASE_URL, ERROR_CODES } from './constants';
 
-const API_BASE_URL = 'https://api.github.com' as const;
 export const MAX_HIGHLIGHTED_REPOS = 4 as const;
 
 export const userUrl = (username: string) => `${API_BASE_URL}/users/${username.trim()}` as const;
@@ -17,7 +17,7 @@ export const fetchGitHubUser = async (username: string) => {
 			const data = await response.json();
 			const errorResponse = GitHubErrorResponseSchema.parse(data);
 			return err({
-				code: 'GITHUB_USER_FETCH_ERROR' as const,
+				code: ERROR_CODES.FETCH,
 				message: errorResponse.message,
 				status: response.status
 			});
@@ -28,7 +28,7 @@ export const fetchGitHubUser = async (username: string) => {
 		const userResult = GitHubUserSchema.safeParse(data);
 		if (!userResult.success) {
 			return err({
-				code: 'GITHUB_USER_PARSE_ERROR' as const,
+				code: ERROR_CODES.PARSE,
 				message: 'Failed to parse user data',
 				details: userResult.error.issues
 			});
@@ -37,7 +37,7 @@ export const fetchGitHubUser = async (username: string) => {
 		return ok(userResult.data);
 	} catch (error) {
 		const message = error instanceof Error ? error.message : 'Unknown error while fetching user';
-		return err({ code: 'GITHUB_UNKNOWN_ERROR', message });
+		return err({ code: ERROR_CODES.UNKNOWN, message });
 	}
 };
 export type GitHubUserResult = Awaited<ReturnType<typeof fetchGitHubUser>>;
@@ -84,7 +84,7 @@ export const fetchGitHubUserRepos = async (username: string, options: Options = 
 	opts.highlights = opts.highlights
 		.map((h) => h.trim())
 		.filter((h) => h)
-		.slice(0, MAX_HIGHLIGHTED_REPOS); // limit to first 3 highlights
+		.slice(0, MAX_HIGHLIGHTED_REPOS);
 
 	opts.ignore = opts.ignore.map((i) => i.trim()).filter((i) => i);
 
@@ -94,7 +94,7 @@ export const fetchGitHubUserRepos = async (username: string, options: Options = 
 			const data = await response.json();
 			const errorResponse = GitHubErrorResponseSchema.parse(data);
 			return err({
-				code: 'GITHUB_USER_REPOS_FETCH_ERROR' as const,
+				code: ERROR_CODES.FETCH,
 				message: errorResponse.message,
 				status: response.status
 			});
@@ -105,7 +105,7 @@ export const fetchGitHubUserRepos = async (username: string, options: Options = 
 
 		if (!reposResult.success) {
 			return err({
-				code: 'GITHUB_USER_REPOS_PARSE_ERROR' as const,
+				code: ERROR_CODES.PARSE,
 				message: 'Failed to parse user repositories',
 				details: reposResult.error.issues
 			});
@@ -123,7 +123,7 @@ export const fetchGitHubUserRepos = async (username: string, options: Options = 
 	} catch (error) {
 		const message =
 			error instanceof Error ? error.message : 'Unknown error while fetching user repositories';
-		return err({ code: 'GITHUB_UNKNOWN_ERROR', message });
+		return err({ code: ERROR_CODES.UNKNOWN, message });
 	}
 };
 export type GitHubUserReposResult = Awaited<ReturnType<typeof fetchGitHubUserRepos>>;
