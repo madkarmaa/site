@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	import { PUBLIC_GITHUB_USERNAME } from '$env/static/public';
+	import { PUBLIC_GITHUB_USERNAME, PUBLIC_LASTFM_USERNAME } from '$env/static/public';
 	import { prefetchImages } from '$lib/utils';
 	import { fetchGitHubUser, fetchGitHubUserRepos, MAX_HIGHLIGHTED_REPOS } from '$lib/github';
 
@@ -10,6 +10,7 @@
 	import Landing, { type Button } from '$components/organisms/Landing.svelte';
 	import SkillCard, { type Props as Skill } from '$components/molecules/SkillCard.svelte';
 	import Embed from '$components/molecules/Embed.svelte';
+	import PlayerMiniCard from '$components/molecules/PlayerMiniCard.svelte';
 
 	import Code from '~icons/material-symbols/code-rounded';
 	import Widgets from '~icons/material-symbols/widgets-outline-rounded';
@@ -129,6 +130,8 @@
 			<span class="text-accent-800">;&#41;</span>
 		{/snippet}
 	</Landing>
+
+	<PlayerMiniCard username={PUBLIC_LASTFM_USERNAME} />
 
 	<Section title="Projects" icon={Code}>
 		<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

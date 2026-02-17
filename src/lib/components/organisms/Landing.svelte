@@ -1,9 +1,6 @@
 <script lang="ts">
 	import { type Snippet } from 'svelte';
 
-	import { PUBLIC_LASTFM_USERNAME } from '$env/static/public';
-	import PlayerMiniCard from '$components/molecules/PlayerMiniCard.svelte';
-
 	import ArrowDown from '~icons/material-symbols/arrow-downward-rounded';
 	import ArrowUp from '~icons/material-symbols/arrow-upward-rounded';
 
@@ -71,6 +68,4 @@
 			{/if}
 		</div>
 	{/if}
-
-	<PlayerMiniCard username={PUBLIC_LASTFM_USERNAME} />
 </div>
