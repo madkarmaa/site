@@ -5,7 +5,7 @@
     "": {
       "name": "site",
       "dependencies": {
-        "@madkarma/ts-utils": "^4.0.0",
+        "@madkarma/ts-utils": "5",
         "zod": "^4.3.6",
       },
       "devDependencies": {
@@ -139,7 +139,7 @@
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.31", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw=="],
 
-    "@madkarma/ts-utils": ["@madkarma/ts-utils@4.0.1", "", { "peerDependencies": { "typescript": "^5.9.3" } }, "sha512-pgwrMxr/7dx9IgfCLgkSSVTXdolFD6XQf0bIK25JFvLUrbVLsZhOb3cQKYEGeiwqMIBYZuRDp8rcDPEx/aeaSw=="],
+    "@madkarma/ts-utils": ["@madkarma/ts-utils@5.0.0", "", { "peerDependencies": { "typescript": "^5.9.3" } }, "sha512-qlJJOwIR9WXsaq01EpFzP31CV/w9BUP5cDjwt9gkbDX9Q6NhYS5R33XVkBwkDuCEIniigzU49wYKR/aAwFRKSQ=="],
 
     "@polka/url": ["@polka/url@1.0.0-next.29", "", {}, "sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww=="],
 
