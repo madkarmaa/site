@@ -41,6 +41,7 @@ jobs:
           PUBLIC_GITHUB_USERNAME: ${{ github.repository_owner }}
           PUBLIC_LASTFM_USERNAME: ${{ secrets.PUBLIC_LASTFM_USERNAME }}
           PUBLIC_LASTFM_API_KEY: ${{ secrets.PUBLIC_LASTFM_API_KEY }}
+          PUBLIC_COUNTER_API_URL: ${{ secrets.PUBLIC_COUNTER_API_URL }}
 
       - name: Upload static files
         id: deployment
