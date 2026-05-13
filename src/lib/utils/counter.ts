@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import { ok, err } from '@madkarma/ts-utils/result';
+import { Ok, Err } from '@madkarma/result';
 import { PUBLIC_COUNTER_API_URL } from '$env/static/public';
 
 const PREFIX = 'COUNTER_';
@@ -23,7 +23,7 @@ export const getCount = async () => {
 		});
 
 		if (!response.ok) {
-			return err({
+			return Err({
 				code: ERROR_CODES.FETCH,
 				message: `Failed to fetch counter: ${response.statusText}`,
 				status: response.status
@@ -34,18 +34,18 @@ export const getCount = async () => {
 
 		const parseResult = CounterResponseSchema.safeParse(data);
 		if (!parseResult.success) {
-			return err({
+			return Err({
 				code: ERROR_CODES.PARSE,
 				message: 'Failed to parse counter response',
 				details: parseResult.error.issues
 			});
 		}
 
-		return ok(parseResult.data.count);
+		return Ok(parseResult.data.count);
 	} catch (error) {
 		const message = error instanceof Error ? error.message : 'Unknown error while fetching counter';
 
-		return err({
+		return Err({
 			code: ERROR_CODES.UNKNOWN,
 			message
 		});
@@ -63,7 +63,7 @@ export const incrementCount = async () => {
 		});
 
 		if (!response.ok) {
-			return err({
+			return Err({
 				code: ERROR_CODES.FETCH,
 				message: `Failed to increment counter: ${response.statusText}`,
 				status: response.status
@@ -74,19 +74,19 @@ export const incrementCount = async () => {
 
 		const parseResult = CounterResponseSchema.safeParse(data);
 		if (!parseResult.success) {
-			return err({
+			return Err({
 				code: ERROR_CODES.PARSE,
 				message: 'Failed to parse increment counter response',
 				details: parseResult.error.issues
 			});
 		}
 
-		return ok(parseResult.data.count);
+		return Ok(parseResult.data.count);
 	} catch (error) {
 		const message =
 			error instanceof Error ? error.message : 'Unknown error while incrementing counter';
 
-		return err({
+		return Err({
 			code: ERROR_CODES.UNKNOWN,
 			message
 		});

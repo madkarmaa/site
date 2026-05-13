@@ -1,4 +1,4 @@
-import { ok, err } from '@madkarma/ts-utils/result';
+import { Ok, Err } from '@madkarma/result';
 import { PUBLIC_LASTFM_API_KEY } from '$env/static/public';
 import { LastFmRecentTracksSchema, LastFmErrorResponseSchema, type LastFmTrack } from './schemas';
 import { API_BASE_URL, ERROR_CODES } from './constants';
@@ -39,7 +39,7 @@ export const userGetRecentTracks = async (username: string) => {
 		if (!response.ok) {
 			const data = await response.json();
 			const errorResponse = LastFmErrorResponseSchema.parse(data);
-			return err({
+			return Err({
 				code: ERROR_CODES.FETCH,
 				message: errorResponse.message,
 				status: response.status
@@ -50,17 +50,17 @@ export const userGetRecentTracks = async (username: string) => {
 
 		const recentTracksResult = LastFmRecentTracksSchema.safeParse(data);
 		if (!recentTracksResult.success)
-			return err({
+			return Err({
 				code: ERROR_CODES.PARSE,
 				message: 'Failed to parse recent tracks',
 				details: recentTracksResult.error.issues
 			});
 
-		return ok(recentTracksResult.data.recent_tracks);
+		return Ok(recentTracksResult.data.recent_tracks);
 	} catch (error) {
 		const message =
 			error instanceof Error ? error.message : 'Unknown error while fetching recent tracks';
-		return err({ code: ERROR_CODES.UNKNOWN, message });
+		return Err({ code: ERROR_CODES.UNKNOWN, message });
 	}
 };
 

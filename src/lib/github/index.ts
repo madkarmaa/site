@@ -1,4 +1,4 @@
-import { ok, err } from '@madkarma/ts-utils/result';
+import { Ok, Err } from '@madkarma/result';
 import {
 	GitHubErrorResponseSchema,
 	GitHubRepoSchema,
@@ -16,7 +16,7 @@ export const fetchGitHubUser = async (username: string) => {
 		if (!response.ok) {
 			const data = await response.json();
 			const errorResponse = GitHubErrorResponseSchema.parse(data);
-			return err({
+			return Err({
 				code: ERROR_CODES.FETCH,
 				message: errorResponse.message,
 				status: response.status
@@ -27,17 +27,17 @@ export const fetchGitHubUser = async (username: string) => {
 
 		const userResult = GitHubUserSchema.safeParse(data);
 		if (!userResult.success) {
-			return err({
+			return Err({
 				code: ERROR_CODES.PARSE,
 				message: 'Failed to parse user data',
 				details: userResult.error.issues
 			});
 		}
 
-		return ok(userResult.data);
+		return Ok(userResult.data);
 	} catch (error) {
 		const message = error instanceof Error ? error.message : 'Unknown error while fetching user';
-		return err({ code: ERROR_CODES.UNKNOWN, message });
+		return Err({ code: ERROR_CODES.UNKNOWN, message });
 	}
 };
 export type GitHubUserResult = Awaited<ReturnType<typeof fetchGitHubUser>>;
@@ -93,7 +93,7 @@ export const fetchGitHubUserRepos = async (username: string, options: Options = 
 		if (!response.ok) {
 			const data = await response.json();
 			const errorResponse = GitHubErrorResponseSchema.parse(data);
-			return err({
+			return Err({
 				code: ERROR_CODES.FETCH,
 				message: errorResponse.message,
 				status: response.status
@@ -104,7 +104,7 @@ export const fetchGitHubUserRepos = async (username: string, options: Options = 
 		const reposResult = GitHubRepoSchema.array().safeParse(data);
 
 		if (!reposResult.success) {
-			return err({
+			return Err({
 				code: ERROR_CODES.PARSE,
 				message: 'Failed to parse user repositories',
 				details: reposResult.error.issues
@@ -119,11 +119,11 @@ export const fetchGitHubUserRepos = async (username: string, options: Options = 
 		repos = repos.sort(orderReposByPushedAt('desc'));
 		if (opts.highlights.length) repos = highlightRepos(repos, opts.highlights);
 
-		return ok(repos);
+		return Ok(repos);
 	} catch (error) {
 		const message =
 			error instanceof Error ? error.message : 'Unknown error while fetching user repositories';
-		return err({ code: ERROR_CODES.UNKNOWN, message });
+		return Err({ code: ERROR_CODES.UNKNOWN, message });
 	}
 };
 export type GitHubUserReposResult = Awaited<ReturnType<typeof fetchGitHubUserRepos>>;
