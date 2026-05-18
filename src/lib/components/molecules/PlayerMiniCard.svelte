@@ -8,8 +8,8 @@
 
 	type RecentTracksResult = Awaited<ReturnType<typeof userGetRecentTracks>>;
 
-	let tracks: RecentTracksResult[0] | undefined = $state(undefined);
-	let error: RecentTracksResult[1] | undefined = $state(undefined);
+	let tracks: RecentTracksResult['value'] | undefined = $state(undefined);
+	let error: RecentTracksResult['error'] | undefined = $state(undefined);
 	let isInitialLoading = $state(true);
 	let refreshInterval: Interval | undefined = $state(undefined);
 	let currentRefreshMs: number | undefined = $state(undefined);
@@ -24,7 +24,7 @@
 	};
 
 	const refreshRecentTracks = async () => {
-		const [nextTracks, nextError] = await userGetRecentTracks(username);
+		const { value: nextTracks, error: nextError } = await userGetRecentTracks(username);
 
 		if (!nextError) tracks = nextTracks;
 		error = nextError;
