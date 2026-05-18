@@ -52,7 +52,7 @@
 			ignore: [PUBLIC_GITHUB_USERNAME]
 		});
 
-		reposPromise.then(([repos]) => {
+		reposPromise.then(({ value: repos }) => {
 			if (!repos) return;
 			prefetchImages(...repos.slice(MAX_HIGHLIGHTED_REPOS).map((repo) => repo.picture_url));
 		});
@@ -91,7 +91,7 @@
 				{#if userPromise}
 					{#await userPromise}
 						{PUBLIC_GITHUB_USERNAME}
-					{:then [user, error]}
+					{:then { value: user, error }}
 						{#if error}
 							{PUBLIC_GITHUB_USERNAME}
 						{:else}
@@ -110,7 +110,7 @@
 			who loves building cool stuff on the web
 			<span class="text-text-700 italic">and beyond</span>.
 			{#if userPromise}
-				{#await userPromise then [user]}
+				{#await userPromise then { value: user }}
 					{#if user && user.company}
 						I'm currently working at {@render descLink(
 							`https://github.com/${user.company}`,
@@ -138,7 +138,7 @@
 			{#if reposPromise}
 				{#await reposPromise}
 					{@render message('Loading...')}
-				{:then [repos, error]}
+				{:then { value: repos, error }}
 					{#if error}
 						{@render message(error.message)}
 					{:else if !repos.length}

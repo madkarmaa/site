@@ -36,6 +36,7 @@ export const userGetRecentTracks = async (username: string) => {
 				'Cache-Control': 'no-cache'
 			}
 		});
+
 		if (!response.ok) {
 			const data = await response.json();
 			const errorResponse = LastFmErrorResponseSchema.parse(data);
@@ -60,6 +61,7 @@ export const userGetRecentTracks = async (username: string) => {
 	} catch (error) {
 		const message =
 			error instanceof Error ? error.message : 'Unknown error while fetching recent tracks';
+
 		return Err({ code: ERROR_CODES.UNKNOWN, message });
 	}
 };

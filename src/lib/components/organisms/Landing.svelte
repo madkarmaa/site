@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { type Snippet, onMount } from 'svelte';
 
-	import { getCount, incrementCount } from '$lib/utils/counter';
+	import { getCount, incrementCount } from '$lib/counter';
 
 	import ArrowDown from '~icons/material-symbols/arrow-downward-rounded';
 	import ArrowUp from '~icons/material-symbols/arrow-upward-rounded';
@@ -20,12 +20,12 @@
 	let count = $state(0);
 
 	const increment = async () => {
-		const [newCount, error] = await incrementCount();
+		const { value: newCount, error } = await incrementCount();
 		if (!error) count = newCount;
 	};
 
 	onMount(async () => {
-		const [initialCount, error] = await getCount();
+		const { value: initialCount, error } = await getCount();
 		if (!error) count = initialCount;
 	});
 </script>

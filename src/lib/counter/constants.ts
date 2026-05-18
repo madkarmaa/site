@@ -1,0 +1,6 @@
+const PREFIX = 'COUNTER_';
+export const ERROR_CODES = {
+	FETCH: `${PREFIX}FETCH_ERROR`,
+	UNKNOWN: `${PREFIX}UNKNOWN_ERROR`,
+	PARSE: `${PREFIX}PARSE_ERROR`
+} as const;

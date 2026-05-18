@@ -26,17 +26,17 @@ export const fetchGitHubUser = async (username: string) => {
 		const data = await response.json();
 
 		const userResult = GitHubUserSchema.safeParse(data);
-		if (!userResult.success) {
+		if (!userResult.success)
 			return Err({
 				code: ERROR_CODES.PARSE,
 				message: 'Failed to parse user data',
 				details: userResult.error.issues
 			});
-		}
 
 		return Ok(userResult.data);
 	} catch (error) {
 		const message = error instanceof Error ? error.message : 'Unknown error while fetching user';
+
 		return Err({ code: ERROR_CODES.UNKNOWN, message });
 	}
 };
@@ -103,13 +103,12 @@ export const fetchGitHubUserRepos = async (username: string, options: Options = 
 		const data = await response.json();
 		const reposResult = GitHubRepoSchema.array().safeParse(data);
 
-		if (!reposResult.success) {
+		if (!reposResult.success)
 			return Err({
 				code: ERROR_CODES.PARSE,
 				message: 'Failed to parse user repositories',
 				details: reposResult.error.issues
 			});
-		}
 
 		let repos = reposResult.data;
 
@@ -123,6 +122,7 @@ export const fetchGitHubUserRepos = async (username: string, options: Options = 
 	} catch (error) {
 		const message =
 			error instanceof Error ? error.message : 'Unknown error while fetching user repositories';
+
 		return Err({ code: ERROR_CODES.UNKNOWN, message });
 	}
 };
