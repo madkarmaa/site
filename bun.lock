@@ -5,7 +5,7 @@
     "": {
       "name": "site",
       "dependencies": {
-        "@madkarma/result": "^4.0.1",
+        "@madkarma/result": "^4.0.2",
         "zod": "^4.4.3",
       },
       "devDependencies": {
@@ -93,7 +93,7 @@
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.31", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw=="],
 
-    "@madkarma/result": ["@madkarma/result@4.0.1", "", {}, "sha512-ryBGV+qBfJvUobApA2K31xl9yRanMg2DecfFQ2ds0n5wlytxRNpRkcJr6rsJy9EO4/l6CvYAPk23O7iz4FOqHw=="],
+    "@madkarma/result": ["@madkarma/result@4.0.2", "", {}, "sha512-W+bwo1e8XBGHoVmAZVvrA+x7EemrCF7xpUElAApxESiM12h3zzzalTH2LFaSdS8a+qIqe/Anr2rPFBsINZqp7A=="],
 
     "@napi-rs/wasm-runtime": ["@napi-rs/wasm-runtime@1.1.4", "", { "dependencies": { "@tybys/wasm-util": "^0.10.1" }, "peerDependencies": { "@emnapi/core": "^1.7.1", "@emnapi/runtime": "^1.7.1" } }, "sha512-3NQNNgA1YSlJb/kMH1ildASP9HW7/7kYnRI2szWJaofaS1hWmbGI4H+d3+22aGzXXN9IJ+n+GiFVcGipJP18ow=="],
 
