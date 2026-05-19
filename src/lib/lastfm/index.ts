@@ -1,4 +1,4 @@
-import { Ok, Err } from '@madkarma/result';
+import { Ok, Err } from 'results-ts';
 import { PUBLIC_LASTFM_API_KEY } from '$env/static/public';
 import { LastFmRecentTracksSchema, LastFmErrorResponseSchema, type LastFmTrack } from './schemas';
 import { API_BASE_URL, ERROR_CODES } from './constants';

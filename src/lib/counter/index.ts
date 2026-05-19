@@ -1,4 +1,4 @@
-import { Ok, Err } from '@madkarma/result';
+import { Ok, Err } from 'results-ts';
 import { PUBLIC_COUNTER_API_URL } from '$env/static/public';
 import { CounterResponseSchema } from './schemas';
 import { ERROR_CODES } from './constants';
