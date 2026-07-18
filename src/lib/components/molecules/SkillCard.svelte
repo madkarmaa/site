@@ -18,7 +18,7 @@
 		class=" flex flex-col items-center justify-center gap-4 rounded-md bg-background-100 p-6 transition-colors"
 		transition:fly={{ y: 20, duration: 200 }}
 	>
-		<Icon class="size-12 text-secondary-900 transition-transform md:size-18 " />
+		<Icon class="size-12 text-accent-800 transition-transform md:size-18 " />
 		<p class="text-center outfit-600 text-base text-text-700 md:text-lg">{label}</p>
 	</div>
 {/if}
