@@ -87,7 +87,7 @@
 	<Landing {buttons}>
 		{#snippet title()}
 			Sup,
-			<span class="text-text-700">
+			<span class="text-accent-800">
 				{#if userPromise}
 					{#await userPromise}
 						{PUBLIC_GITHUB_USERNAME}

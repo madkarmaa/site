@@ -54,7 +54,7 @@
 					rel="noopener noreferrer external"
 					target="_blank"
 				>
-					<Icon class="text-text-800" />
+					<Icon class="text-accent-800" />
 					{label}
 				</a>
 
