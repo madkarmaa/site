@@ -68,7 +68,7 @@
 		href={href.trim()}
 		rel="noopener noreferrer external"
 		target="_blank"
-		class="text-text-700 underline decoration-dotted hover:text-accent-800"
+		class="text-accent-800 underline decoration-dotted"
 	>
 		{label.trim()}
 	</a>
@@ -108,7 +108,7 @@
 			I'm a self-taught full-stack developer based in
 			<span class="text-accent-800 underline decoration-dotted">Italy</span>
 			who loves building cool stuff on the web
-			<span class="text-text-700 italic">and beyond</span>.
+			<span class="text-accent-800 italic">and beyond</span>.
 			{#if userPromise}
 				{#await userPromise then { value: user }}
 					{#if user && user.company}
