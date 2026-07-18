@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 @import 'tailwindcss';
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -189,10 +189,10 @@
 	--color-accent-950: var(--color-accent-950);
 }
 
-@utility jetbrains-mono-* {
-	font-family: 'JetBrains Mono', monospace;
+@utility outfit-* {
+	font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
 	font-optical-sizing: auto;
-	font-weight: --value('100', '200', '300', '400', '500', '600', '700', '800');
+	font-weight: --value('100', '200', '300', '400', '500', '600', '700', '800', '900');
 	font-style: normal;
 }
 
@@ -203,7 +203,7 @@
 html,
 body {
 	@apply bg-background-50 text-text-950;
-	@apply jetbrains-mono-400 underline-offset-2;
+	@apply outfit-400 underline-offset-2;
 }
 
 img {

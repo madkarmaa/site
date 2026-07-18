@@ -64,9 +64,7 @@
 		</div>
 
 		<div class="flex flex-col gap-3 p-5">
-			<h3
-				class="jetbrains-mono-600 text-xl text-text-700 transition-colors group-hover:text-accent-700"
-			>
+			<h3 class="outfit-600 text-xl text-text-700 transition-colors group-hover:text-accent-700">
 				{repo.name}
 			</h3>
 			<p class="text-sm text-text-950">{repo.description ?? '<no-description />'}</p>
