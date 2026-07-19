@@ -39,7 +39,7 @@
 		{ label: 'Git', icon: Git }
 	] satisfies Skill[];
 
-	const highlightedRepos = ['site', 'wsg'];
+	const highlightedRepos = ['results-ts', 'site'];
 
 	let showAllProjects = $state(false);
 
