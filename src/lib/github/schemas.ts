@@ -40,3 +40,17 @@ export const GitHubErrorResponseSchema = z.object({
 	message: z.string().trim()
 });
 export type GitHubErrorResponse = z.infer<typeof GitHubErrorResponseSchema>;
+
+export const GitHubPinnedReposResponseSchema = z
+	.object({
+		data: z.object({
+			user: z
+				.object({
+					pinnedItems: z.object({
+						nodes: z.object({ nameWithOwner: z.string().trim() }).array()
+					})
+				})
+				.nullable()
+		})
+	})
+	.transform(({ data }) => data.user?.pinnedItems.nodes.map((repo) => repo.nameWithOwner) ?? []);

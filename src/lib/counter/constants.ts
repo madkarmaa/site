@@ -1,6 +1,3 @@
-const PREFIX = 'COUNTER_';
-export const ERROR_CODES = {
-	FETCH: `${PREFIX}FETCH_ERROR`,
-	UNKNOWN: `${PREFIX}UNKNOWN_ERROR`,
-	PARSE: `${PREFIX}PARSE_ERROR`
-} as const;
+import { errorCodes } from '#lib/utils/fetch.js';
+
+export const ERROR_CODES = errorCodes('COUNTER');

@@ -2,7 +2,7 @@
 	import { fly } from 'svelte/transition';
 	import { onMount } from 'svelte';
 
-	import { type GitHubRepo } from '$lib/github/schemas';
+	import { type GitHubRepo } from '#lib/github/schemas.js';
 
 	import Star from '~icons/material-symbols/star-rounded';
 	import Fork from '~icons/material-symbols/call-split-rounded';
@@ -13,7 +13,6 @@
 
 	let show = $state(false);
 	let imageLoaded = $state(false);
-	let imageErrored = $state(false);
 
 	onMount(() => setTimeout(() => (show = true), showDelay));
 </script>
@@ -27,7 +26,7 @@
 		transition:fly={{ y: 20, duration: 200 }}
 	>
 		<div class="relative overflow-hidden">
-			{#if !imageLoaded || imageErrored}
+			{#if !imageLoaded}
 				<div
 					class="pointer-events-none absolute inset-0 z-0 flex items-center justify-center text-accent-700"
 				>
@@ -52,26 +51,26 @@
 			<img
 				alt="GitHub Repo Card"
 				src={repo.picture_url}
-				class={`h-auto w-full object-cover transition-[transform,opacity] duration-200 group-hover:scale-103 ${
-					imageLoaded && !imageErrored ? 'opacity-100' : 'opacity-0'
-				}`}
+				class={[
+					'h-auto w-full object-cover transition-[transform,opacity] duration-200 group-hover:scale-103',
+					imageLoaded ? 'opacity-100' : 'opacity-0'
+				]}
 				onload={() => (imageLoaded = true)}
-				onerror={() => {
-					imageErrored = true;
-					imageLoaded = false;
-				}}
+				onerror={() => (imageLoaded = false)}
 			/>
 		</div>
 
 		<div class="flex flex-col gap-3 p-5">
-			<h3 class="outfit-600 text-xl text-text-700 transition-colors group-hover:text-accent-700">
+			<h3
+				class="outfit-600 text-xl text-text-700 transition-colors group-hover:text-accent-700"
+			>
 				{repo.name}
 			</h3>
 			<p class="text-sm text-text-950">{repo.description ?? '<no-description />'}</p>
 
 			{#if repo.topics.length}
 				<div class="flex max-h-6 flex-wrap gap-2 overflow-hidden">
-					{#each repo.topics as topic, i (i)}
+					{#each repo.topics as topic (topic)}
 						<div
 							class="pointer-events-none rounded-md bg-background-800 px-2 py-1 text-xs whitespace-nowrap text-text-50 select-none"
 						>

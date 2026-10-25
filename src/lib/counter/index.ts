@@ -1,80 +1,24 @@
-import { Ok, Err } from 'results-ts';
-import { PUBLIC_COUNTER_API_URL } from '$env/static/public';
+import { PUBLIC_COUNTER_API_URL } from '$app/env/public';
+import { fetchJson, NO_CACHE_JSON_HEADERS } from '#lib/utils/fetch.js';
 import { CounterResponseSchema } from './schemas';
 import { ERROR_CODES } from './constants';
 
-export const getCount = async () => {
-	try {
-		const response = await fetch(PUBLIC_COUNTER_API_URL, {
-			headers: {
-				'Content-Type': 'application/json',
-				'Cache-Control': 'no-cache'
-			}
-		});
+export const getCount = () =>
+	fetchJson(PUBLIC_COUNTER_API_URL, {
+		init: { headers: NO_CACHE_JSON_HEADERS },
+		schema: CounterResponseSchema,
+		codes: ERROR_CODES,
+		responseErrorMessage: (response) => `Failed to fetch counter: ${response.statusText}`,
+		parseErrorMessage: 'Failed to parse counter response',
+		unknownErrorMessage: 'Unknown error while fetching counter'
+	}).map(({ count }) => count);
 
-		if (!response.ok)
-			return Err({
-				code: ERROR_CODES.FETCH,
-				message: `Failed to fetch counter: ${response.statusText}`,
-				status: response.status
-			});
-
-		const data = await response.json();
-
-		const parseResult = CounterResponseSchema.safeParse(data);
-		if (!parseResult.success)
-			return Err({
-				code: ERROR_CODES.PARSE,
-				message: 'Failed to parse counter response',
-				details: parseResult.error.issues
-			});
-
-		return Ok(parseResult.data.count);
-	} catch (error) {
-		const message = error instanceof Error ? error.message : 'Unknown error while fetching counter';
-
-		return Err({
-			code: ERROR_CODES.UNKNOWN,
-			message
-		});
-	}
-};
-
-export const incrementCount = async () => {
-	try {
-		const response = await fetch(PUBLIC_COUNTER_API_URL, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				'Cache-Control': 'no-cache'
-			}
-		});
-
-		if (!response.ok)
-			return Err({
-				code: ERROR_CODES.FETCH,
-				message: `Failed to increment counter: ${response.statusText}`,
-				status: response.status
-			});
-
-		const data = await response.json();
-
-		const parseResult = CounterResponseSchema.safeParse(data);
-		if (!parseResult.success)
-			return Err({
-				code: ERROR_CODES.PARSE,
-				message: 'Failed to parse increment counter response',
-				details: parseResult.error.issues
-			});
-
-		return Ok(parseResult.data.count);
-	} catch (error) {
-		const message =
-			error instanceof Error ? error.message : 'Unknown error while incrementing counter';
-
-		return Err({
-			code: ERROR_CODES.UNKNOWN,
-			message
-		});
-	}
-};
+export const incrementCount = () =>
+	fetchJson(PUBLIC_COUNTER_API_URL, {
+		init: { method: 'POST', headers: NO_CACHE_JSON_HEADERS },
+		schema: CounterResponseSchema,
+		codes: ERROR_CODES,
+		responseErrorMessage: (response) => `Failed to increment counter: ${response.statusText}`,
+		parseErrorMessage: 'Failed to parse increment counter response',
+		unknownErrorMessage: 'Unknown error while incrementing counter'
+	}).map(({ count }) => count);

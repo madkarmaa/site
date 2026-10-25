@@ -12,6 +12,8 @@ declare global {
 	type OmitFix<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 	type MaybePromise<T> = T | Promise<T>;
 
+	type IconComponent = typeof import('~icons/*').default;
+
 	type Interval = ReturnType<typeof setInterval>;
 	type Timeout = ReturnType<typeof setTimeout>;
 }

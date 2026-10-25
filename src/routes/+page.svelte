@@ -1,16 +1,22 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	import { PUBLIC_GITHUB_USERNAME, PUBLIC_LASTFM_USERNAME } from '$env/static/public';
-	import { prefetchImages } from '$lib/utils';
-	import { fetchGitHubUser, fetchGitHubUserRepos, MAX_HIGHLIGHTED_REPOS } from '$lib/github';
+	import { PUBLIC_GITHUB_USERNAME, PUBLIC_LASTFM_USERNAME } from '$app/env/public';
+	import { prefetchImages } from '#lib/utils/index.js';
+	import {
+		fetchGitHubUser,
+		fetchGitHubUserRepos,
+		DEFAULT_VISIBLE_REPOS
+	} from '#lib/github/index.js';
+	import { type GitHubRepo } from '#lib/github/schemas.js';
+	import type { PageProps } from './$types';
 
-	import GitHubRepoCard from '$components/molecules/GitHubRepoCard.svelte';
-	import Section from '$components/molecules/Section.svelte';
-	import Landing, { type Button } from '$components/organisms/Landing.svelte';
-	import SkillCard, { type Props as Skill } from '$components/molecules/SkillCard.svelte';
-	import Embed from '$components/molecules/Embed.svelte';
-	import PlayerMiniCard from '$components/molecules/PlayerMiniCard.svelte';
+	import GitHubRepoCard from '#components/molecules/GitHubRepoCard.svelte';
+	import Section from '#components/molecules/Section.svelte';
+	import Landing, { type Button } from '#components/organisms/Landing.svelte';
+	import SkillCard, { type Props as Skill } from '#components/molecules/SkillCard.svelte';
+	import Embed from '#components/molecules/Embed.svelte';
+	import PlayerMiniCard from '#components/molecules/PlayerMiniCard.svelte';
 
 	import Code from '~icons/material-symbols/code-rounded';
 	import Widgets from '~icons/material-symbols/widgets-outline-rounded';
@@ -39,23 +45,36 @@
 		{ label: 'Git', icon: Git }
 	] satisfies Skill[];
 
-	const highlightedRepos = ['results-ts', 'site'];
+	let { data }: PageProps = $props();
+
+	const pinnedRepos = $derived(new Set(data.pinnedRepos.map((repo) => repo.toLowerCase())));
+
+	// show the pinned repos (they're sorted first), or a few recent ones if none are pinned
+	const visibleRepoCount = (repos: GitHubRepo[]) =>
+		repos.filter((repo) => pinnedRepos.has(repo.full_name.toLowerCase())).length ||
+		DEFAULT_VISIBLE_REPOS;
 
 	let showAllProjects = $state(false);
 
-	let userPromise: ReturnType<typeof fetchGitHubUser> | undefined = $state(undefined);
-	let reposPromise: ReturnType<typeof fetchGitHubUserRepos> | undefined = $state(undefined);
+	let displayName = $state(PUBLIC_GITHUB_USERNAME);
+	let company = $state<string | null>(null);
+
+	let reposRequest = $state<ReturnType<typeof fetchGitHubUserRepos>>();
+
 	onMount(() => {
-		userPromise = fetchGitHubUser(PUBLIC_GITHUB_USERNAME);
-		reposPromise = fetchGitHubUserRepos(PUBLIC_GITHUB_USERNAME, {
-			highlights: highlightedRepos,
+		fetchGitHubUser(PUBLIC_GITHUB_USERNAME).inspect((user) => {
+			displayName = user.name ?? user.login;
+			company = user.company;
+		});
+
+		reposRequest = fetchGitHubUserRepos(PUBLIC_GITHUB_USERNAME, {
+			highlights: data.pinnedRepos,
 			ignore: [PUBLIC_GITHUB_USERNAME]
 		});
 
-		reposPromise.then(({ value: repos }) => {
-			if (!repos) return;
-			prefetchImages(...repos.slice(MAX_HIGHLIGHTED_REPOS).map((repo) => repo.picture_url));
-		});
+		reposRequest.inspect((repos) =>
+			prefetchImages(...repos.slice(visibleRepoCount(repos)).map((repo) => repo.picture_url))
+		);
 	});
 </script>
 
@@ -87,21 +106,7 @@
 	<Landing {buttons}>
 		{#snippet title()}
 			Sup,
-			<span class="text-accent-800">
-				{#if userPromise}
-					{#await userPromise}
-						{PUBLIC_GITHUB_USERNAME}
-					{:then { value: user, error }}
-						{#if error}
-							{PUBLIC_GITHUB_USERNAME}
-						{:else}
-							{user.name ?? user.login}
-						{/if}
-					{/await}
-				{:else}
-					{PUBLIC_GITHUB_USERNAME}
-				{/if}
-			</span>
+			<span class="text-accent-800">{displayName}</span>
 			here!
 		{/snippet}
 		{#snippet short()}
@@ -109,15 +114,11 @@
 			<span class="text-accent-800 underline decoration-dotted">Italy</span>
 			who loves building cool stuff on the web
 			<span class="text-accent-800 italic">and beyond</span>.
-			{#if userPromise}
-				{#await userPromise then { value: user }}
-					{#if user && user.company}
-						I'm currently working at {@render descLink(
-							`https://github.com/${user.company}`,
-							user.company
-						)}.
-					{/if}
-				{/await}
+			{#if company}
+				I'm currently working at {@render descLink(
+					`https://github.com/${company}`,
+					company
+				)}.
 			{/if}
 			I love building whatever crosses my mind and am always open to learning new things.
 		{/snippet}
@@ -125,8 +126,9 @@
 			Outside of coding, I'm an obsessed {@render descLink(
 				'http://gym-rat.urbanup.com/4855932',
 				'gym rat'
-			)} &#40;yes, <span class="italic">really</span>&#41;. I also love photography and videography;
-			there's something special about capturing moments in time. See you at the gym, I guess
+			)} &#40;yes, <span class="italic">really</span>&#41;. I also love photography and
+			videography; there's something special about capturing moments in time. See you at the
+			gym, I guess
 			<span class="text-accent-800">;&#41;</span>
 		{/snippet}
 	</Landing>
@@ -135,20 +137,23 @@
 
 	<Section title="Projects" icon={Code}>
 		<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-			{#if reposPromise}
-				{#await reposPromise}
+			{#if reposRequest}
+				{#await reposRequest}
 					{@render message('Loading...')}
-				{:then { value: repos, error }}
-					{#if error}
-						{@render message(error.message)}
+				{:then result}
+					{@const repos = result.unwrapOr([])}
+					{@const visibleCount = visibleRepoCount(repos)}
+
+					{#if result.isErr()}
+						{@render message(result.unwrapErr().message)}
 					{:else if !repos.length}
 						{@render message('No repositories found.')}
 					{:else}
-						{#each showAllProjects ? repos : repos.slice(0, MAX_HIGHLIGHTED_REPOS) as repo, i (repo.id)}
+						{#each showAllProjects ? repos : repos.slice(0, visibleCount) as repo, i (repo.id)}
 							<GitHubRepoCard {repo} showDelay={i * 50} />
 						{/each}
 
-						{#if repos.length > MAX_HIGHLIGHTED_REPOS}
+						{#if repos.length > visibleCount}
 							<div class="col-span-full flex items-center justify-center">
 								<button
 									class="cursor-pointer text-sm underline select-none"

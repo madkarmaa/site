@@ -1,53 +1,52 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
-	import { userGetRecentTracks, trackToYoutubeSearchUrl } from '$lib/lastfm';
+	import {
+		userGetRecentTracks,
+		trackToYoutubeSearchUrl,
+		type LastFmError
+	} from '#lib/lastfm/index.js';
+	import { type LastFmTrack } from '#lib/lastfm/schemas.js';
 	import MusicNote from '~icons/material-symbols/music-note-rounded';
 
 	type Props = { username: string; updateMs?: number; liveUpdateMs?: number };
 	let { username, updateMs = 60 * 1000, liveUpdateMs = 15 * 1000 }: Props = $props();
 
-	type RecentTracksResult = Awaited<ReturnType<typeof userGetRecentTracks>>;
-
-	let tracks: RecentTracksResult['value'] | undefined = $state(undefined);
-	let error: RecentTracksResult['error'] | undefined = $state(undefined);
+	let tracks = $state<LastFmTrack[]>();
+	let error = $state<LastFmError>();
 	let isInitialLoading = $state(true);
-	let refreshInterval: Interval | undefined = $state(undefined);
-	let currentRefreshMs: number | undefined = $state(undefined);
 
-	const getRefreshMs = () =>
-		tracks && tracks.length && tracks[0].now_playing ? liveUpdateMs : updateMs;
+	const latestTrack = $derived(tracks?.[0]);
+	const isPlaying = $derived(latestTrack?.now_playing ?? false);
+
+	let refreshInterval: Interval | undefined;
+	let currentRefreshMs: number | undefined;
 
 	const startRefreshInterval = (intervalMs: number) => {
-		if (refreshInterval !== undefined) clearInterval(refreshInterval);
+		clearInterval(refreshInterval);
 		refreshInterval = setInterval(refreshRecentTracks, intervalMs);
 		currentRefreshMs = intervalMs;
 	};
 
 	const refreshRecentTracks = async () => {
-		const { value: nextTracks, error: nextError } = await userGetRecentTracks(username);
-
-		if (!nextError) tracks = nextTracks;
-		error = nextError;
+		await userGetRecentTracks(username).match({
+			Ok: (nextTracks) => {
+				tracks = nextTracks;
+				error = undefined;
+			},
+			Err: (nextError) => (error = nextError)
+		});
 		isInitialLoading = false;
 
-		const nextRefreshMs = getRefreshMs();
+		const nextRefreshMs = isPlaying ? liveUpdateMs : updateMs;
 		if (currentRefreshMs !== nextRefreshMs) startRefreshInterval(nextRefreshMs);
 	};
 
 	onMount(() => {
-		const nextRefreshMs = getRefreshMs();
-		startRefreshInterval(nextRefreshMs);
+		startRefreshInterval(updateMs);
 		refreshRecentTracks();
 	});
 
-	onDestroy(() => {
-		if (refreshInterval !== undefined) clearInterval(refreshInterval);
-
-		tracks = undefined;
-		error = undefined;
-		isInitialLoading = true;
-		currentRefreshMs = undefined;
-	});
+	onDestroy(() => clearInterval(refreshInterval));
 </script>
 
 {#snippet trackData(name: string, artist: string = 'Unknown')}
@@ -62,15 +61,15 @@
 {#snippet cardContent()}
 	<div
 		class="flex aspect-square size-fit items-center justify-center rounded-full border-2 border-text-600 p-2 transition-transform"
-		class:playing={tracks && tracks.length && tracks[0].now_playing}
+		class:playing={isPlaying}
 	>
 		<MusicNote class="note size-10 text-text-800" />
 	</div>
 
 	{#if isInitialLoading}
 		{@render trackData('Loading...', 'Loading...')}
-	{:else if tracks && tracks.length}
-		{@render trackData(tracks[0].name, tracks[0].artist)}
+	{:else if latestTrack}
+		{@render trackData(latestTrack.name, latestTrack.artist)}
 	{:else if error}
 		{@render trackData(`Error: ${error.message}`)}
 	{:else}
@@ -78,14 +77,14 @@
 	{/if}
 {/snippet}
 
-{#if tracks && tracks.length}
+{#if latestTrack}
 	<a
 		class="flex w-max max-w-full items-center gap-4 rounded-md border-2 border-transparent p-4 transition-colors hover:border-accent-700"
-		href={trackToYoutubeSearchUrl(tracks[0])}
+		href={trackToYoutubeSearchUrl(latestTrack)}
 		target="_blank"
 		rel="noopener noreferrer external"
-		aria-label={`Search ${tracks[0].name} by ${tracks[0].artist} on YouTube`}
-		title={tracks[0].now_playing ? 'Currently playing :)' : 'Last played track'}
+		aria-label={`Search ${latestTrack.name} by ${latestTrack.artist} on YouTube`}
+		title={latestTrack.now_playing ? 'Currently playing :)' : 'Last played track'}
 	>
 		{@render cardContent()}
 	</a>

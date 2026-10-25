@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { type Snippet, onMount } from 'svelte';
 
-	import { getCount, incrementCount } from '$lib/counter';
+	import { getCount, incrementCount } from '#lib/counter/index.js';
 
 	import ArrowDown from '~icons/material-symbols/arrow-downward-rounded';
 	import ArrowUp from '~icons/material-symbols/arrow-upward-rounded';
 
-	export type Button = { label: string; href: string; icon: typeof import('~icons/*').default };
+	export type Button = { label: string; href: string; icon: IconComponent };
 
 	type Props = {
 		title: Snippet;
@@ -19,14 +19,12 @@
 	let showLong = $state(false);
 	let count = $state(0);
 
-	const increment = async () => {
-		const { value: newCount, error } = await incrementCount();
-		if (!error) count = newCount;
-	};
+	const setCount = (newCount: number) => (count = newCount);
 
-	onMount(async () => {
-		const { value: initialCount, error } = await getCount();
-		if (!error) count = initialCount;
+	const increment = () => incrementCount().inspect(setCount);
+
+	onMount(() => {
+		getCount().inspect(setCount);
 	});
 </script>
 
@@ -37,15 +35,13 @@
 <div class="flex flex-col gap-6">
 	<h1 class="outfit-700 text-3xl">{@render title()}</h1>
 	<p class="max-w-prose text-base md:text-lg">
+		{@render short()}
 		{#if long && showLong}
-			{@render short()}
 			{@render long()}
-		{:else}
-			{@render short()}
 		{/if}
 	</p>
 
-	{#if buttons && buttons.length}
+	{#if buttons?.length}
 		<div class="flex flex-wrap gap-4 text-sm">
 			{#each buttons as { label, href, icon: Icon }, i (i)}
 				<a
@@ -62,9 +58,12 @@
 			{/each}
 
 			<button
+				type="button"
+				onclick={increment}
 				class="flex cursor-pointer items-center gap-3 select-none hover:underline"
-				onclick={increment}>{count}</button
 			>
+				{count}
+			</button>
 
 			{#if long}
 				{@render sep()}

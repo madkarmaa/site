@@ -1,46 +1,62 @@
-import { Ok, Err } from 'results-ts';
+import { fetchJson } from '#lib/utils/fetch.js';
 import {
 	GitHubErrorResponseSchema,
+	GitHubPinnedReposResponseSchema,
 	GitHubRepoSchema,
 	GitHubUserSchema,
 	type GitHubRepo
 } from './schemas';
 import { API_BASE_URL, ERROR_CODES } from './constants';
 
-export const MAX_HIGHLIGHTED_REPOS = 4 as const;
+/** how many repos to show before "Show all" when there are no pinned repos */
+export const DEFAULT_VISIBLE_REPOS = 4 as const;
+
+const responseErrorMessage = async (response: Response) =>
+	GitHubErrorResponseSchema.parse(await response.json()).message;
 
 export const userUrl = (username: string) => `${API_BASE_URL}/users/${username.trim()}` as const;
-export const fetchGitHubUser = async (username: string) => {
-	try {
-		const response = await fetch(userUrl(username));
-		if (!response.ok) {
-			const data = await response.json();
-			const errorResponse = GitHubErrorResponseSchema.parse(data);
-			return Err({
-				code: ERROR_CODES.FETCH,
-				message: errorResponse.message,
-				status: response.status
-			});
-		}
 
-		const data = await response.json();
-
-		const userResult = GitHubUserSchema.safeParse(data);
-		if (!userResult.success)
-			return Err({
-				code: ERROR_CODES.PARSE,
-				message: 'Failed to parse user data',
-				details: userResult.error.issues
-			});
-
-		return Ok(userResult.data);
-	} catch (error) {
-		const message = error instanceof Error ? error.message : 'Unknown error while fetching user';
-
-		return Err({ code: ERROR_CODES.UNKNOWN, message });
-	}
-};
+export const fetchGitHubUser = (username: string) =>
+	fetchJson(userUrl(username), {
+		schema: GitHubUserSchema,
+		codes: ERROR_CODES,
+		responseErrorMessage,
+		parseErrorMessage: 'Failed to parse user data',
+		unknownErrorMessage: 'Unknown error while fetching user'
+	});
 export type GitHubUserResult = Awaited<ReturnType<typeof fetchGitHubUser>>;
+
+const PINNED_REPOS_QUERY = `
+	query ($login: String!) {
+		user(login: $login) {
+			pinnedItems(first: 6, types: REPOSITORY) {
+				nodes {
+					... on Repository {
+						nameWithOwner
+					}
+				}
+			}
+		}
+	}
+`;
+
+/** resolves to the `owner/name` of the user's pinned repos, in profile order; the GraphQL API requires a token */
+export const fetchGitHubPinnedRepos = (username: string, token: string) =>
+	fetchJson(`${API_BASE_URL}/graphql`, {
+		init: {
+			method: 'POST',
+			headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				query: PINNED_REPOS_QUERY,
+				variables: { login: username.trim() }
+			})
+		},
+		schema: GitHubPinnedReposResponseSchema,
+		codes: ERROR_CODES,
+		responseErrorMessage,
+		parseErrorMessage: 'Failed to parse pinned repositories',
+		unknownErrorMessage: 'Unknown error while fetching pinned repositories'
+	});
 
 const orderReposByPushedAt = (order: 'asc' | 'desc') => (a: GitHubRepo, b: GitHubRepo) =>
 	order === 'desc'
@@ -48,14 +64,14 @@ const orderReposByPushedAt = (order: 'asc' | 'desc') => (a: GitHubRepo, b: GitHu
 		: a.pushed_at.getTime() - b.pushed_at.getTime();
 
 const highlightRepos = (repos: GitHubRepo[], highlights: string[]) => {
-	// create a lookup table where each highlighted repo name is mapped to its priority order
+	// create a lookup table where each highlighted repo's `owner/name` is mapped to its priority order
 	// lower index = higher priority
 	const index = new Map(highlights.map((h, i) => [h.toLowerCase(), i]));
 
 	return [...repos].sort((a, b) => {
 		// get the priority index of each repo, if it exists
-		const ia = index.get(a.name.toLowerCase());
-		const ib = index.get(b.name.toLowerCase());
+		const ia = index.get(a.full_name.toLowerCase());
+		const ib = index.get(b.full_name.toLowerCase());
 
 		if (ia === undefined && ib === undefined) return 0; // if neither repo is highlighted, keep their relative order
 		if (ia === undefined) return 1; // if only `b` is highlighted, move it before `a`
@@ -64,66 +80,43 @@ const highlightRepos = (repos: GitHubRepo[], highlights: string[]) => {
 	});
 };
 
-export const userReposUrl = (username: string) => `${userUrl(username)}/repos` as const;
+// 100 is the maximum page size, the default of 30 would silently drop repos
+export const userReposUrl = (username: string) =>
+	`${userUrl(username)}/repos?per_page=100` as const;
 
 type Options = {
 	showForks?: boolean;
 	showArchived?: boolean;
+	/** `owner/name` of the repos to move to the front, in order; they're shown even if forked or archived */
 	highlights?: string[];
 	ignore?: string[];
 };
-export const fetchGitHubUserRepos = async (username: string, options: Options = {}) => {
-	const opts: Required<Options> = {
-		showForks: false,
-		showArchived: false,
-		highlights: [],
-		ignore: [],
-		...options
-	};
 
-	opts.highlights = opts.highlights
-		.map((h) => h.trim())
-		.filter((h) => h)
-		.slice(0, MAX_HIGHLIGHTED_REPOS);
+const trimNonEmpty = (values: string[]) => values.map((v) => v.trim()).filter((v) => v);
 
-	opts.ignore = opts.ignore.map((i) => i.trim()).filter((i) => i);
+export const fetchGitHubUserRepos = (username: string, options: Options = {}) => {
+	const { showForks = false, showArchived = false } = options;
+	const highlights = trimNonEmpty(options.highlights ?? []);
+	const highlighted = new Set(highlights.map((h) => h.toLowerCase()));
+	const ignore = trimNonEmpty(options.ignore ?? []);
 
-	try {
-		const response = await fetch(userReposUrl(username));
-		if (!response.ok) {
-			const data = await response.json();
-			const errorResponse = GitHubErrorResponseSchema.parse(data);
-			return Err({
-				code: ERROR_CODES.FETCH,
-				message: errorResponse.message,
-				status: response.status
-			});
-		}
+	return fetchJson(userReposUrl(username), {
+		schema: GitHubRepoSchema.array(),
+		codes: ERROR_CODES,
+		responseErrorMessage,
+		parseErrorMessage: 'Failed to parse user repositories',
+		unknownErrorMessage: 'Unknown error while fetching user repositories'
+	}).map((repos) => {
+		const visible = repos
+			.filter(
+				(repo) =>
+					highlighted.has(repo.full_name.toLowerCase()) ||
+					((showForks || !repo.fork) && (showArchived || !repo.archived))
+			)
+			.filter((repo) => !ignore.includes(repo.name))
+			.sort(orderReposByPushedAt('desc'));
 
-		const data = await response.json();
-		const reposResult = GitHubRepoSchema.array().safeParse(data);
-
-		if (!reposResult.success)
-			return Err({
-				code: ERROR_CODES.PARSE,
-				message: 'Failed to parse user repositories',
-				details: reposResult.error.issues
-			});
-
-		let repos = reposResult.data;
-
-		if (!opts.showForks) repos = repos.filter((repo) => !repo.fork);
-		if (!opts.showArchived) repos = repos.filter((repo) => !repo.archived);
-		repos = repos.filter((repo) => !opts.ignore.includes(repo.name));
-		repos = repos.sort(orderReposByPushedAt('desc'));
-		if (opts.highlights.length) repos = highlightRepos(repos, opts.highlights);
-
-		return Ok(repos);
-	} catch (error) {
-		const message =
-			error instanceof Error ? error.message : 'Unknown error while fetching user repositories';
-
-		return Err({ code: ERROR_CODES.UNKNOWN, message });
-	}
+		return highlights.length ? highlightRepos(visible, highlights) : visible;
+	});
 };
 export type GitHubUserReposResult = Awaited<ReturnType<typeof fetchGitHubUserRepos>>;

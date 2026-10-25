@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { type Snippet } from 'svelte';
 
-	type Props = { title: string; icon: typeof import('~icons/*').default; children: Snippet };
+	type Props = { title: string; icon: IconComponent; children: Snippet };
 	let { title, icon: Icon, children }: Props = $props();
 </script>
 
